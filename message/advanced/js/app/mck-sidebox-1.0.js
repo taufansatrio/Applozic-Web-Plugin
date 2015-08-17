@@ -1,4 +1,3 @@
-
 var $applozic = jQuery.noConflict(true);
 var appModal = $applozic.fn.modal.noConflict();
 $applozic.fn.modal = appModal;
@@ -28,6 +27,10 @@ $applozic.fn.modal = appModal;
         mobiComKit.init(options);
     };
 
+    $applozic.fn.loadTab = function(userId){
+        mobiComKit.loadTab(userId);
+    };
+
 }($applozic));
 
 function MobiComKit() {
@@ -35,6 +38,11 @@ function MobiComKit() {
     this.init = function (options) {
         new Mobicomkit_Message(options);
     };
+
+    this.loadTab = function(userId) {
+      mckMessageLayout.loadTab(userId);
+      $("#mck-search").val("");
+    }
 
     var MCK_BASE_URL;
     var MCK_TOKEN;
@@ -314,9 +322,7 @@ function MobiComKit() {
         var $mck_sidebox_search = $applozic("#mck-sidebox-search");
         var $mck_add_new = $applozic(".mck-add-new");
         var $mck_search = $applozic("#mck-search");
-        var $mck_message_delete = $applozic(".mck-msg-delete");
-
-        $applozic(document).on("click", ".mck-msg-delete", function () {
+        $applozic(document).on("click", ".mck-message-delete", function () {
             mckMessageService.deleteMessage($(this).parents('.mck-m-b').data("msgkeystring"));
         });
 
@@ -747,10 +753,8 @@ function MobiComKit() {
         var $modal_footer_content = $applozic(".modal-footer .modal-form");
         var $mck_sidebox_search = $applozic("#mck-sidebox-search");
         var $mck_add_new = $applozic(".mck-add-new");
-        var $mck_contextmenu = $applozic(".mck-contextmenu");
 
-        var markup = '<div name="message" data-msgdelivered="${msgDeliveredExpr}" data-msgsent="${msgSentExpr}" data-msgtype="${msgTypeExpr}"  data-msgtime="${msgCreatedAtTime}" data-msgcontent="${replyIdExpr}" data-msgkeystring="${msgKeyExpr}" data-contact="${contactIdsExpr}" class="row-fluid mck-m-b ${msgKeyExpr}"><div class="clear"><div class="blk-lg-12"><div class="hide mck-context-menu">' +
-                '<ul><li><a class="mck-msg-delete">Delete</a></li></ul></div><div class="${msgFloatExpr} mck-msg-box test ${msgClassExpr}">' +
+        var markup = '<div name="message" data-msgdelivered="${msgDeliveredExpr}" data-msgsent="${msgSentExpr}" data-msgtype="${msgTypeExpr}"  data-msgtime="${msgCreatedAtTime}" data-msgcontent="${replyIdExpr}" data-msgkeystring="${msgKeyExpr}" data-contact="${contactIdsExpr}" class="row-fluid mck-m-b ${msgKeyExpr}"><div class="clear"><div class="blk-lg-12"><button type="button"  class="mck-message-delete n-vis">detele</button><div class="${msgFloatExpr} mck-msg-box ${msgClassExpr}">' +
                 '<div class="mck-msg-text mck-msg-content"></div>' +
                 '<div class="mck-file-text mck-msg-text notranslate blk-lg-12 attachment n-vis" data-filemetakeystring="${fileMetaKeyExpr}" data-filename="${fileNameExpr}" data-filesize="${fileSizeExpr}">{{html fileExpr}}</div>' +
                 '</div></div>' +
@@ -770,26 +774,6 @@ function MobiComKit() {
                 '</div></a></li>';
         $applozic.template("messageTemplate", markup);
         $applozic.template("contactTemplate", contactbox);
-
-        /* _this.messageContextMenu = function messageContextMenu(messageKey) {
-            var $messageId = $applozic("." + messageKey + " .mck-msg-box");
-
-            if ($messageId.addEventListener) {
-                $messageId.addEventListener('contextmenu', function (e) {
-                    alert("You've tried to open context menu");
-                    e.preventDefault();
-                }, false);
-            } else {
-                $messageId.bind('contextmenu', function () {
-                    $applozic("." + messageKey + " .mck-context-menu").removeClass("hide").addClass("show");
-                    window.event.returnValue = false;
-                });
-            }
-            $applozic(document).bind("click", function (event) {
-                $applozic(".mck-context-menu").removeClass("show").addClass("hide");
-            });
-
-        }; */
 
         _this.openConversation = function openConversation() {
             if ($mck_sidebox.css('display') === 'none') {
@@ -1003,7 +987,6 @@ function MobiComKit() {
             $mck_msg_inner.animate({scrollTop: $mck_msg_inner.prop("scrollHeight")}, 0);
 
             this.addTooltip(msg.keyString);
-           // this.messageContextMenu(msg.keyString);
         };
 
         _this.getDisplayNameFromMessage = function getDisplayNameFromMessage(message) {
@@ -1492,7 +1475,6 @@ function MobiComKit() {
                     $mck_sidebox_launcher.removeClass('mck-sidebox-launcher-with-preview');
                 }, 10000);
             }
-
         };
 
         _this.showNotification = function showNotification(notification) {
