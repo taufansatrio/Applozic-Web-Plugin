@@ -18,7 +18,23 @@
     </head>
     <body>
         <script type="text/javascript">
-            window.applozic.init({userId: 'customer1', appId: 'applozic-sample-app', desktopNotification: true});
+        
+            function readMessage(userId) {
+                console.log(userId);
+            }
+
+            function displayName(userId) {
+                //Todo: replace this with users display name
+                return userId;
+            }
+            
+            function contactImageSrc(userId) {
+                //Todo: replace this with users display image src
+                return "http://applozic.appspot.com/resources/sidebox/images/ic_action_backward.png";
+            }
+
+            window.applozic.init({userId: 'customer1', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
+                         contactDisplayImage: contactImageSrc,  desktopNotification: true});
         </script>
     </body>
 </html>

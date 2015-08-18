@@ -171,9 +171,15 @@
             }
 
             function displayName(userId) {
-                //Todo: replace this with users display users name
+                //Todo: replace this with users display name
                 return userId;
             }
+            
+            function contactImageSrc(userId) {
+                //Todo: replace this with users display image src
+                return "images/ic_action_backward.png";
+            }
+
 
             function MobiComKitSidebox() {
                 var mckClientId = "customer-1";
@@ -184,7 +190,7 @@
                 this.load = function () {
                     $applozic.fn.mobicomkit({userId: mckClientId, appId: mckClientAppId,
                         ojq: $original, readConversation: readMessage, contactDisplayName: displayName,
-                        desktopNotification: true
+                         contactDisplayImage: contactImageSrc, desktopNotification: true
                     });
                     /*$.fn.mobicomkit({userId: mckClientId, appId: mckClientAppId,
                      readConversation: readMessage, contactDisplayName: displayName,

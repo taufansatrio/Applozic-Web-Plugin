@@ -55,6 +55,7 @@ function MobiComKit() {
     var MCK_LAUNCHER;
     var MCK_CALLBACK;
     var MCK_GETUSERNAME;
+    var MCK_GETUSERIMAGE;
     var MCK_SUPPORT_ID_DATA_ATTR;
     var MCK_MODE;
     var MCK_USER_TIMEZONEOFFSET;
@@ -91,6 +92,7 @@ function MobiComKit() {
         MCK_BASE_URL = options.baseUrl;
         MCK_CALLBACK = options.readConversation;
         MCK_GETUSERNAME = options.contactDisplayName;
+        MCK_GETUSERIMAGE = options.contactDisplayImage;
         MCK_SUPPORT_ID_DATA_ATTR = (typeof options.supportId != "undefined" && options.supportId != "" && options.supportId != "null") ? ('data-mck-id="' + options.supportId + '"') : '';
         MCK_MODE = (typeof options.mode != "undefined" && options.mode != "" && options.mode != "null") ? options.mode : 'standard';
         IS_MCK_NOTIFICATION = (typeof options.desktopNotification != "undefined" && options.desktopNotification != "" && options.desktopNotification != "null") ? options.desktopNotification : false;
@@ -1031,12 +1033,21 @@ function MobiComKit() {
         };
 
         _this.getContactImageLink = function getContactImageLink(contact) {
-            if (contact.photoLink === "") {
-                return this.getContactImageByAlphabet(contact.displayName);
-            } else {
-                return  '<img src="' + MCK_BASE_URL + '/contact.image?photoLink=' + contact.photoLink + '"/>';
+            var imgsrctag = "";
+            if (typeof (MCK_GETUSERIMAGE) === "function") {
+                var imgsrc = MCK_GETUSERIMAGE(contact.value);
+                if (imgsrc  && typeof imgsrc !== 'undefined') {
+                    imgsrctag = '<img src="' + imgsrc + '"/>';
+                }
             }
-
+            if (!imgsrctag) {
+                if (contact.photoLink === "") {
+                    imgsrctag = this.getContactImageByAlphabet(contact.displayName);
+                } else {
+                    imgsrctag = '<img src="' + MCK_BASE_URL + '/contact.image?photoLink=' + contact.photoLink + '"/>';
+                }
+            }
+            return imgsrctag;
         };
 
         _this.getContactImageByAlphabet = function getContactImageByAlphabet(name) {
