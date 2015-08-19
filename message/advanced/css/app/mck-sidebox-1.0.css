@@ -768,7 +768,7 @@
     text-overflow: ellipsis;
     vertical-align: middle;
     white-space: nowrap;
-    max-width: 70%;
+    max-width: 60%;
 }
 
 .mck-file-box  .mck-file-sz {
