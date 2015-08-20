@@ -18,25 +18,25 @@
     </head>
     <body>
         <script type="text/javascript">
-        
+     var userNames =  {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
             function readMessage(userId) {
                 console.log(userId);
             }
 
             function displayName(userId) {
                 //Todo: replace this with users display name
-                return userId;
+                var name = userNames[userId];
+                return name;
             }
-            
+
             function contactImageSrc(userId) {
                 //Todo: replace this with users display image src
                 //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
                 return "";
             }
 
-            window.applozic.init({userId: 'customer1', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
+            window.applozic.init({userId: 'shanki.connect', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
                          contactDisplayImage: contactImageSrc,  desktopNotification: true});
         </script>
     </body>
 </html>
-

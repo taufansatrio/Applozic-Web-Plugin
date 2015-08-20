@@ -160,6 +160,7 @@
         <script type="text/javascript">
 
             //var $applozic = jQuery.noConflict(true);
+		    var userNames =  {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
 
             $(document).ready(function () {
                 var mobiComKitSideBox = new MobiComKitSidebox();
@@ -172,7 +173,8 @@
 
             function displayName(userId) {
                 //Todo: replace this with users display name
-                return userId;
+                var name = userNames[userId];
+                return name;
             }
             
             function contactImageSrc(userId) {
