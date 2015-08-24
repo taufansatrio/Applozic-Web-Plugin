@@ -7,7 +7,7 @@
 
 
 
-        <!-- Custom CSS -->
+        <!-- Custom JS -->
         <script type="text/javascript">
             var $original;
             if (typeof jQuery !== 'undefined') {
@@ -160,49 +160,28 @@
         <script type="text/javascript">
 
             //var $applozic = jQuery.noConflict(true);
-		    var userNames =  {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
+            var userNames = {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
 
-            $(document).ready(function () {
-                var mobiComKitSideBox = new MobiComKitSidebox();
-                mobiComKitSideBox.load();
+            $(document).ready(function() {
+                var mckClientId = "customer-1", mckClientAppId = "applozic-sample-app", mckMode = "support", mckSupportId = "applozic";
+                $applozic.fn.mobicomkit({userId: mckClientId, appId: mckClientAppId,
+                    ojq: $original,
+                    readConversation: function(userId) {
+                        //Todo: write your logic 
+                        console.log(userId);
+                    },
+                    contactDisplayName: function(userId) {
+                        //Todo: replace this with users display name
+                        return userNames[userId];
+                    },
+                    contactDisplayImage: function(userId) {
+                        //Todo: replace this with users display image src
+                        //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
+                        return "";
+                    },
+                    desktopNotification: true
+                });
             });
-
-            function readMessage(userId) {
-                console.log(userId);
-            }
-
-            function displayName(userId) {
-                //Todo: replace this with users display name
-                var name = userNames[userId];
-                return name;
-            }
-            
-            function contactImageSrc(userId) {
-                //Todo: replace this with users display image src
-                //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
-                return "";
-            }
-
-
-            function MobiComKitSidebox() {
-                var mckClientId = "customer-1";
-                var mckClientAppId = "applozic-sample-app";
-                var mckMode = "support";
-                var mckSupportId = "applozic";
-
-                this.load = function () {
-                    $applozic.fn.mobicomkit({userId: mckClientId, appId: mckClientAppId,
-                        ojq: $original, readConversation: readMessage, contactDisplayName: displayName,
-                         contactDisplayImage: contactImageSrc, desktopNotification: true
-                    });
-                    /*$.fn.mobicomkit({userId: mckClientId, appId: mckClientAppId,
-                     readConversation: readMessage, contactDisplayName: displayName,
-                     desktopNotification: true,
-                     mode: mckMode,
-                     supportId: mckSupportId
-                     });*/
-                };
-            }
         </script>
     </body>
 </html>

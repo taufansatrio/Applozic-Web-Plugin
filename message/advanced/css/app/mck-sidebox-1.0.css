@@ -1311,6 +1311,10 @@
     max-width: 50px;
 }
 
+.fancybox-overlay {
+    z-index: 2245500 !important;
+}
+
 @media (min-width: 768px){
     .mck-sidebox .modal-sm {
         width: 300px;
