@@ -5,7 +5,7 @@ $applozic.fn.modal = appModal;
     "use strict";
     var default_options = {
         baseUrl: "https://applozic.appspot.com",
-        launcher: "mobicomkit-launcher",
+        launcher: "applozic-launcher",
         userId: null,
         appId: null,
         supportId: null,
@@ -13,7 +13,7 @@ $applozic.fn.modal = appModal;
         desktopNotification: false
     };
 
-    $applozic.fn.mobicomkit = function(options, paramValue) {
+    $applozic.fn.applozic = function(options, paramValue) {
         if (typeof options.ojq !== 'undefined') {
             $ = options.ojq;
             jQuery = options.ojq;
@@ -27,7 +27,7 @@ $applozic.fn.modal = appModal;
             options = $.extend(true, {}, default_options, options);
         }
         var oInstance = undefined;
-        if ((oInstance = $applozic(this).data("mobicomkit_instance")) !== undefined) {
+        if ((oInstance = $applozic(this).data("applozic_instance")) !== undefined) {
             if ($applozic.type(options) === "string") {
                 switch (options) {
                     case "loadTab" :
@@ -37,16 +37,15 @@ $applozic.fn.modal = appModal;
                 }
             }
         } else {
-            var mobicomkit = new MobiComKit(options);
-            mobicomkit.init();
-            $applozic(this).data("mobicomkit_instance", mobicomkit);
+            var applozic = new Applozic(options);
+            applozic.init();
+            $applozic(this).data("applozic_instance", applozic);
         }
     };
 
 
-    $applozic.fn.mobicomkit.defaults = default_options;
-    function MobiComKit(options) {
-
+    $applozic.fn.applozic.defaults = default_options;
+    function Applozic(options) {
         var MCK_BASE_URL = options.baseUrl;
         var MCK_TOKEN;
         var APPLICATION_ID = options.appId;
@@ -96,8 +95,8 @@ $applozic.fn.modal = appModal;
 
             _this.getLauncherHtml = function() {
                 return '<div id="mck-sidebox-launcher" class="mck-sidebox-launcher">' +
-                        '<a href="#" class="mobicomkit-launcher mck-button-launcher" ' + (MCK_MODE === 'support' ? MCK_SUPPORT_ID_DATA_ATTR : '') + '></a>' +
-                        '<div id="mck-msg-preview" class="mck-msg-preview mobicomkit-launcher">' +
+                        '<a href="#" class="applozic-launcher mck-button-launcher" ' + (MCK_MODE === 'support' ? MCK_SUPPORT_ID_DATA_ATTR : '') + '></a>' +
+                        '<div id="mck-msg-preview" class="mck-msg-preview applozic-launcher">' +
                         '<div class="mck-row">' +
                         '<div class="blk-lg-3 mck-preview-icon">' +
                         '</div>' +
@@ -148,7 +147,7 @@ $applozic.fn.modal = appModal;
                                 }
                             });
                             _this.appendLauncher();
-                            $applozic(".mobicomkit-launcher").each(function() {
+                            $applozic(".applozic-launcher").each(function() {
                                 if (!$applozic(this).hasClass("mck-msg-preview")) {
                                     $applozic(this).show();
                                 }
