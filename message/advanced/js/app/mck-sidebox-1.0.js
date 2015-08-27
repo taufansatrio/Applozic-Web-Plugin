@@ -587,7 +587,6 @@ $applozic.fn.modal = appModal;
                         $applozic('.mck-tab-link').removeClass('vis').addClass('n-vis');
                     }
                 } else {
-                    w.MCK_OL_MAP = [];
                     userId = "";
                     individual = false;
                     pageSize = 50;
@@ -610,7 +609,7 @@ $applozic.fn.modal = appModal;
                         }
                     }
                 }
-
+                w.MCK_OL_MAP = [];
                 $mck_msg_inner.html("");
                 $mck_loading.removeClass('n-vis').addClass('vis');
                 if (individual) {
@@ -1107,8 +1106,8 @@ $applozic.fn.modal = appModal;
                 }
             };
             _this.updateRecentConversationList = function (contact, message, update) {
-                if ($applozic("#li-" + contact.htmlId).length > 0) {
-                    var $mck_msg_part = $applozic("#li-" + contact.htmlId + " .mck-cont-msg-wrapper");
+                if ($applozic("#mck-contact-list #li-" + contact.htmlId).length > 0) {
+                    var $mck_msg_part = $applozic("#mck-search-list #li-" + contact.htmlId + " .mck-cont-msg-wrapper");
                     if (($mck_msg_part.is(":empty") || update) && message !== undefined) {
                         this.updateContact(contact, message);
                     }
@@ -1125,7 +1124,7 @@ $applozic.fn.modal = appModal;
                         if (typeof contact === 'undefined') {
                             contact = mckMessageLayout.createContact(userId);
                         }
-                        if ($applozic("#li-" + contact.htmlId).length === 0) {
+                        if ($applozic("#mck-search-list #li-" + contact.htmlId).length === 0) {
                             _this.addContact(contact, "mck-search-list");
                         }
                     }
