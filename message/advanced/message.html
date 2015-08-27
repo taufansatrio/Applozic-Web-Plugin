@@ -44,7 +44,7 @@
 
                                 </div>
                                 <div class="mck-message-inner"></div>
-                                <div class="mck-loading">
+                                <div id="mck-contact-loading" class="mck-loading">
                                     <img class="mck-loading-image" src="images/loading.gif" >
                                 </div>
                                 <div  id="mck-show-more-icon" class="mck-show-more-icon n-vis">
@@ -106,7 +106,6 @@
                     </div>
                     <div id="mck-sidebox-search" class="mck-sidebox-content n-vis">
                         <div class="mck-box-top">
-
                             <div class="modal-title mck-box-title truncate" id="mck-conversation-title">
                                 <div class="mck-tab-link blk-lg-4">
                                     <a href="#" role="link" class="mck-conversation-tab-link"><img src="images/ic_action_backward.png" alt="Back"></a>
@@ -115,14 +114,21 @@
                                     <input type="text"  id="mck-search" placeholder="Enter user id" autofocus />
                                     <span class="mck-search-icon"><a href="#" role="link" class="mck-tab-search"><img src="images/ic_action_search.png" alt="search"></a></span>
                                 </div>
-
                             </div>
                         </div>
-
+                        <div class="mck-box-md">
+                            <div id="mck-search-cell" class="mck-message-cell">
+                                <div class="mck-message-inner">
+                                    <ul id="mck-search-list" class="mck-search-list mck-contact-list nav nav-tabs nav-stacked"></ul>
+                                    <div id="mck-search-loading" class="mck-loading">
+                                        <img class="mck-loading-image" src="images/loading.gif" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <script type="text/javascript" src="js/mck-modal.js"></script>
         <script type="text/javascript" src="js/jquery.linkify.min.js"></script>		
@@ -151,19 +157,19 @@
             //var $applozic = jQuery.noConflict(true);
             var userNames = {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
 
-            $(document).ready(function() {
-                var mckClientId = "customer-1", mckClientAppId = "applozic-sample-app", mckMode = "support", mckSupportId = "applozic";
+            $(document).ready(function () {
+                var mckClientId = "shanki.connect", mckClientAppId = "applozic-sample-app", mckMode = "support", mckSupportId = "applozic";
                 $applozic.fn.applozic({userId: mckClientId, appId: mckClientAppId,
                     ojq: $original,
-                    readConversation: function(userId) {
+                    readConversation: function (userId) {
                         //Todo: write your logic 
                         console.log(userId);
                     },
-                    contactDisplayName: function(userId) {
+                    contactDisplayName: function (userId) {
                         //Todo: replace this with users display name
                         return userNames[userId];
                     },
-                    contactDisplayImage: function(userId) {
+                    contactDisplayImage: function (userId) {
                         //Todo: replace this with users display image src
                         //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
                         return "";
