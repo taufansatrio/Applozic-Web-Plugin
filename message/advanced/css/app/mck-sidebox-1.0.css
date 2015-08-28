@@ -1338,6 +1338,8 @@
 .mck-contact-list li a .blk-lg-3 img {
     max-height: 50px;
     max-width: 50px;
+    min-height: 40px;
+    min-width: 40px
 }
 
 .fancybox-overlay {

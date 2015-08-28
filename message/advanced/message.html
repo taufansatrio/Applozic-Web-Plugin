@@ -156,7 +156,7 @@
 
             //var $applozic = jQuery.noConflict(true);
             var userNames = {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
-
+            var contacts = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}]};
             $(document).ready(function () {
                 var mckClientId = "customer-1", mckClientAppId = "applozic-sample-app", mckMode = "support", mckSupportId = "applozic";
                 $applozic.fn.applozic({userId: mckClientId, appId: mckClientAppId,
@@ -176,6 +176,10 @@
                     },
                     desktopNotification: true
                 });
+
+                // Load contacts by passing json in format shown in var 'contacts'. 
+                $applozic.fn.applozic('loadContacts', contacts);
+
             });
         </script>
     </body>
