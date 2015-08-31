@@ -117,11 +117,11 @@
     float: left!important;
 }
 
-.mck-sidebox .n-vis, .mck-sidebox .hide, .mck-sidebox-launcher .n-vis {
+.mck-sidebox .n-vis, .mck-sidebox .hide, .mck-sidebox-launcher .n-vis, .mck-sidebox-launcher.n-vis {
     display: none!important;
 }
 
-.mck-sidebox .vis, .mck-sidebox .show, .mck-sidebox-launcher .vis {
+.mck-sidebox .vis, .mck-sidebox .show, .mck-sidebox-launcher .vis, .mck-sidebox-launcher.vis {
     display: block!important;
 }
 
@@ -1346,9 +1346,12 @@
     z-index: 2245500 !important;
 }
 
-
 .mck-file-text .file-preview-link {
     text-decoration: none;
+}
+
+.mck-msg-new {
+    float: none;
 }
 @media (min-width: 768px){
     .mck-sidebox .modal-sm {
