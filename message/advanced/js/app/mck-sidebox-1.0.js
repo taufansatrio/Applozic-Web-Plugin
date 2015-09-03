@@ -405,6 +405,8 @@ $applozic.fn.modal = appModal;
                                     $mck_msg_inner.html("");
                                     $applozic("#mck-message-cell").removeClass('n-vis').addClass('vis');
                                     w.sessionStorage.removeItem("mckMessageArray");
+                                    $mck_top_btn_panel.removeClass('vis').addClass('n-vis');
+                                    $mck_msg_inner.removeClass('mck-msg-w-panel');
                                 },
                                 error: function() {
                                 }
