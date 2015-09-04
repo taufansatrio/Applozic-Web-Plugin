@@ -147,7 +147,7 @@
 }
 
 .mck-sidebox .mck-form-group {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .mck-sidebox button, .mck-sidebox input, .mck-sidebox optgroup, .mck-sidebox select, .mck-sidebox textarea {
@@ -566,7 +566,6 @@
 
 .mck-sidebox .mck-contact-list {
     margin: 0 !important;
-    margin-bottom: 15px !important;
     background-color: white;
     border-bottom: none;
 }
@@ -646,7 +645,7 @@
 .mck-box-ft {
     text-align: left;
     border-top: 1px solid #e5e5e5;
-    padding: 15px;
+    padding: 10px;
 }
 
 .mck-box-ft .blk-lg-6 {
@@ -700,7 +699,7 @@
     width: 100%;
     max-width: 100%;
     outline: none;
-    height: 80px;
+    height: 40px;
     margin: auto;
     background-color: #fff;
     margin-bottom: 2px;
@@ -710,22 +709,21 @@
 }
 
 .mck-textbox-container-wf {
-    height: 90px !important;
+    height: 68px !important;
 }
 
 .mck-text-box.text {
     resize: none;
     padding: 2px 5px;
-    height: 75px;
+    height: 36px;
     resize: none;
-    max-height: 75px;
+    max-height: 36px;
     outline: none;
     margin: 0px;
     font-size: 14px;
     overflow: auto;
     line-height: 1.3em;
     overflow-x: hidden;
-    background-color: #fff;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     text-align: left;
     border: 0px !important;
@@ -745,14 +743,12 @@
 .mck-file-box .mck-file-expr {
     background-color: #f5f5f5;
     color: #0084B4;
-    padding: 2px;
+    padding: 2px !important;
     border: 1px solid #ddd;
     font-size: 12px !important;
     font-weight: bold;
     overflow: hidden;
-    max-height: 28px;
-    margin: 2px !important;
-    margin-top: 2px !important;
+    max-height: 30px;
 }
 
 .mck-file-box .mck-file-content {
@@ -1272,9 +1268,9 @@
     line-height: 1.42857143;
     color: #555;
     outline: none;
-    background-color: #fff;
+    background-color: #E7F1F5;
     background-image: none;
-    border: 1px solid #ccc;
+    border: 1px solid #00AFF0;
     border-right: 0px;
     border-radius: 4px;
     border-top-right-radius: 0;
@@ -1320,8 +1316,8 @@
     font-size: 14px;    font-weight: 400;    
     line-height: 1;    color: #555;    text-align: center;    
     border-left: 0px;
-    background-color: #fff;    
-    border: 1px solid #ccc;    
+    background-color: #e7f1f5;
+    border: 1px solid #00AFF0;   
     border-radius: 4px;
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;    
