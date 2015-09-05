@@ -4,7 +4,7 @@ $applozic.fn.modal = appModal;
 (function($applozic, w, d) {
     "use strict";
     var default_options = {
-        baseUrl: "https://applozic.appspot.com",
+        baseUrl: "https://mobi-com-alpha.appspot.com",
         launcher: "applozic-launcher",
         userId: null,
         appId: null,
