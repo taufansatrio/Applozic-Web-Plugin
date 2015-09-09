@@ -335,14 +335,16 @@
     font-weight: 700;
     clear: none;
     margin: 0;
-    margin-bottom: 5px;
     padding: 0;
 }
 
 .mck-box-s {
     box-shadow: 0 8px 17px rgba(0,0,0,0.2);
 }
-
+.mck-btn-attach {
+    height: 30px;
+    margin-top: 3px !important;
+}
 
 .fade {
     opacity: 0;
@@ -696,20 +698,18 @@
 }
 
 .mck-textbox-container {
-    width: 100%;
-    max-width: 100%;
+    width: 278px;
+    max-width: 278px;
     outline: none;
     height: 40px;
     margin: auto;
     background-color: #fff;
-    margin-bottom: 2px;
-    padding-top: 1px;
     text-align: left;
     border: 1px solid rgb(204, 208, 212);
 }
 
 .mck-textbox-container-wf {
-    height: 68px !important;
+    height: 69px !important;
 }
 
 .mck-text-box.text {
@@ -718,12 +718,14 @@
     height: 36px;
     resize: none;
     max-height: 36px;
+    width: 240px !important;
     outline: none;
     margin: 0px;
     font-size: 14px;
     overflow: auto;
     line-height: 1.3em;
     overflow-x: hidden;
+    display: inline-block !important;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     text-align: left;
     border: 0px !important;
@@ -735,6 +737,35 @@
     box-shadow: none !important;
 }
 
+.mck-text-box-right-panel {
+    width: 27px;
+    height: 40px;
+    float: right;
+}
+
+.mck-btn-smiley {
+    background: transparent !important;
+    border: none !important;
+    text-shadow: none;
+    box-shadow: none;
+    font-size: 20px !important;
+    height: 38px !important;
+    width: 26px !important;
+    padding: 0 !important;
+}
+
+.mck-btn-smiley img {
+    height: 25px;
+    width: 25px;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.mck-sidebox .mck-btn-smiley:active,.mck-sidebox .mck-btn-smiley:focus  {
+    box-shadow: none;
+    border: 0 !important;
+    outline: none !important;
+}
 .mck-file-box {
     width: 100%;
     margin-top: 0px !important;
@@ -749,6 +780,7 @@
     font-weight: bold;
     overflow: hidden;
     max-height: 30px;
+    margin: 1px;
 }
 
 .mck-file-box .mck-file-content {
@@ -958,6 +990,10 @@
 #mck-file-up .mck-btn img {
     vertical-align: middle;
     height: 18px;
+}
+
+#mck-file-up input {    height: 33px;
+                        width: 45px;
 }
 
 .truncate {
@@ -1204,7 +1240,6 @@
     white-space: normal;
     padding-left: 5px;
 }
-
 
 
 .mck-msg-preview:before, .mck-msg-preview:after {
