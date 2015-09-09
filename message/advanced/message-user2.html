@@ -2,12 +2,10 @@
 
     <head>
         <!-- Custom CSS -->
-        <link href="css/app/mck-combined.css" rel="stylesheet">
+        <link href="css/mck-combined.min.css" rel="stylesheet">
         <link href="css/app/mck-sidebox-1.0.css" rel="stylesheet">
 
-
-
-        <!-- Custom CSS -->
+        <!-- Custom JS -->
         <script type="text/javascript">
             var $original;
             if (typeof jQuery !== 'undefined') {
@@ -19,10 +17,6 @@
         <script src="js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
 
-
-        <!-- Bootstrap Core JavaScript
-        <script src="js/bootstrap.min.js"></script> -->
-
     </head>
     <body>
         <div id="mck-side-panel">
@@ -30,7 +24,7 @@
                 <div  class="mck-modal-dialog modal-sm right bg-white md-box-s">
                     <div id="mck-sidebox-content" class="mck-sidebox-content">
                         <div class="mck-box-top">
-                            <button type="button" class="box-close mck-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="box-close mck-close mck-close-sidebox" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <!--  <button type="button" class="mck-minimize-icon box-close mck-close icon"><span aria-hidden="true">&minus;</span></button> -->
                             <h4 class="modal-title mck-box-title truncate" id="mck-conversation-title">Conversations</h4>
                         </div>
@@ -48,14 +42,12 @@
 
                                 </div>
                                 <div class="mck-message-inner"></div>
-                                <div class="mck-loading">
+                                <div id="mck-contact-loading" class="mck-loading">
                                     <img class="mck-loading-image" src="images/loading.gif" >
                                 </div>
                                 <div  id="mck-show-more-icon" class="mck-show-more-icon n-vis">
                                     <h3> No more messages</h3>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="mck-box-ft">
@@ -68,14 +60,19 @@
                                 </div>
                                 <form id="mck-msg-form" class="vertical">
                                     <div class="mck-form-group">
-                                        <label class="sr-only placeholder-text control-label" for="mt-ms-to">To:</label>
-                                        <input class="form-cntrl" id="mck-msg-to" name="mt-ms-to" placeholder="To" required>
+                                        <label class="sr-only placeholder-text control-label" for="mck-msg-to">To:</label>
+                                        <input class="form-cntrl" id="mck-msg-to" name="mck-msg-to" placeholder="To" required>
                                     </div>
 
                                     <div class="mck-form-group">
                                         <label class="sr-only placeholder-text control-label" for="mck-textbox">Message</label>
                                         <div id="mck-textbox-container" class="mck-textbox-container">
-                                            <div id="mck-text-box" contenteditable="true" class="mck-text-box text required"></div>
+                                            <div id="mck-text-box" contenteditable="true" class="mck-blk-10 mck-text-box text required"></div>
+                                            <div class="mck-blk-2 mck-text-box-right-panel">
+                                                <div class="mck-blk-12">
+                                                    <button type="button" id="mck-btn-smiley" class="mck-btn mck-btn-smiley" title="Smiley"><img src="images/icon-smiley.png" alt="Smiley"/></button>
+                                                </div>
+                                            </div>
                                             <div id="mck-file-box" class="mck-file-box row-fluid n-vis">
                                                 <div class="mck-file-expr">
                                                     <span class="mck-file-content blk-lg-8"><span class="mck-file-lb"></span>&nbsp;<span class="mck-file-sz"></span></span>
@@ -94,7 +91,7 @@
                                         </button>
 
                                         <label id="mck-file-up" class= "fileinput-button file-upload move-right" title="Attach File">
-                                            <button type="button" class="mck-btn mck-btn-light" title="Attach File"><img src="images/ic_action_attachment.png" alt="Attach file"/></button>
+                                            <button type="button" class="mck-btn mck-btn-light mck-btn-attach" title="Attach File"><img src="images/ic_action_attachment.png" alt="Attach File"/></button>
                                             <input type="file" name="files[]">
                                         </label>
                                     </div>
@@ -103,20 +100,15 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="mck-add-new">
-                                <button type="submit" id="mck-msg-new" class="mck-btn mck-btn-blue" title="new message">
+                            <div class="mck-add-new mck-test-center">
+                                <button type="submit" id="mck-msg-new" class="mck-msg-new mck-btn mck-btn-blue" title="new message">
                                     <span>New Message</span>
                                 </button>
                             </div>
-
-
                         </div>
-
-
                     </div>
                     <div id="mck-sidebox-search" class="mck-sidebox-content n-vis">
                         <div class="mck-box-top">
-
                             <div class="modal-title mck-box-title truncate" id="mck-conversation-title">
                                 <div class="mck-tab-link blk-lg-4">
                                     <a href="#" role="link" class="mck-conversation-tab-link"><img src="images/ic_action_backward.png" alt="Back"></a>
@@ -125,28 +117,36 @@
                                     <input type="text"  id="mck-search" placeholder="Enter user id" autofocus />
                                     <span class="mck-search-icon"><a href="#" role="link" class="mck-tab-search"><img src="images/ic_action_search.png" alt="search"></a></span>
                                 </div>
-
                             </div>
                         </div>
-
+                        <div class="mck-box-md">
+                            <div id="mck-search-cell" class="mck-message-cell">
+                                <div class="mck-message-inner">
+                                    <ul id="mck-search-list" class="mck-search-list mck-contact-list nav nav-tabs nav-stacked"></ul>
+                                    <div id="mck-search-loading" class="mck-loading">
+                                        <img class="mck-loading-image" src="images/loading.gif" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-        <script type="text/javascript" src="js/mck-modal.js"></script>
+        <script type="text/javascript" src="js/mck-modal.min.js"></script>
         <script type="text/javascript" src="js/jquery.linkify.min.js"></script>		
-        <script  type="text/javascript" src="js/jquery.ui.widget.js"></script>
-        <script type="text/javascript" src="js/jquery.fancybox.js"></script>
+        <script  type="text/javascript" src="js/jquery.ui.widget.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
         <script type="text/javascript" src="https://applozic.appspot.com/_ah/channel/jsapi"></script>
-        <script type="text/javascript" src="emojify/emoji-1.0.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload.js"></script>
-        <script type="text/javascript" src="js/load-image.js"></script>
-        <script type="text/javascript" src="js/load-image-meta.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-process.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-image.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-validate.js"></script>       
+        <script type="text/javascript" src="js/emoji.min.js"></script>
+        <script type="text/javascript" src="js/jquery.emojiarea.min.js"></script>
+        <script type="text/javascript" src="js/jquery.emojis.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fileupload.min.js"></script>
+        <script type="text/javascript" src="js/load-image.min.js"></script>
+        <script type="text/javascript" src="js/load-image-meta.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fileupload-process.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fileupload-image.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fileupload-validate.min.js"></script>       
         <script type="text/javascript" src="js/app/mck-sidebox-1.0.js"></script>
         <script type="text/javascript">
             if (typeof $original !== 'undefined') {
@@ -160,41 +160,32 @@
         <script type="text/javascript">
 
             //var $applozic = jQuery.noConflict(true);
-            var userNames =  {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
+            var userNames = {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
+            var contacts = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}]};
             $(document).ready(function () {
-                var mobiComKitSideBox = new MobiComKitSidebox();
-                mobiComKitSideBox.load();
+                var mckClientId = "customer-2", mckClientAppId = "applozic-sample-app", mckMode = "support", mckSupportId = "applozic";
+                $applozic.fn.applozic({userId: mckClientId, appId: mckClientAppId,
+                    ojq: $original,
+                    readConversation: function (userId) {
+                        //Todo: write your logic 
+                        console.log(userId);
+                    },
+                    contactDisplayName: function (userId) {
+                        //Todo: replace this with users display name
+                        return userNames[userId];
+                    },
+                    contactDisplayImage: function (userId) {
+                        //Todo: replace this with users display image src
+                        //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
+                        return "";
+                    },
+                    desktopNotification: true
+                });
+
+                // Load contacts by passing json in format shown in var 'contacts' and uncomment the below function. 
+                // $applozic.fn.applozic('loadContacts', contacts);
+
             });
-
-            function readMessage(userId) {
-                console.log(userId);
-            }
-
-            function displayName(userId) {
-                //Todo: replace this with users display name
-                var name = userNames[userId];
-                return name;
-            }
-            
-            function contactImageSrc(userId) {
-                //Todo: replace this with users display image src
-                //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
-                return "";
-            }
-
-            function MobiComKitSidebox() {
-                var mckClientId = "customer-2";
-                var mckClientAppId = "applozic-sample-app";
-
-
-                this.load = function () {
-                    $applozic.fn.mobicomkit({userId: mckClientId, appId: mckClientAppId,
-                        ojq: $original, readConversation: readMessage, contactDisplayName: displayName,
-                        contactDisplayImage: contactImageSrc, desktopNotification: true
-                    });
-
-                };
-            }
         </script>
     </body>
 </html>
