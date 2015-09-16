@@ -368,7 +368,6 @@ $applozic.fn.modal = appModal;
                 $mck_msg_new.click(function () {
                     $mck_add_new.removeClass('vis').addClass('n-vis');
                     $mck_sidebox_content.removeClass('vis').addClass('n-vis');
-                    $mck_sidebox_search.removeClass('n-vis').addClass('vis');
                     if (MCK_CONTACT_ARRAY.length !== 0) {
                         mckMessageLayout.addContactsToSearchList([], true);
                     } else if (IS_MCK_OL_STATUS) {
