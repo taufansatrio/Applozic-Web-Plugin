@@ -4,9 +4,17 @@
     Author     : devashish
 */
 
+
+
 .mck-sidebox .mck-row {
     margin-right: -15px;
     margin-left: -15px;
+}
+
+.mck-sidebox * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .mck-message-status{
@@ -705,7 +713,7 @@
     margin: auto;
     background-color: #fff;
     text-align: left;
-    border: 1px solid rgb(204, 208, 212);
+    border: 1px solid #00AFF0;
 }
 
 .mck-textbox-container-wf {
@@ -718,7 +726,7 @@
     height: 36px;
     resize: none;
     max-height: 36px;
-    width: 240px !important;
+    width: 208px !important;
     outline: none;
     margin: 0px;
     font-size: 14px;
@@ -737,13 +745,17 @@
     box-shadow: none !important;
 }
 
-.mck-text-box-right-panel {
-    width: 27px;
-    height: 40px;
-    float: right;
+.mck-text-box-panel {
+    width: 30px !important;
+    height: 40px !important;
+    background-color: #E7F1F5;
 }
 
-.mck-btn-smiley {
+.mck-text-box-panel label, .mck-text-box-panel button {
+    width: 30px !important; 
+    height: 40px !important;
+}
+.mck-btn-text-panel {
     background: transparent !important;
     border: none !important;
     text-shadow: none;
@@ -753,8 +765,12 @@
     width: 26px !important;
     padding: 0 !important;
 }
+.mck-btn-text-panel:active {
+    box-shadow: none!important;
+    outline: none !important;
+}
 
-.mck-btn-smiley img {
+.mck-btn-text-panel img {
     height: 25px;
     width: 25px;
     vertical-align: middle;
@@ -992,8 +1008,9 @@
     height: 18px;
 }
 
-#mck-file-up input {    height: 33px;
-                        width: 45px;
+#mck-file-up input { 
+    height: 40px;
+    width: 30px;
 }
 
 .truncate {
@@ -1153,12 +1170,9 @@
 
 .mck-icon-delivered {
     background-image: url(images/delivered16x16.png);
-
 }
 .mck-icon-time {
     background-image: url(images/icon-time16x16.png);
-
-
 }
 .mck-icon-ok-circle {
     background-image: url(images/icon-sent16x16.png);
@@ -1417,5 +1431,4 @@
         font-size: 15px;
         line-height: 1.5;
     }
-
 }

@@ -70,10 +70,19 @@
                                     <div class="mck-form-group">
                                         <label class="sr-only placeholder-text control-label" for="mck-textbox">Message</label>
                                         <div id="mck-textbox-container" class="mck-textbox-container">
-                                            <div id="mck-text-box" contenteditable="true" class="mck-blk-10 mck-text-box text required"></div>
-                                            <div class="mck-blk-2 mck-text-box-right-panel">
+                                            <div class="mck-blk-2 mck-text-box-panel move-left">
                                                 <div class="mck-blk-12">
-                                                    <button type="button" id="mck-btn-smiley" class="mck-btn mck-btn-smiley" title="Smiley"><img src="images/icon-smiley.png" alt="Smiley"/></button>
+                                                    <label id="mck-file-up" class="fileinput-button file-upload move-left" title="Attach File">
+                                                        <button type="button" class="mck-btn mck-btn-text-panel" title="Attach File"><img src="images/ic_action_attachment.png" alt="Attach file"></button>
+                                                        <input type="file" name="files[]">
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div id="mck-text-box" contenteditable="true" class="mck-blk-8 mck-text-box text required"></div>
+                                            <div class="mck-blk-2 mck-text-box-panel move-right">
+                                                <div class="mck-blk-12">
+                                                    <button type="button" id="mck-btn-smiley" class="mck-btn mck-btn-smiley mck-btn-text-panel" title="Smiley"><img src="images/icon-smiley.png" alt="Smiley"/></button>
                                                 </div>
                                             </div>
                                             <div id="mck-file-box" class="mck-file-box row-fluid n-vis">
@@ -93,10 +102,6 @@
                                             <span>Send</span>
                                         </button>
 
-                                        <label id="mck-file-up" class= "fileinput-button file-upload move-right" title="Attach File">
-                                            <button type="button" class="mck-btn mck-btn-light mck-btn-attach" title="Attach File"><img src="images/ic_action_attachment.png" alt="Attach File"/></button>
-                                            <input type="file" name="files[]">
-                                        </label>
                                     </div>
                                     <div class="mck-form-group mck-running-on n-vis">
                                         <a href="http://www.applozic.com" target="_blank">Running on <strong>Applozic</strong></a>
