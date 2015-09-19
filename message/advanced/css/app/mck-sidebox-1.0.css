@@ -4,8 +4,6 @@
     Author     : devashish
 */
 
-
-
 .mck-sidebox .mck-row {
     margin-right: -15px;
     margin-left: -15px;
@@ -851,7 +849,10 @@
     height: 18px;
     vertical-align: middle;
 }
-
+.mck-file-text .file-name img:hover {
+    opacity: 1 !important;
+    background-color: transparent !important; 
+}
 .mck-icon-camera {
     opacity: 0.6;
 }
@@ -905,10 +906,13 @@
     text-decoration:underline;
 }
 
-.msg-right a:hover, .msg-left a:hover {
+.msg-left a:hover {
     color: rgb(218, 85, 47);
 }
 
+.msg-right a:hover {
+    color: yellow;
+}
 
 .msg-left:after, .msg-left:before {
     right: 100%;
