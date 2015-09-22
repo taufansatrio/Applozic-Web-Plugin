@@ -18,7 +18,8 @@
     </head>
     <body>
         <script type="text/javascript">
-     var userNames =  {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
+
+            var userNames = {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
             function readMessage(userId) {
                 console.log(userId);
             }
@@ -36,7 +37,11 @@
             }
 
             window.applozic.init({userId: 'customer-1', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
-                         contactDisplayImage: contactImageSrc,  desktopNotification: true});
+                contactDisplayImage: contactImageSrc, desktopNotification: true});
+
+            var contacts = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}]};
+            // To load contacts use below function and pass contacts json in format shown above in var 'contacts'. 
+            // $applozic.fn.applozic('loadContacts', contacts);
         </script>
     </body>
 </html>
