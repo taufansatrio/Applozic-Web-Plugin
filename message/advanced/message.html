@@ -168,30 +168,42 @@
         <script type="text/javascript">
 
             //var $applozic = jQuery.noConflict(true);
-            var userNames = {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
-            var contacts = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}]};
+
+            //Sample json contains display name and photoLink for userId
+            var contacts = {"user1": {"displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, "user2": {"displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, "user3": {"displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}};
+            function readMessage(userId) {
+                //console.log(userId);
+            }
+
+            //Callback function to return display name by userId 
+            function displayName(userId) {
+                //Todo: replace this with users display name
+                var contact = contacts[userId];   // contacts sample given above
+                if (typeof contact !== 'undefined') {
+                    return contact.displayName;
+                }
+            }
+
+            //Callback function to return contact image url by userId 
+            function contactImageSrc(userId) {
+                var contact = contacts[userId]; // contacts sample given above
+                if (typeof contact !== 'undefined') {
+                    return contact.photoLink;
+                }
+            }
             $(document).ready(function () {
-                var mckClientId = "customer-1", mckClientAppId = "applozic-sample-app", mckMode = "support", mckSupportId = "applozic";
-                $applozic.fn.applozic({userId: mckClientId, appId: mckClientAppId,
+                //Function to initialize plugin
+                $applozic.fn.applozic({userId: 'customer-1', appId: 'applozic-sample-app',
                     ojq: $original,
-                    readConversation: function (userId) {
-                        //Todo: write your logic 
-                        console.log(userId);
-                    },
-                    contactDisplayName: function (userId) {
-                        //Todo: replace this with users display name
-                        return userNames[userId];
-                    },
-                    contactDisplayImage: function (userId) {
-                        //Todo: replace this with users display image src
-                        //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
-                        return "";
-                    },
+                    readConversation: readMessage, // readMessage function define above
+                    contactDisplayName: displayName, // displayName function define above
+                    contactDisplayImage: contactImageSrc, // contactImageSrc function define above
                     desktopNotification: true
                 });
 
-                // Load contacts by passing json in format shown in var 'contacts' and uncomment the below function. 
-                // $applozic.fn.applozic('loadContacts', contacts);
+                // var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}]};
+                // To load contact list use below function and pass contacts json in format shown above in variable 'contactjson'. 
+                // $applozic.fn.applozic('loadContacts', contactjson);
 
             });
         </script>
