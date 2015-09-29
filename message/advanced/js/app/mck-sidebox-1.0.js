@@ -544,6 +544,7 @@ $applozic.fn.modal = $appModal;
                                 mckMessageLayout.clearMessageField();
                             }
                             mckStorage.clearMckMessageArray();
+                            mckMessageLayout.messageContextMenu(data);
                         }
                         delete TAB_MESSAGE_DRAFT[userId];
                         FILE_METAS = "";
@@ -665,7 +666,7 @@ $applozic.fn.modal = $appModal;
                                 }
                             } else {
                                 var userIdArray = mckMessageLayout.getUserIdArrayFromMessageList(data);
-                                mckContactService.getContactDispalyName(userIdArray);
+                                mckContactService.getContactDisplayName(userIdArray);
                                 if (individual) {
                                     if (data.connectedUsers.length === 0) {
                                         w.MCK_OL_MAP[userId] = false;
@@ -1540,7 +1541,7 @@ $applozic.fn.modal = $appModal;
             var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner");
             var CONTACT_NAME_URL = "/rest/ws/user/v1/info";
             var CONTACT_LIST_URL = "/rest/ws/user/v1/ol/list";
-            _this.getContactDispalyName = function (userIdArray) {
+            _this.getContactDisplayName = function (userIdArray) {
                 var mckContactNameArray = [];
                 if (userIdArray.length > 0 && userIdArray[0]) {
                     var data = "";
@@ -1604,6 +1605,7 @@ $applozic.fn.modal = $appModal;
                                     userIdArray.push(userId);
                                 }
                             }
+                            _this.getContactDisplayName(userIdArray);
                             if (userIdArray !== null && userIdArray.length > 0) {
                                 mckMessageLayout.addContactsToSearchList(userIdArray, false);
                             } else {
@@ -2013,7 +2015,7 @@ $applozic.fn.modal = $appModal;
                 } else if (messageType.indexOf("SMS") !== -1) {
                     var message = $applozic.parseJSON(resp.message);
                     var userIdArray = mckMessageLayout.getuserIdFromMessage(message);
-                    mckContactService.getContactDispalyName(userIdArray);
+                    mckContactService.getContactDisplayName(userIdArray);
                     //  mckMessageLayout.openConversation();
                     var mckContactListLength = $applozic("#mck-contact-list").length;
                     var $mck_sidebox_content = $applozic("#mck-sidebox-content");

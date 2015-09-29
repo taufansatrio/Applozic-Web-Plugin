@@ -133,13 +133,13 @@
         <script type="text/javascript" src="https://applozic.appspot.com/_ah/channel/jsapi"></script>
         <script type="text/javascript" src="js/emoji.min.js"></script>
         <script type="text/javascript" src="js/jquery.emojiarea.min.js"></script>
-        <script type="text/javascript" src="js/jquery.emojis.min.js"></script>
         <script type="text/javascript" src="js/jquery.fileupload.min.js"></script>
         <script type="text/javascript" src="js/load-image.min.js"></script>
         <script type="text/javascript" src="js/load-image-meta.min.js"></script>
         <script type="text/javascript" src="js/jquery.fileupload-process.min.js"></script>
         <script type="text/javascript" src="js/jquery.fileupload-image.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-validate.min.js"></script>       
+        <script type="text/javascript" src="js/jquery.fileupload-validate.min.js"></script>  
+        <script type="text/javascript" src="js/jquery.emojis.min.js"></script>
         <script type="text/javascript" src="js/app/mck-sidebox-1.0.js"></script>
         <script type="text/javascript">
             if (typeof $original !== 'undefined') {
@@ -153,7 +153,7 @@
         <script type="text/javascript">
             //var $applozic = jQuery.noConflict(true);
             //Sample json contains display name and photoLink for userId
-            var contacts = {"user1": {"displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, "user2": {"displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, "user3": {"displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}};
+            var contacts = {"user1": {"displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, "user2": {"displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, "user3": {"displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}};
             function readMessage(userId) {
                 //console.log(userId);
             }
@@ -182,7 +182,7 @@
                     desktopNotification: true
                 });
 
-                // var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/NoPicture.gif"}]};
+                // var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}]};
                 // To load contact list use below function and pass contacts json in format shown above in variable 'contactjson'. 
                 // $applozic.fn.applozic('loadContacts', contactjson);
 
