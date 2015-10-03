@@ -11,6 +11,8 @@ $applozic.fn.modal = $appModal;
         supportId: null,
         mode: "standard",
         olStatus: false,
+		//default size is 25MB
+		maxAttachmentSize: 26214400,
         desktopNotification: false
     };
     $applozic.fn.applozic = function (options, paramValue) {
@@ -24,7 +26,8 @@ $applozic.fn.modal = $appModal;
         }
         if ($applozic.type(options) === "object") {
             options = $applozic.extend(true, {}, default_options, options);
-        }
+			options.maxAttachmentSize = options.maxAttachmentSize *1024*1024;
+		}
         var oInstance = undefined;
         if (typeof ($applozic('#mck-sidebox').data("applozic_instance")) !== "undefined") {
             oInstance = $applozic('#mck-sidebox').data("applozic_instance");
@@ -1704,9 +1707,23 @@ $applozic.fn.modal = $appModal;
             var FILE_UPLOAD_URL = "/rest/ws/file/url";
             var FILE_PREVIEW_URL = "/rest/ws/file/shared/";
             var FILE_DELETE_URL = "/rest/ws/file/delete/file/meta";
-            _this.init = function () {
+			var ONE_MB= 1048576;
+			var ONE_KB =1024;
+			var fileSizeHTML="";
+		   _this.init = function () {
                 $file_upload.fileupload({
-                    previewMaxWidth: 100,
+					add: function(e, data) {
+				        var uploadErrors = [];
+						if(data.originalFiles[0]['size'] > options.maxAttachmentSize) {
+				            uploadErrors.push("file size can not be more than "+ options.maxAttachmentSize/ONE_MB+" MB");
+				        }
+				        if(uploadErrors.length > 0) {
+				        	alert(uploadErrors.toString());
+				        } else {
+				            data.submit();
+				        }
+				},
+				   previewMaxWidth: 100,
                     previewMaxHeight: 100,
                     previewCrop: true,
                     submit: function (e, data) {
@@ -1717,7 +1734,15 @@ $applozic.fn.modal = $appModal;
                         $mck_text_box.addClass('mck-text-wf');
                         $textbox_container.addClass('mck-textbox-container-wf');
                         $file_name.html('<a href="#">' + data.files[0].name + '</a>');
-                        $file_size.html("(" + parseInt(data.files[0].size / 1024) + " KB)");
+                        //calculating file size in MBs/KBs
+					    if(data.files[0].size > ONE_MB){
+						fileSizeHTML= "(" + parseInt(data.files[0].size /ONE_MB ) + " MB)";
+					    }else if(data.files[0].size > ONE_KB){
+					    fileSizeHTML= "(" + parseInt(data.files[0].size /ONE_KB ) + " KB)";	
+					    }else{
+					    fileSizeHTML="(" + parseInt(data.files[0].size) + " B)";
+					    }
+						$file_size.html(fileSizeHTML);
                         $file_progressbar.css('width', '0%');
                         $file_progress.removeClass('n-vis').addClass('vis');
                         $file_remove.attr("disabled", true);
@@ -1837,7 +1862,13 @@ $applozic.fn.modal = $appModal;
             };
             _this.getFilePreviewSize = function (fileSize) {
                 if (fileSize) {
-                    return "(" + parseInt(fileSize / 1024) + " KB)";
+                   if(fileSize > ONE_MB){
+					    return "(" + parseInt(fileSize /ONE_MB ) + " MB)";
+					    }else if(fileSize > ONE_KB){
+					    return "(" + parseInt(fileSize / ONE_KB) + " KB)";	
+					    }else{
+					    return "(" + parseInt(fileSize) + " B)";
+					    }
                 }
                 return "";
             };
