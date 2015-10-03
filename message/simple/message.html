@@ -18,25 +18,37 @@
     </head>
     <body>
         <script type="text/javascript">
-     var userNames =  {"user1": 'Devashish', "user2": 'Adarsh', "user3": 'Shanki', "user4": 'Anshul'};
+
+            //Sample json contains display name and photoLink for userId
+            var contacts = {"user1": {"displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, "user2": {"displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, "user3": {"displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}};
+
             function readMessage(userId) {
-                console.log(userId);
+                //console.log(userId);
             }
 
+            //Callback function to return display name by userId 
             function displayName(userId) {
                 //Todo: replace this with users display name
-                var name = userNames[userId];
-                return name;
+                var contact = contacts[userId];   // contacts sample given above
+                if (typeof contact !== 'undefined') {
+                    return contact.displayName;
+                }
             }
 
+            //Callback function to return contact image url by userId 
             function contactImageSrc(userId) {
-                //Todo: replace this with users display image src
-                //return "http://applozic.appspot.com/resources/images/NoPicture.gif";
-                return "";
+                var contact = contacts[userId]; // contacts sample given above
+                if (typeof contact !== 'undefined') {
+                    return contact.photoLink;
+                }
             }
 
             window.applozic.init({userId: 'customer-1', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
-                         contactDisplayImage: contactImageSrc,  desktopNotification: true});
+                contactDisplayImage: contactImageSrc, desktopNotification: true});
+
+            // var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}]};
+            // To load contact list use below function and pass contacts json in format shown above in variable 'contactjson'. 
+            // $applozic.fn.applozic('loadContacts', contactjson);
         </script>
     </body>
 </html>
