@@ -11,11 +11,11 @@ $applozic.fn.modal = $appModal;
         supportId: null,
         mode: "standard",
         olStatus: false,
-		//default size is 25MB
-		maxAttachmentSize: 26214400,
-        desktopNotification: false
+        desktopNotification: false,
+        maxAttachmentSize: 26214400          //default size is 25MB
     };
     $applozic.fn.applozic = function (options, paramValue) {
+        var $mck_sidebox = $applozic('#mck-sidebox');
         if (typeof options.ojq !== 'undefined') {
             $ = options.ojq;
             jQuery = options.ojq;
@@ -26,11 +26,10 @@ $applozic.fn.modal = $appModal;
         }
         if ($applozic.type(options) === "object") {
             options = $applozic.extend(true, {}, default_options, options);
-			options.maxAttachmentSize = options.maxAttachmentSize *1024*1024;
-		}
+        }
         var oInstance = undefined;
-        if (typeof ($applozic('#mck-sidebox').data("applozic_instance")) !== "undefined") {
-            oInstance = $applozic('#mck-sidebox').data("applozic_instance");
+        if (typeof ($mck_sidebox.data("applozic_instance")) !== "undefined") {
+            oInstance = $mck_sidebox.data("applozic_instance");
             if ($applozic.type(options) === "string") {
                 switch (options) {
                     case "loadTab" :
@@ -43,7 +42,7 @@ $applozic.fn.modal = $appModal;
         } else {
             var applozic = new Applozic(options);
             applozic.init();
-            $applozic('#mck-sidebox').data("applozic_instance", applozic);
+            $mck_sidebox.data("applozic_instance", applozic);
         }
     };
     $applozic.fn.applozic.defaults = default_options;
@@ -66,6 +65,7 @@ $applozic.fn.modal = $appModal;
         var MCK_SUPPORT_ID_DATA_ATTR = (options.supportId) ? ('data-mck-id="' + options.supportId + '"') : '';
         var MCK_MODE = options.mode;
         var MCK_USER_TIMEZONEOFFSET;
+        var MCK_FILEMAXSIZE = options.maxAttachmentSize;
         var FILE_METAS = "";
         var ELEMENT_NODE = 1;
         var IS_MCK_NOTIFICATION = (typeof options.desktopNotification === "boolean") ? options.desktopNotification : false;
@@ -203,7 +203,7 @@ $applozic.fn.modal = $appModal;
                 mckNotificationService.init();
             };
             _this.randomId = function () {
-                return Math.random().toString(36).substring(7);
+                return w.Math.random().toString(36).substring(7);
             };
             _this.textVal = function () {
                 var lines = [];
@@ -330,7 +330,7 @@ $applozic.fn.modal = $appModal;
                     $mck_sidebox_content.removeClass('vis').addClass('n-vis');
                     $mck_sidebox_search.removeClass('n-vis').addClass('vis');
                     $mck_search_inner.html('<ul id="mck-search-list" class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>');
-                    if (MCK_CONTACT_ARRAY.length !== 0) {
+                    if (MCK_CONTACT_ARRAY.length !== 0) {           
                         mckMessageLayout.addContactsToSearchList([], true);
                     } else if (IS_MCK_OL_STATUS) {
                         mckContactService.loadContacts();
@@ -365,7 +365,7 @@ $applozic.fn.modal = $appModal;
                         }
                     }
                 });
-                $applozic(d).on("click", ".mck-delete-button", function (e) {
+                $applozic(d).on("click", ".mck-delete-button", function () {
                     var userId = $mck_msg_to.val();
                     if (typeof userId !== 'undefined') {
                         if (confirm("Are you sure want to delete all the conversation!")) {
@@ -570,7 +570,7 @@ $applozic.fn.modal = $appModal;
                 var userId = $mck_msg_inner.data('mck-id');
                 if (typeof userId !== 'undefined') {
                     $applozic.ajax({
-                        url: MCK_BASE_URL + MESSAGE_DELETE_URL + "?key=" + msgkeystring + '&contactNumber=' + userId,
+                        url: MCK_BASE_URL + MESSAGE_DELETE_URL +  "?key=" + msgkeystring + '&contactNumber=' + userId,
                         type: 'get',
                         headers: {
                             "UserId-Enabled": true,
@@ -665,8 +665,8 @@ $applozic.fn.modal = $appModal;
                                         $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No messages yet!</div>');
                                     }
                                 } else {
-                                    $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No conversations yet!</div>');
-                                }
+                                        $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No conversations yet!</div>');
+                                    }
                             } else {
                                 var userIdArray = mckMessageLayout.getUserIdArrayFromMessageList(data);
                                 mckContactService.getContactDisplayName(userIdArray);
@@ -1344,15 +1344,15 @@ $applozic.fn.modal = $appModal;
                 }
                 if (typeof data.contacts.length === "undefined") {
                     if ((typeof data.contacts.userId !== "undefined")) {
-                        data = data.contacts;
-                        var contact = _this.getContact('' + data.userId);
-                        if (typeof contact === 'undefined') {
-                            _this.createContactWithDetail(data);
-                        } else {
-                            _this.updateContactDetail(contact, data);
+                            data = data.contacts;
+                            var contact = _this.getContact('' + data.userId);
+                            if (typeof contact === 'undefined') {
+                                _this.createContactWithDetail(data);
+                            } else {
+                                _this.updateContactDetail(contact, data);
+                            }
+                            MCK_CONTACT_ARRAY.push(data);
                         }
-                        MCK_CONTACT_ARRAY.push(data);
-                    }
                 } else {
                     MCK_CONTACT_ARRAY.length = 0;
                     $applozic.each(data.contacts, function (i, data) {
@@ -1541,7 +1541,7 @@ $applozic.fn.modal = $appModal;
             var _this = this;
             var $mck_sidebox_search = $applozic("#mck-sidebox-search");
             var $mck_search_loading = $applozic("#mck-search-loading");
-            var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner");
+            var $mck_search_inner =$applozic("#mck-search-cell .mck-message-inner");
             var CONTACT_NAME_URL = "/rest/ws/user/v1/info";
             var CONTACT_LIST_URL = "/rest/ws/user/v1/ol/list";
             _this.getContactDisplayName = function (userIdArray) {
@@ -1707,25 +1707,24 @@ $applozic.fn.modal = $appModal;
             var FILE_UPLOAD_URL = "/rest/ws/file/url";
             var FILE_PREVIEW_URL = "/rest/ws/file/shared/";
             var FILE_DELETE_URL = "/rest/ws/file/delete/file/meta";
-			var ONE_MB= 1048576;
-			var ONE_KB =1024;
-			var fileSizeHTML="";
-		   _this.init = function () {
+            var ONE_MB = 1048576;
+            var ONE_KB = 1024;
+            _this.init = function () {
                 $file_upload.fileupload({
-					add: function(e, data) {
-				        var uploadErrors = [];
-						if(data.originalFiles[0]['size'] > options.maxAttachmentSize) {
-				            uploadErrors.push("file size can not be more than "+ options.maxAttachmentSize/ONE_MB+" MB");
-				        }
-				        if(uploadErrors.length > 0) {
-				        	alert(uploadErrors.toString());
-				        } else {
-				            data.submit();
-				        }
-				},
-				   previewMaxWidth: 100,
+                    previewMaxWidth: 100,
                     previewMaxHeight: 100,
                     previewCrop: true,
+                    add: function (e, data) {
+                        var uploadErrors = [];
+                        if (data.originalFiles[0]['size'] > (MCK_FILEMAXSIZE * ONE_MB)) {
+                            uploadErrors.push("file size can not be more than " + MCK_FILEMAXSIZE + " MB");
+                        }
+                        if (uploadErrors.length > 0) {
+                            alert(uploadErrors.toString());
+                        } else {
+                            data.submit();
+                        }
+                    },
                     submit: function (e, data) {
                         if (FILE_METAS !== "") {
                             _this.deleteFileMeta(FILE_METAS);
@@ -1734,15 +1733,7 @@ $applozic.fn.modal = $appModal;
                         $mck_text_box.addClass('mck-text-wf');
                         $textbox_container.addClass('mck-textbox-container-wf');
                         $file_name.html('<a href="#">' + data.files[0].name + '</a>');
-                        //calculating file size in MBs/KBs
-					    if(data.files[0].size > ONE_MB){
-						fileSizeHTML= "(" + parseInt(data.files[0].size /ONE_MB ) + " MB)";
-					    }else if(data.files[0].size > ONE_KB){
-					    fileSizeHTML= "(" + parseInt(data.files[0].size /ONE_KB ) + " KB)";	
-					    }else{
-					    fileSizeHTML="(" + parseInt(data.files[0].size) + " B)";
-					    }
-						$file_size.html(fileSizeHTML);
+                        $file_size.html(_this.getFilePreviewSize(data.files[0].size));
                         $file_progressbar.css('width', '0%');
                         $file_progress.removeClass('n-vis').addClass('vis');
                         $file_remove.attr("disabled", true);
@@ -1862,13 +1853,14 @@ $applozic.fn.modal = $appModal;
             };
             _this.getFilePreviewSize = function (fileSize) {
                 if (fileSize) {
-                   if(fileSize > ONE_MB){
-					    return "(" + parseInt(fileSize /ONE_MB ) + " MB)";
-					    }else if(fileSize > ONE_KB){
-					    return "(" + parseInt(fileSize / ONE_KB) + " KB)";	
-					    }else{
-					    return "(" + parseInt(fileSize) + " B)";
-					    }
+
+                    if (fileSize > ONE_MB) {
+                        return "(" + parseInt(fileSize / ONE_MB) + " MB)";
+                    } else if (fileSize > ONE_KB) {
+                        return "(" + parseInt(fileSize / ONE_KB) + " KB)";
+                    } else {
+                       return "(" + parseInt(fileSize) + " B)";
+                    }
                 }
                 return "";
             };
