@@ -447,9 +447,9 @@
     right: 0;
     bottom: 0;
     left: 0;
-    overflow: auto;
 }.mck-box-md .mck-msg-w-panel {
     top:45px !important;
+	overflow: auto;
 }.mck-message-inner .blk-lg-12 {
     padding: 0;
 }.mck-box-ft {
