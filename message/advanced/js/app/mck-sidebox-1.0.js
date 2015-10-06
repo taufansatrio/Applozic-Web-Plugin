@@ -12,7 +12,7 @@ $applozic.fn.modal = $appModal;
         mode: "standard",
         olStatus: false,
         desktopNotification: false,
-        maxAttachmentSize: 26214400          //default size is 25MB
+        maxAttachmentSize: 25          //default size is 25MB
     };
     $applozic.fn.applozic = function (options, paramValue) {
         var $mck_sidebox = $applozic('#mck-sidebox');
