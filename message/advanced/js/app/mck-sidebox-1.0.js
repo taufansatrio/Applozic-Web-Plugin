@@ -8,6 +8,7 @@ $applozic.fn.modal = $appModal;
         launcher: "applozic-launcher",
         userId: null,
         appId: null,
+        userName: null,
         supportId: null,
         mode: "standard",
         olStatus: false,
@@ -53,6 +54,7 @@ $applozic.fn.modal = $appModal;
         var APPLICATION_ID = options.appId;
         var USER_NUMBER;
         var MCK_USER_ID = options.userId;
+        var MCK_USER_NAME = options.userName;
         var USER_COUNTRY_CODE;
         var USER_DEVICE_KEY;
         var AUTH_CODE;
@@ -129,6 +131,9 @@ $applozic.fn.modal = $appModal;
             };
             _this.initializeApp = function (options) {
                 var data = "applicationId=" + options.appId + "&userId=" + options.userId;
+                if (MCK_USER_NAME !== null) {
+                    data += "&userName=" + options.userName;
+                }
                 $applozic.ajax({
                     url: MCK_BASE_URL + INITIALIZE_APP_URL + "?" + data,
                     type: 'get',
@@ -330,7 +335,7 @@ $applozic.fn.modal = $appModal;
                     $mck_sidebox_content.removeClass('vis').addClass('n-vis');
                     $mck_sidebox_search.removeClass('n-vis').addClass('vis');
                     $mck_search_inner.html('<ul id="mck-search-list" class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>');
-                    if (MCK_CONTACT_ARRAY.length !== 0) {           
+                    if (MCK_CONTACT_ARRAY.length !== 0) {
                         mckMessageLayout.addContactsToSearchList([], true);
                     } else if (IS_MCK_OL_STATUS) {
                         mckContactService.loadContacts();
@@ -393,7 +398,11 @@ $applozic.fn.modal = $appModal;
                 });
                 $applozic(d).on("click", "." + MCK_LAUNCHER + ",.mck-conversation-tab-link, .mck-contact-list ." + MCK_LAUNCHER, function (e) {
                     e.preventDefault();
-                    mckMessageLayout.loadTab($applozic(this).data("mck-id"));
+                    var userId = $applozic(this).data("mck-id");
+                    userId = (typeof userId !== "undefined" && userId !== "") ? userId.toString() :  userId;
+                    var userName = $applozic(this).data("mck-name");
+                    userName = (typeof userName !== "undefined" && userName !== "") ? userName.toString() :  userName;
+                    mckMessageLayout.loadTab(userId , userName);
                     $mck_search.val("");
                     $applozic("#mck-sidebox-launcher").removeClass('vis').addClass('n-vis');
                 });
@@ -570,7 +579,7 @@ $applozic.fn.modal = $appModal;
                 var userId = $mck_msg_inner.data('mck-id');
                 if (typeof userId !== 'undefined') {
                     $applozic.ajax({
-                        url: MCK_BASE_URL + MESSAGE_DELETE_URL +  "?key=" + msgkeystring + '&contactNumber=' + userId,
+                        url: MCK_BASE_URL + MESSAGE_DELETE_URL + "?key=" + msgkeystring + '&contactNumber=' + userId,
                         type: 'get',
                         headers: {
                             "UserId-Enabled": true,
@@ -592,7 +601,7 @@ $applozic.fn.modal = $appModal;
                     });
                 }
             };
-            _this.loadMessageList = function (userId) {
+            _this.loadMessageList = function (userId, userName) {
                 var userIdParam = "";
                 var individual = true;
                 var pageSize = 10;
@@ -607,6 +616,10 @@ $applozic.fn.modal = $appModal;
                     var displayName = "";
                     if (typeof (MCK_GETUSERNAME) === "function") {
                         displayName = MCK_GETUSERNAME(userId);
+                    }
+                    if (typeof userName !== 'undefined') {
+                        displayName = userName;
+                        MCK_CONTACT_NAME_MAP[userId] = userName;
                     }
                     if (!displayName) {
                         displayName = mckMessageLayout.getContactDisplayName(userId);
@@ -665,8 +678,8 @@ $applozic.fn.modal = $appModal;
                                         $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No messages yet!</div>');
                                     }
                                 } else {
-                                        $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No conversations yet!</div>');
-                                    }
+                                    $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No conversations yet!</div>');
+                                }
                             } else {
                                 var userIdArray = mckMessageLayout.getUserIdArrayFromMessageList(data);
                                 mckContactService.getContactDisplayName(userIdArray);
@@ -846,7 +859,7 @@ $applozic.fn.modal = $appModal;
                 }
                 $mck_msg_to.focus();
             };
-            _this.loadTab = function (userId) {
+            _this.loadTab = function (userId, userName) {
                 var currUserId = $mck_msg_inner.data('mck-id');
                 if (currUserId) {
                     if ($mck_text_box.html().length > 1 || $mck_file_box.hasClass('vis')) {
@@ -877,7 +890,7 @@ $applozic.fn.modal = $appModal;
                 $mck_sidebox_search.removeClass('vis').addClass('n-vis');
                 $mck_sidebox_content.removeClass('n-vis').addClass('vis');
                 $mck_loading.removeClass('vis').addClass('n-vis');
-                mckMessageService.loadMessageList(userId);
+                mckMessageService.loadMessageList(userId, userName);
                 _this.openConversation();
             };
             _this.processMessageList = function (data, scroll) {
@@ -1344,15 +1357,15 @@ $applozic.fn.modal = $appModal;
                 }
                 if (typeof data.contacts.length === "undefined") {
                     if ((typeof data.contacts.userId !== "undefined")) {
-                            data = data.contacts;
-                            var contact = _this.getContact('' + data.userId);
-                            if (typeof contact === 'undefined') {
-                                _this.createContactWithDetail(data);
-                            } else {
-                                _this.updateContactDetail(contact, data);
-                            }
-                            MCK_CONTACT_ARRAY.push(data);
+                        data = data.contacts;
+                        var contact = _this.getContact('' + data.userId);
+                        if (typeof contact === 'undefined') {
+                            _this.createContactWithDetail(data);
+                        } else {
+                            _this.updateContactDetail(contact, data);
                         }
+                        MCK_CONTACT_ARRAY.push(data);
+                    }
                 } else {
                     MCK_CONTACT_ARRAY.length = 0;
                     $applozic.each(data.contacts, function (i, data) {
@@ -1541,7 +1554,7 @@ $applozic.fn.modal = $appModal;
             var _this = this;
             var $mck_sidebox_search = $applozic("#mck-sidebox-search");
             var $mck_search_loading = $applozic("#mck-search-loading");
-            var $mck_search_inner =$applozic("#mck-search-cell .mck-message-inner");
+            var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner");
             var CONTACT_NAME_URL = "/rest/ws/user/v1/info";
             var CONTACT_LIST_URL = "/rest/ws/user/v1/ol/list";
             _this.getContactDisplayName = function (userIdArray) {
@@ -1859,7 +1872,7 @@ $applozic.fn.modal = $appModal;
                     } else if (fileSize > ONE_KB) {
                         return "(" + parseInt(fileSize / ONE_KB) + " KB)";
                     } else {
-                       return "(" + parseInt(fileSize) + " B)";
+                        return "(" + parseInt(fileSize) + " B)";
                     }
                 }
                 return "";
