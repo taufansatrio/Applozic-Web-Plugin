@@ -41,7 +41,7 @@
                                     <img class="mck-loading-image" src="images/loading.gif" alt="Loading">
                                 </div>
                                 <div  id="mck-show-more-icon" class="mck-show-more-icon n-vis">
-                                    <h3> No more messages</h3>
+                                    <h3>No more conversations!</h3>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                                 <div class="mck-blk-12">
                                                     <button type="button" id="mck-btn-smiley" class="mck-btn mck-btn-smiley mck-btn-text-panel" title="Smiley"><img src="images/icon-smiley.png" alt="Smiley"/></button>
                                                 </div>
-                                            </div>                             
+                                            </div> 
                                             <div id="mck-text-box" contenteditable="true" class="mck-blk-8 mck-text-box mck-text required"></div>
                                             <div class="mck-blk-2 mck-text-box-panel move-right">
                                                 <div class="mck-blk-12">
@@ -94,10 +94,13 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="mck-add-new mck-test-center">
-                                <button type="submit" id="mck-msg-new" class="mck-msg-new mck-btn mck-btn-blue" title="new message">
+                            <div id="mck-contacts-content" class="mck-contacts-content">
+                                <button type="submit" id="mck-msg-new" class="mck-msg-new mck-btn mck-btn-blue move-left" title="new message">
                                     <span>New Message</span>
                                 </button>
+                                <button type="button" id="mck-show-more-contacts" class="mck-show-more mck-btn-light mck-btn mck-btn-default move-right" title="Show More">
+                                    <span>Show More</span>
+                                </button>                          
                             </div>
                         </div>
                     </div>
@@ -118,7 +121,7 @@
                                 <div class="mck-message-inner">
                                     <ul id="mck-search-list" class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
                                 </div>
-                                <div id="mck-search-loading" class="mck-loading">
+                                <div id="mck-search-loading" class="mck-loading n-vis">
                                     <img class="mck-loading-image" src="images/loading.gif" alt="Loading">
                                 </div>
                             </div>
@@ -175,13 +178,18 @@
                     return contact.photoLink;
                 }
             }
+            //callback function execute after plugin initialize. 
+            function callback() {
+                //write your logic. 
+            }
             $(document).ready(function () {
                 //Function to initialize plugin
                 $applozic.fn.applozic({userId: 'customer-2', appId: 'applozic-sample-app',
                     ojq: $original,
-                    readConversation: readMessage, // readMessage function define above
-                    contactDisplayName: displayName, // displayName function define above
-                    contactDisplayImage: contactImageSrc, // contactImageSrc function define above
+                    readConversation: readMessage, // readMessage function defined above
+                    contactDisplayName: displayName, // displayName function defined above
+                    contactDisplayImage: contactImageSrc, // contactImageSrc function defined above
+                    callback: callback, //callback function defined above 
                     maxAttachmentSize: 25, //max attachment size in MB
                     desktopNotification: true
                 });

@@ -42,9 +42,12 @@
                     return contact.photoLink;
                 }
             }
-
+            //callback function execute after plugin initialize. 
+            function callback() {
+                //write your logic. 
+            }
             window.applozic.init({userId: 'customer-1', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
-                contactDisplayImage: contactImageSrc, maxAttachmentSize: 25, desktopNotification: true});
+                contactDisplayImage: contactImageSrc, callback: callback, maxAttachmentSize: 25, desktopNotification: true});
 
             // Note: maxAttachmentSize property value declared above is in MB
 
