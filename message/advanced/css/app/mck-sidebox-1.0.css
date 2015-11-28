@@ -1,3 +1,4 @@
+
 /*
     Created on : Mar 20, 2015, 5:28:06 PM
     Author     : devashish
@@ -85,6 +86,8 @@
     float: right!important;
 }.mck-sidebox .move-left {
     float: left!important;
+}.mck-sidebox .mck-text-center {
+    text-align: center!important;
 }.mck-sidebox .n-vis, .mck-sidebox .hide, .mck-sidebox-launcher .n-vis, .mck-sidebox-launcher.n-vis {
     display: none!important;
 }.mck-sidebox .vis, .mck-sidebox .show, .mck-sidebox-launcher .vis, .mck-sidebox-launcher.vis {
@@ -1071,6 +1074,21 @@
     right: 0 !important;
 }.mck-msg-text span.emoji-sizer {
     margin: 1px 0 !important;
+}.fancybox-opened {
+    z-index: 2247483650;
+}.mck-unread-count-box {    
+    width: 22px;
+    height: 22px;
+    background-color: red;
+    border-radius: 110px;
+}.mck-unread-count-text {
+    position: relative;
+    margin-top: 2px;
+    text-align: center;
+    font-size: 10px;
+    z-index: 100;
+    display: block;
+    color: #FFFFFF;
 }
 @media (min-width: 400px){
     .mck-sidebox .modal-sm {

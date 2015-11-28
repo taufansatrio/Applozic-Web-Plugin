@@ -17,8 +17,8 @@
     </head>
     <body>
         <div id="mck-side-panel">
-            <div id="mck-sidebox" class="mck-sidebox fade">
-                <div class="mck-modal-dialog modal-sm mck-right mck-bg-white md-box-s">
+            <div id="mck-sidebox"  class="mck-sidebox fade">
+                <div  class="mck-modal-dialog modal-sm mck-right mck-bg-white md-box-s">
                     <div id="mck-sidebox-content" class="mck-sidebox-content">
                         <div class="mck-box-top">
                             <button type="button" class="mck-box-close mck-close mck-close-sidebox" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -89,17 +89,14 @@
                                         </button>
                                     </div>
                                     <div class="mck-form-group mck-running-on n-vis">
-                                        <a href="http://www.applozic.com" target="_blank">Running on <strong>Applozic</strong></a>
+                                        <a href="https://www.applozic.com" target="_blank">Running on <strong>Applozic</strong></a>
                                     </div>
                                 </form>
                             </div>
-                            <div id="mck-contacts-content" class="mck-contacts-content">
-                                <button type="submit" id="mck-msg-new" class="mck-msg-new mck-btn mck-btn-blue move-left" title="new message">
+                            <div id="mck-contacts-content" class="mck-contacts-content mck-text-center">
+                                <button type="submit" id="mck-msg-new" class="mck-msg-new mck-btn mck-btn-blue" title="new message">
                                     <span>New Message</span>
-                                </button>
-                                <button type="button" id="mck-show-more-contacts" class="mck-show-more mck-btn-light mck-btn mck-btn-default move-right" title="Show More">
-                                    <span>Show More</span>
-                                </button>                          
+                                </button>                        
                             </div>
                         </div>
                     </div>
@@ -133,7 +130,8 @@
         <script type="text/javascript" src="js/jquery.linkify.min.js"></script>		
         <script  type="text/javascript" src="js/jquery.ui.widget.min.js"></script>
         <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
-        <script type="text/javascript" src="https://applozic.appspot.com/_ah/channel/jsapi"></script>
+        <script type="text/javascript" src="js/stomp.min.js"></script>
+        <script type="text/javascript" src="js/sockjs.min.js"></script>
         <script type="text/javascript" src="js/emoji.min.js"></script>
         <script type="text/javascript" src="js/jquery.emojiarea.min.js"></script>
         <script type="text/javascript" src="js/jquery.fileupload.min.js"></script>
@@ -156,7 +154,7 @@
         <script type="text/javascript">
             //var $applozic = jQuery.noConflict(true);
             //Sample json contains display name and photoLink for userId
-            var contacts = {"user1": {"displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, "user2": {"displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, "user3": {"displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}};
+            var contacts = {"user1": {"displayName": "Devashish", "photoLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, "user2": {"displayName": "Adarsh", "photoLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, "user3": {"displayName": "Shanki", "photoLink": "https://www.applozic.com/resources/images/applozic_icon.png"}};
             function readMessage(userId) {
                 //console.log(userId);
             }
@@ -191,7 +189,7 @@
                     desktopNotification: true
                 });
 
-                // var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "http://applozic.appspot.com/resources/images/applozic_icon.png"}]};
+                // var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "photoLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "photoLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "photoLink": "https://www.applozic.com/resources/images/applozic_icon.png"}]};
                 // To load contact list use below function and pass contacts json in format shown above in variable 'contactjson'. 
                 // $applozic.fn.applozic('loadContacts', contactjson);
 
