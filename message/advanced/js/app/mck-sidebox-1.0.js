@@ -17,7 +17,7 @@ $applozic.fn.mckModal = $appModal;
     }
 
     var default_options = {
-        baseUrl: "http://localhost:9090/applozic",
+        baseUrl: "https://apps.applozic.com",
         fileBaseUrl: "https://applozic.appspot.com",
         launcher: "applozic-launcher",
         userId: null,
