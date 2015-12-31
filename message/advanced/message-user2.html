@@ -21,18 +21,41 @@
                 <div  class="mck-modal-dialog modal-sm mck-right mck-bg-white md-box-s">
                     <div id="mck-sidebox-content" class="mck-sidebox-content">
                         <div class="mck-box-top">
-                            <button type="button" class="mck-box-close mck-close mck-close-sidebox" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <!--  <button type="button" class="mck-minimize-icon box-close mck-close icon"><span aria-hidden="true">&minus;</span></button> -->
-                            <h4 id="mck-conversation-title" class="modal-title mck-box-title mck-truncate">Conversations</h4>
+                            <button type="button" class="mck-minimize-icon box-close mck-close icon n-vis"><span aria-hidden="true">&minus;</span></button>           
+                            <div class="blk-lg-2 move-right">
+                                <button type="button" class="mck-box-close mck-close mck-close-sidebox" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="blk-lg-10">
+                                <div id="mck-tab-individual" class="mck-row n-vis">
+                                    <div class="mck-tab-link blk-lg-4"><a href="#" role="link" class="mck-conversation-tab-link"><img src="images/ic_action_backward.png" alt="Back"></a></div>
+                                    <div class="blk-lg-8 modal-title mck-box-title">
+                                        <div id="mck-tab-title" class="mck-tab-title mck-truncate">
+                                            Conversations
+                                        </div>
+                                        <div id="mck-tab-status" class="mck-tab-status n-vis"></div>
+                                    </div>
+                                </div>
+                                <div id="mck-tab-conversation" class="mck-row">
+                                    <h4 id="mck-conversation-title" class="modal-title mck-box-title mck-truncate">Conversations</h4>
+                                </div>
+                            </div>
                         </div>
                         <div class="mck-box-md">
                             <div id="mck-message-cell" class="mck-message-cell">
-                                <div id="mck-top-btn-panel" class="mck-row mck-top-btn-panel n-vis">
-                                    <button type="button" id="mck-show-more" class="mck-show-more mck-btn-light mck-btn mck-btn-default move-left" title="Show More">
-                                        <span>Show More</span>
-                                    </button>
-                                    <button type="button" id="mck-delete-button" class="mck-delete-button mck-btn-light mck-btn mck-btn-default move-right" title="Delete">
+                                <div id="mck-price-widget" class="mck-row mck-price-widget mck-top-widget n-vis">
+                                    <div class="mck-widget-panel">
+                                        <input type="text" id="mck-price-text-box" placeholder="Enter final agreed price">
+                                        <button type="button" id="mck-price-submit" class="mck-btn mck-btn-green mck-price-submit" title="Submit">
+                                            <span>Submit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="mck-top-btn-panel" class="mck-row mck-top-btn-panel mck-top-widget n-vis">
+                                    <button type="button" id="mck-delete-button" class="mck-delete-button mck-btn-light mck-btn mck-btn-default move-left" title="Delete">
                                         <span>Delete</span>
+                                    </button>
+                                    <button type="button" id="mck-show-more" class="mck-show-more mck-btn-light mck-btn mck-btn-default move-right" title="Show More">
+                                        <span>Show More</span>
                                     </button>
                                 </div>
                                 <div class="mck-message-inner"></div>
