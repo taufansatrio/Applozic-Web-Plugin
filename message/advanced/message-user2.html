@@ -20,6 +20,7 @@
             <div id="mck-sidebox"  class="mck-sidebox fade">
                 <div  class="mck-modal-dialog modal-sm mck-right mck-bg-white md-box-s">
                     <div id="mck-sidebox-content" class="mck-sidebox-content">
+                        <div id="mck-conversation-header" class="mck-conversation-header mck-truncate n-vis"></div>
                         <div class="mck-box-top">
                             <button type="button" class="mck-minimize-icon box-close mck-close icon n-vis"><span aria-hidden="true">&minus;</span></button>           
                             <div class="blk-lg-2 move-right">
@@ -39,6 +40,35 @@
                                     <h4 id="mck-conversation-title" class="modal-title mck-box-title mck-truncate">Conversations</h4>
                                 </div>
                             </div>
+                        </div>
+                        <div id="mck-product-group" class="mck-btn-group mck-product-group">
+                            <div id="mck-product-box" class="mck-product-box n-vis mck-dropdown-toggle" data-toggle="mckdropdown" aria-expanded="true">
+                                <div class="mck-row">
+                                    <div class="blk-lg-10">
+                                        <div class="mck-row">  
+                                            <div class="blk-lg-3 mck-product-icon"></div>
+                                            <div class="blk-lg-9">
+                                                <div class="mck-row">
+                                                    <div class="blk-lg-8 mck-product-title mck-truncate"></div>
+                                                    <div class="move-right mck-product-rt-up mck-truncate blk-lg-4">
+                                                        <strong class="mck-product-key"></strong>:<span class="mck-product-value"></span>                                
+                                                    </div>
+                                                </div>
+                                                <div class="mck-row">
+                                                    <div class="blk-lg-8 mck-truncate mck-product-subtitle"></div>
+                                                    <div class="move-right mck-product-rt-down mck-truncate blk-lg-4">
+                                                        <strong class="mck-product-key"></strong>:<span class="mck-product-value"></span>                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="blk-lg-2">
+                                        <span class="mck-caret n-vis"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul id="mck-conversation-list" class="mck-dropdown-menu menu-right mck-conversation-list n-vis" role="menu"></ul>
                         </div>
                         <div class="mck-box-md">
                             <div id="mck-message-cell" class="mck-message-cell">
@@ -73,21 +103,20 @@
                                 <div id="mck-msg-response" class="mck-box-response n-vis">
                                     <div id="mck-response-text" class="response-text"></div>
                                 </div>
-                                <form id="mck-msg-form" class="vertical">
-                                    <div class="mck-form-group">
+                                <form id="mck-msg-form" class="vertical mck-msg-form">
+                                    <div class="mck-form-group n-vis">
                                         <label class="sr-only placeholder-text control-label" for="mck-msg-to">To:</label>
                                         <input class="mck-form-cntrl" id="mck-msg-to" name="mck-msg-to" placeholder="To" required>
                                     </div>
-                                    <div class="mck-form-group">
+                                    <div class="mck-form-group last last-child">
                                         <label class="sr-only placeholder-text control-label" for="mck-textbox">Message</label>
                                         <div id="mck-textbox-container" class="mck-textbox-container">
                                             <div class="mck-blk-2 mck-text-box-panel move-left">
                                                 <div class="mck-blk-12">
-                                                    <button type="button" id="mck-btn-smiley" class="mck-btn mck-btn-smiley mck-btn-text-panel" title="Smiley"><img src="images/icon-smiley.png" alt="Smiley"/></button>
+                                                    <button type="button" id="mck-btn-smiley" class="mck-btn mck-btn-smiley mck-btn-text-panel" title="Smiley"><img src="images/icon-smiley-blue.png" alt="Smiley"/></button>
                                                 </div>
                                             </div> 
-                                            <div id="mck-text-box" contenteditable="true" class="mck-blk-8 mck-text-box mck-text required"></div>
-                                            <div class="mck-blk-2 mck-text-box-panel move-right">
+                                            <div class="mck-blk-2 mck-text-box-panel mck-mid-panel move-left">
                                                 <div class="mck-blk-12">
                                                     <label id="mck-file-up" class="fileinput-button mck-file-upload move-right" title="Attach File">
                                                         <button type="button" class="mck-btn mck-btn-text-panel" title="Attach File"><img src="images/mck-icon-upload.png" alt="Attach file"></button>
@@ -95,7 +124,13 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div id="mck-file-box" class="mck-file-box n-vis">
+                                            <div id="mck-text-box" contenteditable="true" class="mck-blk-8 mck-text-box mck-text required"></div>
+                                            <div class="mck-blk-2 mck-text-box-panel move-right">
+                                                <div class="mck-blk-12">                                       
+                                                    <button type="submit" id="mck-msg-sbmt" class="mck-btn mck-btn-text-panel" title="Send Message"><img src="images/icon-send.png" alt="Send"></button>
+                                                </div>
+                                            </div>
+                                            <div id="mck-file-box" class="mck-file-box row-fluid n-vis">
                                                 <div class="mck-file-expr">
                                                     <span class="mck-file-content blk-lg-8"><span class="mck-file-lb"></span>&nbsp;<span class="mck-file-sz"></span></span>
                                                     <span class="progress progress-striped active blk-lg-3" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="progress-bar progress-bar-success bar"></span></span>
@@ -106,14 +141,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mck-form-group last last-child">
-                                        <button type="submit" id="mck-msg-sbmt" class="mck-btn mck-btn-blue move-left" title="Send">
-                                            <span>Send</span>
-                                        </button>
-                                    </div>
-                                    <div class="mck-form-group mck-running-on n-vis">
-                                        <a href="https://www.applozic.com" target="_blank">Running on <strong>Applozic</strong></a>
-                                    </div>
                                 </form>
                             </div>
                             <div id="mck-contacts-content" class="mck-contacts-content mck-text-center">
@@ -121,6 +148,9 @@
                                     <span>New Message</span>
                                 </button>                        
                             </div>
+                        </div>
+                        <div class="mck-running-on n-vis">
+                            <a href="https://www.applozic.com" target="_blank"><strong>Powered by Applozic</strong></a>
                         </div>
                     </div>
                     <div id="mck-sidebox-search" class="mck-sidebox-search mck-sidebox-content n-vis">
@@ -149,21 +179,22 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/mck-modal.min.js"></script>
+        <script type="text/javascript" src="js/mck-widget.min.js"></script>
         <script type="text/javascript" src="js/jquery.linkify.min.js"></script>		
         <script  type="text/javascript" src="js/jquery.ui.widget.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
-        <script type="text/javascript" src="js/stomp.min.js"></script>
-        <script type="text/javascript" src="js/sockjs.min.js"></script>
-        <script type="text/javascript" src="js/emoji.min.js"></script>
-        <script type="text/javascript" src="js/jquery.emojiarea.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload.min.js"></script>
-        <script type="text/javascript" src="js/load-image.min.js"></script>
-        <script type="text/javascript" src="js/load-image-meta.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-process.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-image.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fileupload-validate.min.js"></script>  
-        <script type="text/javascript" src="js/jquery.emojis.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>	
+        <script type="text/javascript" src="js/sockjs.min.js"></script>		
+        <script type="text/javascript" src="js/stomp.min.js"></script>   
+        <script type="text/javascript" src="js/emoji.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.emojiarea.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.emojis.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.fileupload.min.js"></script>		
+        <script type="text/javascript" src="js/load-image.min.js"></script>		
+        <script type="text/javascript" src="js/load-image-meta.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.fileupload-process.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.fileupload-image.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.fileupload-validate.min.js"></script>
+        <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="js/app/mck-sidebox-1.0.js"></script>
         <script type="text/javascript">
             if (typeof $original !== 'undefined') {
@@ -197,8 +228,10 @@
                 }
             }
             //callback function execute after plugin initialize. 
-            function callback() {
-                //write your logic. 
+            function onInitialize(status) {
+                if (status === 'success') {
+                    //write your logic exectute after plugin initialize. 
+                }
             }
             $(document).ready(function () {
                 //Function to initialize plugin
@@ -207,7 +240,7 @@
                     readConversation: readMessage, // readMessage function defined above
                     contactDisplayName: displayName, // displayName function defined above
                     contactDisplayImage: contactImageSrc, // contactImageSrc function defined above
-                    callback: callback, //callback function defined above 
+                    onInit: onInitialize, //callback function execute on plugin initialize
                     maxAttachmentSize: 25, //max attachment size in MB
                     desktopNotification: true
                 });
