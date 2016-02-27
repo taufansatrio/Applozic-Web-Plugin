@@ -96,4 +96,4 @@ Note : desktopNotification support only for chrome browser, notificationIconLink
 More details here: 
 https://www.applozic.com/developers.html#applozic-web-plugin-getting-started
 
-Applozic is the best android chat sdk, still not convinced? Write to us at github@applozic.com and we will be happy to schedule a demo for you.
+Applozic is the best chat web plugin, still not convinced? Write to us at github@applozic.com and we will be happy to schedule a demo for you.
