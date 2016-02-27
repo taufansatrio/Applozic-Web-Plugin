@@ -63,31 +63,34 @@ A jQuery plugin to integrate messaging into your web page for real time communic
 Step 1: Register at https://www.applozic.com/ to get the application key.
 
 Step 2: For the standard user interface, add the following Applozic messaging plugin script file before </head> into your web page:
-<script type="text/javascript">
-   (function(d, m){var s, h;       
-   s = document.createElement("script");
-   s.type = "text/javascript";
-   s.async=true;
-   s.src="https://apps.applozic.com/sidebox.app";
-   h=document.getElementsByTagName('head')[0];
-   h.appendChild(s);
-   window.applozic=m;
-   m.init=function(t){m._globals=t;}})(document, window.applozic || {});
-</script>
+
+     <script type="text/javascript">
+        (function(d, m){var s, h;       
+        s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async=true;
+        s.src="https://apps.applozic.com/sidebox.app";
+        h=document.getElementsByTagName('head')[0];
+        h.appendChild(s);
+        window.applozic=m;
+        m.init=function(t){m._globals=t;}})(document, window.applozic || {});
+     </script>
 
 
 Step 3: Copy and paste below script before </body> to initialize plugin:
 
-<script type="text/javascript">
-  window.applozic.init({userId: 'PUT_USERID_HERE', appId: 'PUT_APPLICATION_KEY_HERE', desktopNotification: true,  notificationIconLink: "PUT_LOGO_IMAGE_LINK_HERE",});
-</script>
+     <script type="text/javascript">
+       window.applozic.init({userId: 'PUT_USERID_HERE', appId: 'PUT_APPLICATION_KEY_HERE', desktopNotification: true,  notificationIconLink: "PUT_LOGO_IMAGE_LINK_HERE",});
+     </script>
 
 
 Above options description :
- userId: 'UNIQUE USER ID OF ACTIVE USER'                                   // loggedIn user Id (required)   
- appId: 'YOUR APPLICATION KEY'                                             // obtained from Step 1 (required)     
- desktopNotification: true or false                                        // optional
- notificationIconLink : 'YOUR WEB APP LOGO'                                // required for desktop notifications (optional)
+
+      userId: 'UNIQUE USER ID OF ACTIVE USER'                                   // loggedIn user Id (required)   
+      appId: 'YOUR APPLICATION KEY'                                             // obtained from Step 1 (required)     
+      desktopNotification: true or false                                        // optional
+      notificationIconLink : 'YOUR WEB APP LOGO'                                // required for desktop notifications (optional)
+ 
 Note : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notifications
 
 More details here: 
