@@ -97,7 +97,7 @@
     float: left!important;
 }.mck-sidebox .mck-text-center {
     text-align: center!important;
-}.mck-sidebox .n-vis, .mck-sidebox .hide, .mck-sidebox-launcher .n-vis, .mck-sidebox-launcher.n-vis, .mck-msg-preview.n-vis {
+}.mck-sidebox .n-vis, .mck-sidebox .hide, .mck-sidebox-launcher .n-vis, .mck-sidebox-launcher.n-vis, .mck-msg-preview.n-vis, .n-vis {
     display: none!important;
 }.mck-sidebox .vis, .mck-sidebox .show, .mck-sidebox-launcher .vis, .mck-sidebox-launcher.vis, .mck-msg-preview.vis {
     display: block!important;
@@ -480,7 +480,7 @@
     background: 0 0;
     border: 0;
 }.mck-box-title {
-    text-align: left;
+    text-align: left !important;
     margin: 0;
     font-size: 18px;
     vertical-align: middle;
@@ -1077,7 +1077,10 @@
     margin-top: -2px;
 }.mck-preview-file-content a img {
     height: 50px !important;
-} .mck-preview-msg-content {
+}.mck-msg-preview .mck-preview-icon img {
+    height: 45px;
+    width: 45px;
+}.mck-preview-msg-content {
     word-wrap: break-word;   
     font-size: 13px;
 }.mck-no-data-text {
@@ -1343,6 +1346,9 @@
     color: #BCAAA4;
 }.mck-text-z {
     color: #AED581;
+}
+.mck-user-ol-status.vis {
+    display: inline-block !important;
 }
 @media (min-width: 310px){
     .mck-sidebox .modal-sm {
