@@ -3217,9 +3217,8 @@ $applozic.fn.mckModal = $appModal;
                     }
                 }
                 $mck_msg_preview.data('isgroup', contact.isGroup);
-                if (message.conversationId) {
-                    $mck_msg_preview.data('mck-conversationid', message.conversationId);
-                }
+                var converssationId = (message.conversationId) ? message.conversationId : "";
+                $mck_msg_preview.data('mck-conversationid', converssationId);
                 var imgsrctag = mckMessageLayout.getContactImageLink(contact, displayName);
                 if (message.message) {
                     $mck_preview_msg_content.html(mckMessageLayout.getMessageTextForContactPreview(message, contact, 50));
