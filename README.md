@@ -104,6 +104,9 @@ We provide support over at [StackOverflow] (http://stackoverflow.com/questions/t
 Applozic is the best jquery chat plugin for instant messaging, still not convinced? Write to us at github@applozic.com and we will be happy to schedule a demo for you.
 
 ##Github projects
+
 Android Chat SDK https://github.com/AppLozic/Applozic-Android-SDK
+
 Web Chat Plugin https://github.com/AppLozic/Applozic-Web-Plugin
+
 iOS Chat SDK https://github.com/AppLozic/Applozic-iOS-SDK
