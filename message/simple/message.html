@@ -7,7 +7,7 @@
                 s = document.createElement("script");
                 s.type = "text/javascript";
                 s.async = true;
-                s.src = "https://test.applozic.com/sidebox.app";
+                s.src = "https://apps.applozic.com/sidebox.app";
                 h = document.getElementsByTagName('head')[0];
                 h.appendChild(s);
                 window.applozic = n;
@@ -48,8 +48,8 @@
                     //write your logic exectute after plugin initialize. 
                 }
             }
-            window.applozic.init({userId: 'shanki.connect', userName: 'Shanki', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
-                contactDisplayImage: contactImageSrc, onInit: onInitialize, maxAttachmentSize: 25, desktopNotification: true, enableLocShare: true,
+            window.applozic.init({userId: 'customer-1', userName: 'Customer', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
+                contactDisplayImage: contactImageSrc, onInit: onInitialize, maxAttachmentSize: 25, desktopNotification: true, locShare: true,
                 googleApiKey: "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4"});
 
             // Note: maxAttachmentSize property value declared above is in MB
