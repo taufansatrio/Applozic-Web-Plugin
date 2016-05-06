@@ -11,7 +11,7 @@ Signup at https://www.applozic.com to get the application key.
 
 <img align="right" src="img/webplugin.jpg" />
 
-
+Applozic One to One and Group Chat SDK
 
 Features:
 
