@@ -77,9 +77,6 @@ Integrate messaging into your mobile apps and website without developing or main
 Javascript chat and messaging plugin that lets you enable real time chat using websockets in your website without developing or maintaining any infrastructure.
 
 
-
-Add Applozic messaging plugin into your web application.
-
 Signup at [Applozic](https://www.applozic.com/signup.html) to get the application key.
 
 #### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
