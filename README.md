@@ -60,38 +60,152 @@ Applozic messaging jQuery plugin
 
 A jQuery plugin to integrate messaging into your web page for real time communication between users via Applozic messaging platform and also to see your latest conversations and past chat history.Add Applozic messaging plugin into your web application :
 
-Step 1: Register at https://www.applozic.com/ to get the application key.
 
-Step 2: For the standard user interface, add the following Applozic messaging plugin script file before </head> into your web page:
+# APPLOZIC WEB PLUGIN     
 
-     <script type="text/javascript">
-        (function(d, m){var s, h;       
-        s = document.createElement("script");
-        s.type = "text/javascript";
-        s.async=true;
-        s.src="https://apps.applozic.com/sidebox.app";
-        h=document.getElementsByTagName('head')[0];
-        h.appendChild(s);
-        window.applozic=m;
-        m.init=function(t){m._globals=t;}})(document, window.applozic || {});
-     </script>
+### Overview      
 
 
-Step 3: Copy and paste below script before </body> to initialize plugin:
-
-     <script type="text/javascript">
-       window.applozic.init({userId: 'PUT_USERID_HERE', appId: 'PUT_APPLICATION_KEY_HERE', desktopNotification: true,  notificationIconLink: "PUT_LOGO_IMAGE_LINK_HERE",});
-     </script>
+Integrate messaging into your mobile apps and website without developing or maintaining any infrastructure. Sign up at https://www.applozic.com         
 
 
-Above options description :
+### Getting Started          
 
-      userId: 'UNIQUE USER ID OF ACTIVE USER'                                   // loggedIn user Id (required)   
-      appId: 'YOUR APPLICATION KEY'                                             // obtained from Step 1 (required)     
-      desktopNotification: true or false                                        // optional
-      notificationIconLink : 'YOUR WEB APP LOGO'                                // required for desktop notifications (optional)
+
+
+
+
+****Applozic messaging jQuery plugin****
+
+Javascript chat and messaging plugin that lets you enable real time chat using websockets in your website without developing or maintaining any infrastructure.
+
+
+
+Add Applozic messaging plugin into your web application.
+
+
+#### Step 1: Sign up at https://www.applozic.com/signup.html  to get the application key.
+
+#### Step 2: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+
+```
+<script type="text/javascript">
+   (function(d, m){var s, h;       
+   s = document.createElement("script");
+   s.type = "text/javascript";
+   s.async=true;
+   s.src="https://apps.applozic.com/sidebox.app";
+   h=document.getElementsByTagName('head')[0];
+   h.appendChild(s);
+   window.applozic=m;
+   m.init=function(t){m._globals=t;}})(document, window.applozic || {});
+</script>
+```
  
-Note : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notifications
+#### Step 3: Initialize Chat Plugin
+
+``` 
+<script type="text/javascript">
+  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', desktopNotification: true,  notificationIconLink: "PUT_LOGO_IMAGE_LINK_HERE"});
+</script>
+```    
+
+It can also be called from any event, for example: on click of a button.
+
+Above options description :-    
+
+```
+ appId: 'YOUR APPLICATION KEY'                         // obtained from Step 1 (required)    
+ userId: 'UNIQUE USER ID OF ACTIVE USER'               // loggedIn user Id (required)  
+ userName: 'ACTIVE USER DISPLAY NAME'                  // loggedIn user name (optional)  
+ imageLink: 'ACTIVE USER IMAGE LINK'                   // loggedIn user image url (optional)          
+ desktopNotification: true or false                    // optional
+ notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional)                             
+```
+
+**Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
+
+
+#### Step 4: Some additional options which you can configure while plugin initialization in Step 3
+
+```
+ 1) onInit : function(response) { 
+        if (response === "success") {
+           // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
+        } else {
+           // error in loading plugin (you can hide chat button or refresh page) 
+        }
+    }                      
+    
+  Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization. 
+  
+ 2) contactDisplayName: function(userId) {  
+          //return the display name of the user from your application code based on userId.
+          return "";
+    }                    
+  Function should return USER_DISPLAY_NAME by taking USERID as input parameter. 
+  
+ 3) contactDisplayImage: function(userId) {  
+          //return the display image url of the user from your application code based on userId.
+          return "";
+    }                 
+    
+  Function should return USER_IMAGE_URL by taking USERID as a input parameter. 
+  
+ 4) accessToken: 'PASS_USER_ACCESS_TOKEN_HERE'                            //Type - String (optional)    
+ 
+ Access token is to authenticate user from your end. To enable access token authentication you have to configure authentication url in admin dashboard. 
+```
+For more detail about access token, read :**https://www.applozic.com/app-config.html#authentication-url**.
+
+
+#### Step 5: Contacts
+
+If you want to load all contacts directly use below function - 
+```
+var CONTACT_LIST_JSON = 
+          {"contacts": [{"userId": "USER_1", "displayName": "Devashish", 
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, 
+                        {"userId": "USER_2", "displayName": "Adarsh", 
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, 
+                        {"userId": "USER_3", "displayName": "Shanki",
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}
+                        ]
+         };  //Replace this with contacts json from your application
+         
+
+$applozic.fn.applozic('loadContacts', 'CONTACT_LIST_JSON');
+
+```
+
+**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 4 for reference).
+
+
+#### Step 6: Chat screen
+
+Javascript to open chat box
+
+```
+ $applozic.fn.applozic('loadTab', '');  
+ ``` 
+ 
+Javascript to open chat with individual user
+
+```
+ $applozic.fn.applozic('loadTab', 'PUT_OTHER_USERID_HERE');  // user Id of other person with whom you want to open conversation 
+ ``` 
+
+
+Anchor tag or button to load(open) individual tab conversation directly
+
+You can add the following html into your code to directly open a conversation with any user   
+
+```
+<a href="#" class="applozic-launcher" data-mck-id="PUT_OTHER_USERID_HERE" data-mck-name="PUT_OTHER_USER_DISPLAY_NAME_HERE">CHAT BUTTON</a>
+ ```        
+ 
+ **Note** - Data attribute **mck-name** is optional in above tag          
+
 
 More details here: 
 https://www.applozic.com/developers.html#applozic-web-plugin-getting-started
