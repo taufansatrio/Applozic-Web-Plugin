@@ -161,7 +161,8 @@ For more detail about access token, read :**https://www.applozic.com/app-config.
 
 #### Step 5: Contacts
 
-If you want to load all contacts directly use below function - 
+Javascript code to load contacts
+
 ```
 var CONTACT_LIST_JSON = 
           {"contacts": [{"userId": "USER_1", "displayName": "Devashish", 
@@ -195,10 +196,9 @@ Javascript to open chat with individual user
  $applozic.fn.applozic('loadTab', 'PUT_OTHER_USERID_HERE');  // user Id of other person with whom you want to open conversation 
  ``` 
 
-
 Anchor tag or button to load(open) individual tab conversation directly
 
-You can add the following html into your code to directly open a conversation with any user   
+Add a chat button inside your web page using a tag and use 'userId' for data attribute "data-mck-id"   
 
 ```
 <a href="#" class="applozic-launcher" data-mck-id="PUT_OTHER_USERID_HERE" data-mck-name="PUT_OTHER_USER_DISPLAY_NAME_HERE">CHAT BUTTON</a>
