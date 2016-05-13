@@ -126,7 +126,7 @@ Above options description :-
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
 
-#### Step 4: Some additional options which you can configure while plugin initialization in Step 3
+#### Step 4: More options with callback functions
 
 ```
  1) onInit : function(response) { 
@@ -155,8 +155,23 @@ Above options description :-
  4) accessToken: 'PASS_USER_ACCESS_TOKEN_HERE'                            //Type - String (optional)    
  
  Access token is to authenticate user from your end. To enable access token authentication you have to configure authentication url in admin dashboard. 
+ For more detail about access token, read :**https://www.applozic.com/app-config.html#authentication-url**.
 ```
-For more detail about access token, read :**https://www.applozic.com/app-config.html#authentication-url**.
+
+Example of how to use above mentioned options:
+```
+     $applozic.fn.applozic({
+       userId: USER_ID,
+       appId: APPLICATION_KEY,
+       onInit: function(response) { 
+            if (response === "success") {
+               // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
+            } else {
+               // error in loading plugin (you can hide chat button or refresh page) 
+            }
+        }
+     });
+```
 
 
 #### Step 5: Contacts
@@ -205,6 +220,16 @@ Add a chat button inside your web page using a tag and use 'userId' for data att
  ```        
  
  **Note** - Data attribute **mck-name** is optional in above tag          
+ 
+ #### Step 7: Send Message
+ 
+ ```
+ var messageJson = 
+          {"to":'USER_ID',                                 // required
+           "message" : 'TEXT_MESSAGE'                      // required
+        }; 
+$applozic.fn.applozic('sendMessage', messageJson);
+ ```
 
 
 More details here: 
