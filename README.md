@@ -72,9 +72,6 @@ Integrate messaging into your mobile apps and website without developing or main
 ### Getting Started          
 
 
-
-
-
 ****Applozic messaging jQuery plugin****
 
 Javascript chat and messaging plugin that lets you enable real time chat using websockets in your website without developing or maintaining any infrastructure.
@@ -83,10 +80,9 @@ Javascript chat and messaging plugin that lets you enable real time chat using w
 
 Add Applozic messaging plugin into your web application.
 
+Signup at [Applozic](https://www.applozic.com/signup.html) to get the application key.
 
-#### Step 1: Sign up at https://www.applozic.com/signup.html  to get the application key.
-
-#### Step 2: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+#### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
 
 ```
 <script type="text/javascript">
@@ -102,7 +98,7 @@ Add Applozic messaging plugin into your web application.
 </script>
 ```
  
-#### Step 3: Initialize Chat Plugin
+#### Step 2: Initialize Chat Plugin
 
 ``` 
 <script type="text/javascript">
@@ -126,7 +122,7 @@ Above options description :-
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
 
-#### Step 4: More options with callback functions
+#### Step 3: More options with callback functions
 
 ```
  1) onInit : function(response) { 
@@ -174,7 +170,7 @@ Example of how to use above mentioned options:
 ```
 
 
-#### Step 5: Contacts
+#### Step 4: Contacts
 
 Javascript code to load contacts
 
@@ -197,7 +193,7 @@ $applozic.fn.applozic('loadContacts', 'CONTACT_LIST_JSON');
 **NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 4 for reference).
 
 
-#### Step 6: Chat screen
+#### Step 5: Chat screen
 
 Javascript to open chat box
 
@@ -221,7 +217,7 @@ Add a chat button inside your web page using a tag and use 'userId' for data att
  
  **Note** - Data attribute **mck-name** is optional in above tag          
  
- #### Step 7: Send Message
+ #### Step 6: Send Message
  
  ```
  var messageJson = 
