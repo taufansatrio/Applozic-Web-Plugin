@@ -61,8 +61,6 @@ Applozic messaging jQuery plugin
 A jQuery plugin to integrate messaging into your web page for real time communication between users via Applozic messaging platform and also to see your latest conversations and past chat history.Add Applozic messaging plugin into your web application :
 
 
-# APPLOZIC WEB PLUGIN     
-
 ### Overview      
 
 
@@ -214,8 +212,11 @@ Add a chat button inside your web page using a tag and use 'userId' for data att
  
  **Note** - Data attribute **mck-name** is optional in above tag          
  
- #### Step 6: Send Message
  
+ 
+#### Step 6: Send message
+
+
  ```
  var messageJson = 
           {"to":'USER_ID',                                 // required
