@@ -256,6 +256,16 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
+ 
+ 
+ ###UI Customization
+ 
+ For customizing the UI, download files from https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/advanced
+ Open message.html file as a reference and add all scripts and html in your web page in same order as given in message.html
+ 
+ You can modify mck-sidebox-1.0.css class located at:
+ https://github.com/AppLozic/Applozic-Web-Plugin/blob/master/message/advanced/css/app/mck-sidebox-1.0.css
+
   
   
 ###Advance options
