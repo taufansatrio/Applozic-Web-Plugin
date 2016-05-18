@@ -220,9 +220,11 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  **Note** - Data attribute **mck-name** is optional in above tag        
  
  
- Step 6: Context (Topic) based Chat
+##### Step 6: Context (Topic) based Chat
  
  Add the following in $applozic.fn.applozic call:
+ 
+ ```
   topicBox: true,
   topicDetail: function(topicId) {
          //Based on topicId, return the following details from your application
@@ -235,22 +237,28 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
                      'value2':'value2'            // Value of key2 ex-$100  (Optional)
                   };
   }
+ ```
  
  Add a chat button inside your web page using ```a``` tag and add the following:
  
+ ```
  Class Attribute - applozic-wt-launcher 
  Data Attriutes  - mck-id, mck-name and mck-topicid
+```
 
+```
  mck-id      :  User Id of the user with whom to initiate the chat
  mck-name    :  Display name of the user with whom to initiate the chat
  mck-topicId :  Unique identifier for the topic/product 
+ ```
  
  ```
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
   
-Advance options
+  
+###Advance options
  
  
 #### 1: Send message
