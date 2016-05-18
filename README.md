@@ -197,10 +197,16 @@ Javascript to open chat box
  $applozic.fn.applozic('loadTab', '');  
  ``` 
  
-Javascript to open chat with individual user
+Javascript to open chat with User
 
 ```
  $applozic.fn.applozic('loadTab', 'PUT_OTHER_USERID_HERE');  // user Id of other person with whom you want to open conversation 
+ ``` 
+ 
+ Javascript to open chat with Group
+
+```
+ $applozic.fn.applozic('loadGroup', 'PUT_GROUP_ID_HERE');  // user Id of other person with whom you want to open conversation 
  ``` 
 
 Anchor tag or button to load(open) individual tab conversation directly
@@ -217,12 +223,24 @@ Add a chat button inside your web page using a tag and use 'userId' for data att
  
 #### Step 6: Send message
 
-
+Send message from logged in user to another user
  ```
  var messageJson = 
           {"to":'USER_ID',                                 // required
            "message" : 'TEXT_MESSAGE'                      // required
         }; 
+$applozic.fn.applozic('sendMessage', messageJson);
+ ```
+
+
+
+Send message visible only to the receiver.
+ ```
+var messageJson = 
+          {"to":'USER_ID',                                     // required
+           "type" : 12,                                        // required
+           "message" : 'TEXT_MESSAGE'                          // required
+        };  
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
 
