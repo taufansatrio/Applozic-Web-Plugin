@@ -346,35 +346,58 @@ applozic.events = {onConnect: function () {
 
 
 Events description:
+
 1) onConnect: Triggered when user subscribed successfully. 
+
 
 2) onConnectFailed: Triggered when user failed to subscribe. 
 
+
 3) onMessageDelivered: Triggered when message is delivered. 
+
 Response contains message key. 
+
 Response object- 
+
 {’messageKey’: ‘delivered-message-key’}. 
 
+
 4) onMessageRead: Triggered when delivered message is read on other end. 
+
 Response contains message key. 
+
 Response object - 
+
 {’messageKey’: ‘delivered-message-key’}.
 
+
 5) onMessageReceived: Triggered when new message received. 
+
 Response contains message.
+
 Response object - {’message’: message} 
 
+
 6) onMessageSentUpdate: Triggered when message sent successfully to server. 
+
 Response contains messageKey. 
+
 Response object- {’messageKey’: ‘sent-message-key’}. 
 
+
 7) onUserConnect: Triggered when some other user comes online.
+
 Response contains user Id. 
+
 Response object - {’userId’: ‘connected-user-Id’} 
 
+
 8) onUserDisconnect: Triggered when some other user goes offline. 
+
 Response contains user Id. 
+
 Response object - {’userId’: ‘disconnected-user-id’, ‘lastSeenAtTime’ : ‘time in millsec’}
+
 
 
 More details here: 
