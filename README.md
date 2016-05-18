@@ -261,7 +261,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
 ###Advance options
  
  
-#### 1 Send message
+####  Send message
 
 Send message from logged in user to another user
  ```
@@ -283,6 +283,30 @@ var messageJson =
         };  
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
+
+####  Get User Details
+
+
+```
+  $applozic.fn.applozic('getUserDetail', {callback: function getUserDetail(response) {
+        if(response.status === 'success') {
+           // write your logic
+        }
+     }
+  });
+```
+
+Sample response:
+
+```
+           {'status' : 'success' ,                     // or error
+            'data':  {'totalUnreadCount': 15           // total unread count for user          
+                     'users':                          // Array of other users detail
+                        [{"userId":"USERID_1","connected":false,"lastSeenAtTime":1453462368000,"createdAtTime":1452150981000,"unreadCount":3}, 
+                        {"userId":"USERID_2","connected":false,"lastSeenAtTime":1452236884000,"createdAtTime":1452236884000,"unreadCount":1}]    
+                     }
+           }
+```
 
 
 
