@@ -211,17 +211,49 @@ Javascript to open chat with User
 
 Anchor tag or button to load(open) individual tab conversation directly
 
-Add a chat button inside your web page using a tag and use 'userId' for data attribute "data-mck-id"   
+Add a chat button inside your web page using ```a``` tag and use 'userId' for data attribute "data-mck-id"   
 
 ```
 <a href="#" class="applozic-launcher" data-mck-id="PUT_OTHER_USERID_HERE" data-mck-name="PUT_OTHER_USER_DISPLAY_NAME_HERE">CHAT BUTTON</a>
  ```        
  
- **Note** - Data attribute **mck-name** is optional in above tag          
+ **Note** - Data attribute **mck-name** is optional in above tag        
  
  
+ Step 6: Context (Topic) based Chat
  
-#### Step 6: Send message
+ Add the following in $applozic.fn.applozic call:
+  topicBox: true,
+  topicDetail: function(topicId) {
+         //Based on topicId, return the following details from your application
+         return {'title': 'topic-title',      // Product title
+                     'subtitle': 'sub-title',     // Product subTitle or Product Id
+                     'link' :'image-link',        // Product image link
+                     'key1':'key1' ,              // Small text anything like Qty (Optional)
+                     'value1':'value1',           // Value of key1 ex-10 (number of quantity) Optional
+                     'key2': 'key2',              // Small text anything like MRP (product price) (Optional)
+                     'value2':'value2'            // Value of key2 ex-$100  (Optional)
+                  };
+  }
+ 
+ Add a chat button inside your web page using ```a``` tag and add the following:
+ 
+ Class Attribute - applozic-wt-launcher 
+ Data Attriutes  - mck-id, mck-name and mck-topicid
+
+ mck-id      :  User Id of the user with whom to initiate the chat
+ mck-name    :  Display name of the user with whom to initiate the chat
+ mck-topicId :  Unique identifier for the topic/product 
+ 
+ ```
+ <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
+ ```
+ 
+  
+Advance options
+ 
+ 
+#### 1: Send message
 
 Send message from logged in user to another user
  ```
@@ -243,6 +275,8 @@ var messageJson =
         };  
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
+
+
 
 
 More details here: 
