@@ -258,7 +258,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  
  
- ###UI Customization
+ ### UI Customization
  
  For customizing the UI, download files from https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/advanced
  Open message.html file as a reference and add all scripts and html in your web page in same order as given in message.html
