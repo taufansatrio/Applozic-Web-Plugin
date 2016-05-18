@@ -261,7 +261,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
 ###Advance options
  
  
-#### 1: Send message
+#### 1 Send message
 
 Send message from logged in user to another user
  ```
