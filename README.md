@@ -324,6 +324,31 @@ Sample response:
 
 ### Light weight plugin with your own UI 
 
+#### Add following scripts before ```</head>``` tag
+
+```
+<script type="text/javascript" src="https://www.applozic.com/resources/lib/js/mck-socket.min.js"></script>      
+<script type="text/javascript" src="https://www.applozic.com/resources/sidebox/js/app/apz-client-1.0.js"></script>
+```
+
+#### Initialize Plugin
+
+Create APPLOZIC instance by configuring your options
+
+```
+
+ var applozic = new APPLOZIC({'baseUrl': "https://apps.applozic.com",
+                              'userId': 'PUT_USERID_HERE',                   // LoggedIn userId
+                              'appId': 'PUT_APPLICATION_KEY_HERE',           // obtained from Step 1 (required)
+                              'onInit': function(response) { 
+                                           if (response === "success") {
+                                                 // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
+                                           } else {
+                                                 // error in loading plugin (you can hide chat button or refresh page) 
+                                           }
+                                         }
+                            });
+```
 
 #### Events subscription
 
