@@ -97,7 +97,7 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
 
 ``` 
 <script type="text/javascript">
-  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE'});
+  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', imageLink : 'PUT_USER_IMAGE_LINK_HERE',  desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE'});
 </script>
 ```    
 
