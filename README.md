@@ -186,7 +186,7 @@ $applozic.fn.applozic('loadContacts', 'CONTACT_LIST_JSON');
 
 ```
 
-**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 4 for reference).
+**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 3 for reference).
 
 
 ##### Step 5: Chat screen
