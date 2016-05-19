@@ -322,7 +322,10 @@ Sample response:
 
 
 
-### Events subscription
+### Light weight plugin with your own UI 
+
+
+#### Events subscription
 
 Using events callback, you can subscribe to the following events.
 
