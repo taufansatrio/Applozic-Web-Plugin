@@ -321,6 +321,7 @@ Sample response:
 
 
 ### Events subscription
+
 Using events callback, you can subscribe to the following events.
 
 ```
