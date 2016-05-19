@@ -222,7 +222,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
 ##### Step 6: Context (Topic) based Chat
  
- Add the following in $applozic.fn.applozic call:
+ Add the following in window.applozic.init call:
  
  ```
   topicBox: true,
