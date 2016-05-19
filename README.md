@@ -152,7 +152,7 @@ Above options description :-
 
 Example of how to use above mentioned options:
 ```
-     $applozic.fn.applozic({
+     window.applozic.init({
        userId: USER_ID,
        appId: APPLICATION_KEY,
        onInit: function(response) { 
