@@ -191,7 +191,7 @@ $applozic.fn.applozic('loadContacts', 'CONTACT_LIST_JSON');
 
 ##### Step 5: Chat screen
 
-Javascript to open chat box
+Javascript to open main chat box containing list of contacts
 
 ```
  $applozic.fn.applozic('loadTab', '');  
@@ -206,7 +206,7 @@ Javascript to open chat with User
  Javascript to open chat with Group
 
 ```
- $applozic.fn.applozic('loadGroup', 'PUT_GROUP_ID_HERE');  // user Id of other person with whom you want to open conversation 
+ $applozic.fn.applozic('loadGroup', 'PUT_GROUP_ID_HERE');  // group Id returned in response to group create api  
  ``` 
 
 Anchor tag or button to load(open) individual tab conversation directly
