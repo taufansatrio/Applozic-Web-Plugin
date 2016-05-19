@@ -77,7 +77,7 @@ Javascript chat and messaging plugin that lets you enable real time chat using w
 
 Signup at [Applozic](https://www.applozic.com/signup.html) to get the application key.
 
-#### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+##### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
 
 ```
 <script type="text/javascript">
@@ -93,7 +93,7 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
 </script>
 ```
  
-#### Step 2: Initialize Chat Plugin
+##### Step 2: Initialize Chat Plugin
 
 ``` 
 <script type="text/javascript">
@@ -118,7 +118,7 @@ Above options description :-
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
 
-#### Step 3: More options with callback functions
+##### Step 3: More options with callback functions
 
 ```
  1) onInit : function(response) { 
@@ -166,7 +166,7 @@ Example of how to use above mentioned options:
 ```
 
 
-#### Step 4: Contacts
+##### Step 4: Contacts
 
 Javascript code to load contacts
 
@@ -189,7 +189,7 @@ $applozic.fn.applozic('loadContacts', 'CONTACT_LIST_JSON');
 **NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 4 for reference).
 
 
-#### Step 5: Chat screen
+##### Step 5: Chat screen
 
 Javascript to open chat box
 
@@ -258,7 +258,9 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  
  
- ### UI Customization
+ 
+### UI Customization
+ 
  
  For customizing the UI, download files from https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/advanced
  Open message.html file as a reference and add all scripts and html in your web page in same order as given in message.html
