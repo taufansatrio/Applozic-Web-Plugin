@@ -109,10 +109,13 @@ Above options description :-
  appId: 'YOUR APPLICATION KEY'                         // obtained from Step 1 (required)    
  userId: 'UNIQUE USER ID OF ACTIVE USER'               // loggedIn user Id (required)  
  userName: 'ACTIVE USER DISPLAY NAME'                  // loggedIn user name (optional)  
- imageLink: 'ACTIVE USER IMAGE LINK'                   // loggedIn user image url (optional)          
- desktopNotification: true or false                    // optional
- notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional)      
+ imageLink: 'ACTIVE USER IMAGE LINK'                   // loggedIn user image url (optional)      
+ email: 'ACTIVE USER EMAIL'                            // optional
  contactNumber : 'CONTACT NUMBER OF USER ALONG WITH INTERNATIONAL CODE eg: +919535008745' //optional
+ password : 'ACTIVE USER AUTHENTICATION PASSWORD'      // optional
+ desktopNotification: true or false                    // optional
+ notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional)    
+ 
 ```
 
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
