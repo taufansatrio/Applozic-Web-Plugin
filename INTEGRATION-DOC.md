@@ -105,7 +105,7 @@ var CONTACT_LIST_JSON =
          };  //Replace this with contacts json from your application
          
 
-$applozic.fn.applozic('loadContacts', 'CONTACT_LIST_JSON');
+$applozic.fn.applozic('loadContacts', CONTACT_LIST_JSON);
 
 ```
 
