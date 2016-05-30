@@ -259,7 +259,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
- ##### Step 7: Events subscription
+##### Step 7: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -452,7 +452,7 @@ Create APPLOZIC instance by configuring your options
 Javascript to subscribe to events
 
 ```
- applozic.events = apzEvents;      // apzEvents defined in Step:7
+ applozic.events = apzEvents;      // apzEvents defined in Step 7
  ``` 
 
 
