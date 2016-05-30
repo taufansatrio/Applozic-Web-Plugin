@@ -369,3 +369,9 @@ Create APPLOZIC instance by configuring your options
                                          }
                             });
 ```
+
+Javascript to subscribe to events
+
+```
+ applozic.events = apzEvents;      // apzEvents defined in Step:7
+ ``` 
