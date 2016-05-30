@@ -1,8 +1,4 @@
 var $applozic = jQuery.noConflict(true);
-if (typeof $applozic.fn.mckModal === 'function') {
-    var $appModal = $applozic.fn.mckModal.noConflict();
-}
-$applozic.fn.mckModal = $appModal;
 (function ($applozic, w, d) {
     "use strict";
     if (typeof String.prototype.startsWith !== 'function') {
@@ -44,17 +40,6 @@ $applozic.fn.mckModal = $appModal;
     };
     $applozic.fn.applozic = function (appOptions, params) {
         var $mck_sidebox = $applozic('#mck-sidebox');
-        if (typeof appOptions.ojq !== 'undefined') {
-            $ = appOptions.ojq;
-            jQuery = appOptions.ojq;
-        } else {
-            $ = $applozic;
-            jQuery = $applozic;
-        }
-        if (typeof appOptions.obsm !== 'undefined') {
-            $.fn.modal = appOptions.obsm;
-            jQuery.fn.modal = appOptions.obsm;
-        }
         if ($applozic.type(appOptions) === "object") {
             appOptions = $applozic.extend(true, {}, default_options, appOptions);
         }
@@ -122,10 +107,37 @@ $applozic.fn.mckModal = $appModal;
                     oInstance = $mck_sidebox.data("applozic_instance");
                     oInstance.reInit(appOptions);
                 } else {
+                    if (typeof appOptions.ojq !== 'undefined') {
+                        $ = appOptions.ojq;
+                        jQuery = appOptions.ojq;
+                    } else {
+                        $ = $applozic;
+                        jQuery = $applozic;
+                    }
+                    if (typeof appOptions.obsm === "function") {
+                        $.fn.modal = appOptions.obsm;
+                        jQuery.fn.modal = appOptions.obsm;
+                    } else if (typeof $applozic.fn.modal === 'function') {
+                        var oModal = $applozic.fn.modal.noConflict();
+                        $.fn.modal = oModal;
+                        jQuery.fn.modal = oModal;
+                    } else if (typeof $.fn.modal === 'function') {
+                        var oModal = $.fn.modal.noConflict();
+                        $.fn.modal = oModal;
+                        jQuery.fn.modal = oModal;
+                    }
+                    if (typeof appOptions.omckm === "function") {
+                        $applozic.fn.mckModal = appOptions.omckm;
+                    } else if (typeof $applozic.fn.mckModal === 'function') {
+                        $applozic.fn.mckModal = $applozic.fn.mckModal.noConflict();
+                    } else if (typeof $.fn.mckModal === 'function') {
+                        $applozic.fn.mckModal = $.fn.mckModal.noConflict();
+                    }
                     var applozic = new Applozic(appOptions);
                     applozic.init();
                     $mck_sidebox.data("applozic_instance", applozic);
                 }
+
             } else {
                 alert("Oops! looks like incorrect application id or user Id.");
             }
