@@ -225,7 +225,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  **Note** - Data attribute **mck-name** is optional in above tag       
  
- ##### Step 6: Group 
+##### Step 6: Group 
  
  Javascript to get group list
  
