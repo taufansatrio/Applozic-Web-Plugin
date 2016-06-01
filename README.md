@@ -116,7 +116,8 @@ Above options description :-
  contactNumber : 'CONTACT NUMBER OF USER ALONG WITH INTERNATIONAL CODE eg: +919535008745' //optional
  accessToken : 'ACTIVE USER AUTHENTICATION TOKEN OR PASSWORD'      // optional
  desktopNotification: true or false                    // optional
- notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional)    
+ notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional) 
+ maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional)
  
 ```
 
