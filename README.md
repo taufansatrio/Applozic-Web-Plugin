@@ -260,12 +260,23 @@ Sample response:
                                                  ]});   
  ``` 
  
- Javascript to add group member (only for group admin)
+Javascript to add group member (only for group admin)
  
  ```
 $applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID', 'userId':'USER_ID_OF_MEMBER_TO_ADD', 'callback': function(response) {console.log(response);}});
  ``` 
  
+ Javascript to remove group member (only for group admin)
+ 
+ ```
+$applozic.fn.applozic('removeGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_OF_MEMBER_TO_REMOVE', callback: function(response) {console.log(response);}});
+ ```  
+ 
+ Javascript to exit group
+ 
+ ```
+$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(response){console.log(response);}});
+ ```  
  
 ##### Step 7: Context (Topic) based Chat
  
