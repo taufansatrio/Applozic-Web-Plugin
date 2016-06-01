@@ -142,43 +142,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  **Note** - Data attribute **mck-name** is optional in above tag        
  
- 
-##### Step 6: Context (Topic) based Chat
- 
- Add the following in window.applozic.init call:
- 
- ```
-  topicBox: true,
-  topicDetail: function(topicId) {
-         //Based on topicId, return the following details from your application
-         return {'title': 'topic-title',      // Product title
-                     'subtitle': 'sub-title',     // Product subTitle or Product Id
-                     'link' :'image-link',        // Product image link
-                     'key1':'key1' ,              // Small text anything like Qty (Optional)
-                     'value1':'value1',           // Value of key1 ex-10 (number of quantity) Optional
-                     'key2': 'key2',              // Small text anything like MRP (product price) (Optional)
-                     'value2':'value2'            // Value of key2 ex-$100  (Optional)
-                  };
-  }
- ```
- 
- Add a chat button inside your web page using ```a``` tag and add the following:
- 
- ```
- Class Attribute - applozic-wt-launcher 
- Data Attriutes  - mck-id, mck-name and mck-topicid
-```
 
-```
- mck-id      :  User Id of the user with whom to initiate the chat
- mck-name    :  Display name of the user with whom to initiate the chat
- mck-topicId :  Unique identifier for the topic/product 
- ```
- 
- ```
- <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
- ```
- 
 ##### Step 6: Group 
  
  Javascript to get group list
@@ -230,7 +194,46 @@ $applozic.fn.applozic('removeGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_O
  
  ```
 $applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(response){console.log(response);}});
- ```   
+ ``` 
+ 
+  
+##### Step 7: Context (Topic) based Chat
+ 
+ Add the following in window.applozic.init call:
+ 
+ ```
+  topicBox: true,
+  topicDetail: function(topicId) {
+         //Based on topicId, return the following details from your application
+         return {'title': 'topic-title',      // Product title
+                     'subtitle': 'sub-title',     // Product subTitle or Product Id
+                     'link' :'image-link',        // Product image link
+                     'key1':'key1' ,              // Small text anything like Qty (Optional)
+                     'value1':'value1',           // Value of key1 ex-10 (number of quantity) Optional
+                     'key2': 'key2',              // Small text anything like MRP (product price) (Optional)
+                     'value2':'value2'            // Value of key2 ex-$100  (Optional)
+                  };
+  }
+ ```
+ 
+ Add a chat button inside your web page using ```a``` tag and add the following:
+ 
+ ```
+ Class Attribute - applozic-wt-launcher 
+ Data Attriutes  - mck-id, mck-name and mck-topicid
+```
+
+```
+ mck-id      :  User Id of the user with whom to initiate the chat
+ mck-name    :  Display name of the user with whom to initiate the chat
+ mck-topicId :  Unique identifier for the topic/product 
+ ```
+ 
+ ```
+ <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
+ ```
+ 
+ 
 ##### Step 8: Events subscription
 
 Using events callback, you can subscribe to the following events.
