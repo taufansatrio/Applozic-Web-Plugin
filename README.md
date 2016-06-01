@@ -225,6 +225,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  **Note** - Data attribute **mck-name** is optional in above tag       
  
+ ##### Step 6: Group 
  
  Javascript to get group list
  
@@ -259,7 +260,7 @@ Sample response:
                                                  ]});   
  ``` 
  
-##### Step 6: Context (Topic) based Chat
+##### Step 7: Context (Topic) based Chat
  
  Add the following in window.applozic.init call:
  
@@ -295,7 +296,7 @@ Sample response:
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
-##### Step 7: Events subscription
+##### Step 8: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -488,7 +489,7 @@ Create APPLOZIC instance by configuring your options
 Javascript to subscribe to events
 
 ```
- applozic.events = apzEvents;      // apzEvents defined in Step 7
+ applozic.events = apzEvents;      // apzEvents defined in Step 8
  ``` 
 
 
