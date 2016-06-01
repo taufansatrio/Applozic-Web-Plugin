@@ -222,8 +222,31 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
 <a href="#" class="applozic-launcher" data-mck-id="PUT_OTHER_USERID_HERE" data-mck-name="PUT_OTHER_USER_DISPLAY_NAME_HERE">CHAT BUTTON</a>
  ```        
  
- **Note** - Data attribute **mck-name** is optional in above tag        
+ **Note** - Data attribute **mck-name** is optional in above tag       
  
+ 
+ Javascript to get group list
+ 
+ ```
+ $applozic.fn.applozic('getGroupList', {'callback':function (response) { //write your logic}});   
+ ``` 
+ 
+Sample response:
+
+```
+           {'status' : 'success' ,                 // or error
+            'data': [ {'id': 'GROUP_ID',
+                       'name' : 'GROUP_NAME',
+                       'type' : 'GROUP_TYPE',
+                       'memberName':[],           // Array of group member ids
+                       'adminName': 'ADMIN_USER_ID',
+                       'removedMembersId' [],     // Array including removed or left members Id  
+                       'unreadCount' : '10'       // total unread count of messages for current logged in user
+                        }]    
+                     }]
+           }
+```
+
  
 ##### Step 6: Context (Topic) based Chat
  
