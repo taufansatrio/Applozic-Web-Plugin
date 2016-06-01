@@ -179,8 +179,59 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
-  
-##### Step 7: Events subscription
+##### Step 6: Group 
+ 
+ Javascript to get group list
+ 
+ ```
+ $applozic.fn.applozic('getGroupList', {'callback':function (response) { //write your logic}});   
+ ``` 
+ 
+Sample response:
+
+```
+           {'status' : 'success' ,                 // or error
+            'data': [ {'id': 'GROUP_ID',
+                       'name' : 'GROUP_NAME',
+                       'type' : 'GROUP_TYPE',      // 1,2 or 5   (private, public or broadcast)
+                       'memberName':[],           // Array of group member ids
+                       'adminName': 'ADMIN_USER_ID',
+                       'removedMembersId' [],     // Array including removed or left members Id  
+                       'unreadCount' : '10'       // total unread count of messages for current logged in user
+                        }]    
+                     }]
+           }
+```
+
+
+ Javascript to create group
+ 
+ ```
+ $applozic.fn.applozic('initGroupTab', {'groupName' : 'GROUP_NAME',   // required
+                                        'type' :1,                    // 1 for private , 2 for public (required)
+                                        'users': [{userId:'USER_ID_1', displayName:'USER_NAME'},
+                                                  {userId:'USER_ID_2', displayName:'USER_NAME'}
+                                                 ]});   
+ ``` 
+ 
+Javascript to add group member (only for group admin)
+ 
+ ```
+$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID', 'userId':'USER_ID_OF_MEMBER_TO_ADD', 'callback': function(response) {console.log(response);}});
+ ``` 
+ 
+ Javascript to remove group member (only for group admin)
+ 
+ ```
+$applozic.fn.applozic('removeGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_OF_MEMBER_TO_REMOVE', callback: function(response) {console.log(response);}});
+ ```  
+ 
+ Javascript to exit group
+ 
+ ```
+$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(response){console.log(response);}});
+ ```   
+##### Step 8: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -373,5 +424,5 @@ Create APPLOZIC instance by configuring your options
 Javascript to subscribe to events
 
 ```
- applozic.events = apzEvents;      // apzEvents defined in Step:7
+ applozic.events = apzEvents;      // apzEvents defined in Step:8
  ``` 
