@@ -260,10 +260,10 @@ Sample response:
                                                  ]});   
  ``` 
  
-  Javascript to add group member (only for group admin)
+ Javascript to add group member (only for group admin)
  
  ```
-$applozic.fn.applozic('addGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_OF_MEMBER_TO_ADD', callback: function(response) {console.log(response);}});
+$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID', 'userId':'USER_ID_OF_MEMBER_TO_ADD', 'callback': function(response) {console.log(response);}});
  ``` 
  
  
