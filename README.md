@@ -238,7 +238,7 @@ Sample response:
            {'status' : 'success' ,                 // or error
             'data': [ {'id': 'GROUP_ID',
                        'name' : 'GROUP_NAME',
-                       'type' : 'GROUP_TYPE',
+                       'type' : 'GROUP_TYPE',      // 1,2 or 5   (private, public or broadcast)
                        'memberName':[],           // Array of group member ids
                        'adminName': 'ADMIN_USER_ID',
                        'removedMembersId' [],     // Array including removed or left members Id  
@@ -248,6 +248,16 @@ Sample response:
            }
 ```
 
+
+ Javascript to create group
+ 
+ ```
+ $applozic.fn.applozic('initGroupTab', {'groupName' : 'GROUP_NAME',   // required
+                                        'type' :1,                    // 1 for private , 2 for public (required)
+                                        'users': [{userId:'USER_ID_1', displayName:'USER_NAME'},
+                                                  {userId:'USER_ID_2', displayName:'USER_NAME'}
+                                                 ]});   
+ ``` 
  
 ##### Step 6: Context (Topic) based Chat
  
