@@ -331,6 +331,32 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
  ``` 
 
  
+##### Step 9: Messages     
+
+```
+  $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
+                                        'isGroup': false,               // True in case of group 
+                                        'callback': function(response){ // write your logic} 
+                                        });
+```        
+
+ 
+Sample response:           
+
+ ```
+ response = {'status' : 'success',                     // or error
+             'messages' :[{'key': "MESSAGE_IDENTIFIER",
+                          'from': "SENDER_USERID",         
+                          'to': 'RECEIVER_USERID',
+                          'message': "MESSAGE_TEXT",
+                          'type': 'inbox or outbox',
+                          'status': "MESSAGE__CURRENT_STATUS",        // For outbox message  (sent, delivered or read)
+                                                                    // For inbox messsage (read, unread)
+                          'timeStamp': 'MESSAGE_CREATED_TIMESTAMP'          
+                         }]                
+           }
+```         
+
  
  
 ### UI Customization
