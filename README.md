@@ -79,7 +79,7 @@ Javascript chat and messaging plugin that lets you enable real time chat using w
 
 Signup at [Applozic](https://www.applozic.com/signup.html) to get the application key.
 
-##### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+#### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
 
 ```
 <script type="text/javascript">
@@ -95,7 +95,7 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
 </script>
 ```
  
-##### Step 2: Initialize Chat Plugin
+#### Step 2: Initialize Chat Plugin
 
 ``` 
 <script type="text/javascript">
@@ -124,7 +124,7 @@ Above options description :-
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
 
-##### Step 3: More options with callback functions
+#### Step 3: More options with callback functions
 
 ```
  1) onInit : function(response) { 
@@ -172,7 +172,7 @@ Example of how to use above mentioned options:
 ```
 
 
-##### Step 4: Contacts
+#### Step 4: Contacts
 
 Javascript code to load contacts
 
@@ -195,7 +195,7 @@ $applozic.fn.applozic('loadContacts', CONTACT_LIST_JSON);
 **NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 3 for reference).
 
 
-##### Step 5: Chat screen
+#### Step 5: Chat screen
 
 Javascript to open main chat box containing list of contacts
 
@@ -225,7 +225,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  **Note** - Data attribute **mck-name** is optional in above tag       
  
-##### Step 6: Group 
+#### Step 6: Group 
  
  Javascript to get group list
  
@@ -278,7 +278,7 @@ $applozic.fn.applozic('removeGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_O
 $applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(response){console.log(response);}});
  ```  
  
-##### Step 7: Context (Topic) based Chat
+#### Step 7: Context (Topic) based Chat
  
  Add the following in window.applozic.init call:
  
@@ -314,7 +314,7 @@ $applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
-##### Step 8: Events subscription
+#### Step 8: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -410,7 +410,7 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
  $applozic.fn.applozic('subscribeToEvents', apzEvents);  // object containing event definations 
  ``` 
 
-##### Step 9: Messages     
+#### Step 9: Messages     
 
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
