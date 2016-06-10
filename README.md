@@ -99,7 +99,7 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
 
 ``` 
 <script type="text/javascript">
-  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', imageLink : 'PUT_USER_IMAGE_LINK_HERE', email: 'PUT_USER_EMAIL_ID_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE', accessToken: 'PUT USER_AUTHENTICATION_TOKEN_HERE', desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE'});
+  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', imageLink : 'PUT_USER_IMAGE_LINK_HERE', email: 'PUT_USER_EMAIL_ID_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE', accessToken: 'PUT_USER_AUTHENTICATION_TOKEN_HERE', authenticationTypeId : 'PUT_AUTHENTICATION_TYPE_ID_HERE', desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE'});
 </script>
 ```    
 
@@ -115,6 +115,8 @@ Above options description :-
  email: 'ACTIVE USER EMAIL'                            // optional
  contactNumber : 'CONTACT NUMBER OF USER ALONG WITH INTERNATIONAL CODE eg: +919535008745' //optional
  accessToken : 'ACTIVE USER AUTHENTICATION TOKEN OR PASSWORD'      // optional
+ authenticationTypeId : 1                              // 1 for password verification from Applozic server  (optional)  
+                                                       // 0 for access Token verification from client server (optional)
  desktopNotification: true or false                    // optional
  notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional) 
  maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional)
