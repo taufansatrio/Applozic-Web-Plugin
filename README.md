@@ -214,7 +214,7 @@ Javascript to open chat with User
  Javascript to open chat with Group
 
 ```
- $applozic.fn.applozic('loadGroup', 'PUT_GROUP_ID_HERE');  // group Id returned in response to group create api  
+ $applozic.fn.applozic('loadGroupTab', 'PUT_GROUP_ID_HERE');  // group Id returned in response to group create api  
  ``` 
 
 Anchor tag or button to load(open) individual tab conversation directly
