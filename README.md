@@ -216,6 +216,12 @@ Javascript to open chat with User
 ```
  $applozic.fn.applozic('loadGroupTab', 'PUT_GROUP_ID_HERE');  // group Id returned in response to group create api  
  ``` 
+ 
+ Javascript to open group chat using Client Group Id
+ 
+```
+ $applozic.fn.applozic('loadGroupTabByClientGroupId',{clientGroupId:'CLIENT_GROUP_ID'});
+```
 
 Anchor tag or button to load(open) individual tab conversation directly
 
@@ -415,8 +421,9 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
 #### Step 9: Messages     
 
 ```
-  $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
+  $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',   
                                         'isGroup': false,               // True in case of group 
+                                        'clientGroupId' : 'CLIENT_GROUP_UNIQUE_IDENTIFIER', (not required if group id is given)
                                         'callback': function(response){ // write your logic} 
                                         });
 ```        
