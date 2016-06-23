@@ -263,6 +263,7 @@ Sample response:
  ```
  $applozic.fn.applozic('initGroupTab', {'groupName' : 'GROUP_NAME',   // required
                                         'type' :1,                    // 1 for private , 2 for public (required)
+                                        'clientGroupId' : 'CLIENT_UNIQUE_GROUP_ID', // optional
                                         'users': [{userId:'USER_ID_1', displayName:'USER_NAME'},
                                                   {userId:'USER_ID_2', displayName:'USER_NAME'}
                                                  ]});   
@@ -271,19 +272,27 @@ Sample response:
 Javascript to add group member (only for group admin)
  
  ```
-$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID', 'userId':'USER_ID_OF_MEMBER_TO_ADD', 'callback': function(response) {console.log(response);}});
+$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID',  
+                                        'clientGroupId' : 'CLIENT_GROUP_ID',  //use either groupId or clientGroupId
+                                        'userId':'USER_ID_OF_MEMBER_TO_ADD', 'callback': function(response) {console.log(response);}});
  ``` 
  
  Javascript to remove group member (only for group admin)
  
  ```
-$applozic.fn.applozic('removeGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_OF_MEMBER_TO_REMOVE', callback: function(response) {console.log(response);}});
+$applozic.fn.applozic('removeGroupMember',{'groupId':'GROUP_ID',
+                                           'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
+                                           'userId':'USER_ID_OF_MEMBER_TO_REMOVE',
+                                           'callback': function(response) {console.log(response);}
+                                           });
  ```  
  
  Javascript to exit group
  
  ```
-$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(response){console.log(response);}});
+$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', 
+                                     'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
+                                     'callback' :function(response){console.log(response);}});
  ```  
  
 #### Step 7: Context (Topic) based Chat
@@ -423,7 +432,7 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',   
                                         'isGroup': false,               // True in case of group 
-                                        'clientGroupId' : 'CLIENT_GROUP_UNIQUE_IDENTIFIER', (not required if group id is given)
+                                        'clientGroupId' : 'CLIENT_GROUP_ID', // use either groupId or clientGroupId
                                         'callback': function(response){ // write your logic} 
                                         });
 ```        
