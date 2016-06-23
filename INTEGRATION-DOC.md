@@ -128,11 +128,17 @@ Javascript to open chat with User
  $applozic.fn.applozic('loadTab', 'PUT_OTHER_USERID_HERE');  // user Id of other person with whom you want to open conversation 
  ``` 
  
- Javascript to open chat with Group
+ Javascript to open group chat
 
 ```
  $applozic.fn.applozic('loadGroupTab', 'PUT_GROUP_ID_HERE');  // group Id returned in response to group create api  
  ``` 
+ 
+  Javascript to open group chat using Client Group Id
+ 
+```
+ $applozic.fn.applozic('loadGroupTabByClientGroupId',{clientGroupId:'CLIENT_GROUP_ID'});
+```
 
 Anchor tag or button to load(open) individual tab conversation directly
 
@@ -175,6 +181,7 @@ Sample response:
  ```
  $applozic.fn.applozic('initGroupTab', {'groupName' : 'GROUP_NAME',   // required
                                         'type' :1,                    // 1 for private , 2 for public (required)
+                                        'clientGroupId' : 'CLIENT_UNIQUE_GROUP_ID', // optional
                                         'users': [{userId:'USER_ID_1', displayName:'USER_NAME'},
                                                   {userId:'USER_ID_2', displayName:'USER_NAME'}
                                                  ]});   
@@ -183,19 +190,30 @@ Sample response:
 Javascript to add group member (only for group admin)
  
  ```
-$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID', 'userId':'USER_ID_OF_MEMBER_TO_ADD', 'callback': function(response) {console.log(response);}});
+$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID',  
+                                        'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
+                                        'userId':'USER_ID_OF_MEMBER_TO_ADD', 
+                                        'callback': function(response) {console.log(response);}
+                                        });
  ``` 
  
  Javascript to remove group member (only for group admin)
  
  ```
-$applozic.fn.applozic('removeGroupMember',{groupId:'GROUP_ID', userId:'USER_ID_OF_MEMBER_TO_REMOVE', callback: function(response) {console.log(response);}});
+$applozic.fn.applozic('removeGroupMember',{'groupId':'GROUP_ID',
+                                          'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
+                                          'userId':'USER_ID_OF_MEMBER_TO_REMOVE', 
+                                          'callback': function(response) {console.log(response);}
+                                          });
  ```  
  
  Javascript to exit group
  
  ```
-$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', callback :function(response){console.log(response);}});
+$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', 
+                                     'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
+                                     'callback' :function(response){console.log(response);}
+                                     });
  ``` 
  
   
@@ -338,6 +356,7 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
                                         'isGroup': false,               // True in case of group 
+                                        'clientGroupId' : 'CLIENT_GROUP_ID', // use either groupId or clientGroupId
                                         'callback': function(response){ // write your logic} 
                                         });
 ```        
