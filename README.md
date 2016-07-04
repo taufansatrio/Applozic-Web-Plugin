@@ -301,7 +301,7 @@ $applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID',
  
  ```
   topicBox: true,
-  topicDetail: function(topicId) {
+  getTopicDetail: function(topicId) {
          //Based on topicId, return the following details from your application
          return {'title': 'topic-title',      // Product title
                      'subtitle': 'sub-title',     // Product subTitle or Product Id
