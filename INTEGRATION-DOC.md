@@ -215,7 +215,16 @@ $applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID',
                                      'callback' :function(response){console.log(response);}
                                      });
  ``` 
+  
+ Javascript to update group info
  
+ ```
+$applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID', 
+                                     'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId,
+                                     'name' : 'GROUP_NAME', // optional
+                                     'imageUrl' : 'GROUP_ICON_URL',  //optional
+                                     'callback' : function(response){console.log(response);}});
+ ```  
   
 #### Step 7: Context (Topic) based Chat
  
