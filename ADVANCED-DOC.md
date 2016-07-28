@@ -9,6 +9,8 @@ Send message from logged in user to another user
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
 
+Response contains message key.
+
 
 
 Send message visible only to the receiver.
@@ -114,8 +116,9 @@ Events description:
 Response contains message key. 
 
 Response object- 
-
+```
 {’messageKey’: ‘delivered-message-key’}. 
+```
 
 
 4) onMessageRead: Triggered when delivered message is read on other end. 
