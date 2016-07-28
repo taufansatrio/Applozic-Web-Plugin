@@ -401,7 +401,7 @@ Response object - {'message': message}
 
 6) onMessageSentUpdate: Triggered when message sent successfully to server. 
 
-Response object- {'messageKey': 'sent-message-key'} 
+Response object- {'messageKey':'sent-message-key'} 
 
 
 7) onUserConnect: Triggered when some other user comes online.
