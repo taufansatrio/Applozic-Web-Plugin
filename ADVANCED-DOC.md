@@ -113,48 +113,50 @@ Events description:
 
 3) onMessageDelivered: Triggered when message is delivered. 
 
-Response contains message key. 
-
-Response object- 
-
-{’messageKey’: 'delivered-message-key'}. 
+{'messageKey': 'delivered-message-key'} 
 
 
 4) onMessageRead: Triggered when delivered message is read on other end. 
 
-Response contains message key. 
-
 Response object - 
 
-{’messageKey’: ‘delivered-message-key’}.
+{'messageKey': 'delivered-message-key'}
 
 
 5) onMessageReceived: Triggered when new message received. 
 
-Response contains message.
-
-Response object - {’message’: message} 
+Response object - {'message': message} 
 
 
 6) onMessageSentUpdate: Triggered when message sent successfully to server. 
 
-Response contains messageKey. 
-
-Response object- {’messageKey’: ‘sent-message-key’}. 
+Response object- {'messageKey':'sent-message-key'} 
 
 
 7) onUserConnect: Triggered when some other user comes online.
 
-Response contains user Id. 
-
-Response object - {’userId’: ‘connected-user-Id’} 
+Response object - {'userID': 'connected-user-Id'} 
 
 
 8) onUserDisconnect: Triggered when some other user goes offline. 
 
-Response contains user Id. 
+Response object - {'userId': 'disconnected-user-id', 'lastSeenAtTime' : 'time in millsec'}
 
-Response object - {’userId’: ‘disconnected-user-id’, ‘lastSeenAtTime’ : ‘time in millsec’}
+
+9) onUserBlocked : Triggered when user is blocked or current user blocked other user from different source 
+
+Response object - {'status': 'BLOCKED_TO or BLOCKED_BY', 'userId': userId}
+
+
+10) onUserUnblocked : Triggered when user is unblocked or current user unblocked other user from different source 
+
+Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
+
+
+11) onUserActivated : Triggered when user is activated by app admin 
+
+
+12) onUserDeactivated : Triggered when user is deactivated by app admin
 
 
 
