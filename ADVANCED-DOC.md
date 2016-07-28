@@ -116,9 +116,8 @@ Events description:
 Response contains message key. 
 
 Response object- 
-```
-{’messageKey’: ‘delivered-message-key’}. 
-```
+
+{’messageKey’: 'delivered-message-key'}. 
 
 
 4) onMessageRead: Triggered when delivered message is read on other end. 
