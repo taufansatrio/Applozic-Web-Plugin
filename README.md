@@ -111,10 +111,10 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
                                                         // 0 for access Token verification from client server (optional)
                         desktopNotification: true or false,           // optional
                         notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE',    // required for desktop notification (optional) 
-                        maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional),
+                        maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP', // max limit is 100 (optional)
                         contactDisplayName: function(userId) {},   //Function should return USER_DISPLAY_NAME by taking USERID as input parameter (optional).
                         contactDisplayImage: function(userId) {},  // Function should return USER_IMAGE_URL by taking USERID as a input parameter (optional). 
-                        onInit : function(response) {},  // Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization (optional).   
+                        onInit : function(response) {}  // Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization (optional).   
                           
                         });
 </script>
