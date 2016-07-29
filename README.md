@@ -111,70 +111,19 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
                                                        // 0 for access Token verification from client server (optional)
                         desktopNotification: true or false,           // optional
                         notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE',    // required for desktop notification (optional) 
-                        maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional)
+                        maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional),
+                        contactDisplayName: function(userId) {},   //Function should return USER_DISPLAY_NAME by taking USERID as                                                  input parameter (optional).
+                        contactDisplayImage: function(userId) {},  // Function should return USER_IMAGE_URL by taking USERID as a                                                  input parameter (optional). 
+                        onInit : function(response) {},  // Callback function which gets triggered on plugin initialized. You can                                         write your own logic inside this function to execute on plugin                                                initialization (optional).   
+                          
                         });
 </script>
 ```    
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
-It can also be called from any event, for example: on click of a button.
 
 
-
-
-
-
-
-
-#### Step 3: More options with callback functions
-
-```
- 1) onInit : function(response) { 
-        if (response === "success") {
-           // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
-        } else {
-           // error in loading plugin (you can hide chat button or refresh page) 
-        }
-    }                      
-    
-  Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization. 
-  
- 2) contactDisplayName: function(userId) {  
-          //return the display name of the user from your application code based on userId.
-          return "";
-    }                    
-  Function should return USER_DISPLAY_NAME by taking USERID as input parameter. 
-  
- 3) contactDisplayImage: function(userId) {  
-          //return the display image url of the user from your application code based on userId.
-          return "";
-    }                 
-    
-  Function should return USER_IMAGE_URL by taking USERID as a input parameter. 
-  
- 4) accessToken: 'PASS_USER_ACCESS_TOKEN_HERE'                            //Type - String (optional)    
- 
- Access token is to authenticate user from your end. To enable access token authentication you have to configure authentication url in admin dashboard. 
- For more detail about access token, read :**https://www.applozic.com/app-config.html#authentication-url**.
-```
-
-Example of how to use above mentioned options:
-```
-     window.applozic.init({
-       userId: USER_ID,
-       appId: APPLICATION_KEY,
-       onInit: function(response) { 
-            if (response === "success") {
-               // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
-            } else {
-               // error in loading plugin (you can hide chat button or refresh page) 
-            }
-        }
-     });
-```
-
-
-#### Step 4: Contacts
+#### Step 3: Contacts
 
 Javascript code to load contacts
 
@@ -197,7 +146,7 @@ $applozic.fn.applozic('loadContacts', CONTACT_LIST_JSON);
 **NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 3 for reference).
 
 
-#### Step 5: Chat screen
+#### Step 4: Chat screen
 
 Javascript to open main chat box containing list of contacts
 
@@ -233,7 +182,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  **Note** - Data attribute **mck-name** is optional in above tag       
  
-#### Step 6: Group 
+#### Step 5: Group 
  
  Javascript to get group list
  
@@ -305,7 +254,7 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID',
                                      'callback' : function(response){console.log(response);}});
  ```  
  
-#### Step 7: Context (Topic) based Chat
+#### Step 6: Context (Topic) based Chat
  
  Add the following in window.applozic.init call:
  
@@ -341,7 +290,7 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID',
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
-#### Step 8: Events subscription
+#### Step 7: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -437,7 +386,7 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
  $applozic.fn.applozic('subscribeToEvents', apzEvents);  // object containing event definations 
  ``` 
 
-#### Step 9: Messages     
+#### Step 8: Messages     
 
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',   
