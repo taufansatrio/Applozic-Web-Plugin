@@ -99,31 +99,31 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
 
 ``` 
 <script type="text/javascript">
-  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', imageLink : 'PUT_USER_IMAGE_LINK_HERE', email: 'PUT_USER_EMAIL_ID_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE', accessToken: 'PUT_USER_AUTHENTICATION_TOKEN_HERE', authenticationTypeId : 'PUT_AUTHENTICATION_TYPE_ID_HERE', desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE'});
+  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE',     // obtained from Step 1 (required)  
+                        userId: 'PUT_USERID_HERE',             // loggedIn user Id (required)  
+                        userName: 'PUT_USER_DISPLAYNAME_HERE',  // loggedIn user name (optional)  
+                        imageLink : 'PUT_USER_IMAGE_LINK_HERE',        // loggedIn user image url (optional)    
+                        email: 'PUT_USER_EMAIL_ID_HERE',      // optional
+                        contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE eg: +919535008745', //optional
+                        accessToken: 'PUT_USER_AUTHENTICATION_TOKEN_HERE',   // optional
+                        authenticationTypeId : 'PUT_AUTHENTICATION_TYPE_ID_HERE',   
+                                                        // 1 for password verification from Applozic server  (optional)  
+                                                       // 0 for access Token verification from client server (optional)
+                        desktopNotification: true or false,           // optional
+                        notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE',    // required for desktop notification (optional) 
+                        maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional)
+                        });
 </script>
 ```    
+**Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
 It can also be called from any event, for example: on click of a button.
 
-Above options description :-    
 
-```
- appId: 'YOUR APPLICATION KEY'                         // obtained from Step 1 (required)    
- userId: 'UNIQUE USER ID OF ACTIVE USER'               // loggedIn user Id (required)  
- userName: 'ACTIVE USER DISPLAY NAME'                  // loggedIn user name (optional)  
- imageLink: 'ACTIVE USER IMAGE LINK'                   // loggedIn user image url (optional)      
- email: 'ACTIVE USER EMAIL'                            // optional
- contactNumber : 'CONTACT NUMBER OF USER ALONG WITH INTERNATIONAL CODE eg: +919535008745' //optional
- accessToken : 'ACTIVE USER AUTHENTICATION TOKEN OR PASSWORD'      // optional
- authenticationTypeId : 1                              // 1 for password verification from Applozic server  (optional)  
-                                                       // 0 for access Token verification from client server (optional)
- desktopNotification: true or false                    // optional
- notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional) 
- maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional)
- 
-```
 
-**Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
+
+
+
 
 
 #### Step 3: More options with callback functions
