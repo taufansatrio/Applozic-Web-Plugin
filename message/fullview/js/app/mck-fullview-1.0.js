@@ -1444,6 +1444,7 @@ var $applozic = jQuery.noConflict(true);
                             mckInitializeChannel.sendTypingStatus(0, $mck_msg_inner.data('mck-id'));
                         }
                     }
+                    $applozic('.mcktypeahead.mck-dropdown-menu').hide();
                 });
             };
             _this.sendMessage = function(messagePxy) {
