@@ -3276,6 +3276,7 @@ var $applozic = jQuery.noConflict(true);
                         }
                     });
                 }
+                mckMessageService.initSearch();
             };
             _this.getStatusIcon = function(msg) {
                 return '<span class="' + _this.getStatusIconName(msg) + ' move-right ' + msg.key + '_status status-icon"></span>';
