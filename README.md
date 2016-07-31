@@ -434,6 +434,10 @@ Send message from logged in user to another user
  var messageJson = 
           {"to":'USER_ID',                                 // required
            "message" : 'TEXT_MESSAGE'                      // required
+           "metadata" : {
+             "key1" : "value1",
+             "key2" : "value2"
+           }
         }; 
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
@@ -446,6 +450,10 @@ var messageJson =
           {"to":'USER_ID',                                     // required
            "type" : 12,                                        // required
            "message" : 'TEXT_MESSAGE'                          // required
+           "metadata" : {
+             "key1" : "value1",
+             "key2" : "value2"
+           }
         };  
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
