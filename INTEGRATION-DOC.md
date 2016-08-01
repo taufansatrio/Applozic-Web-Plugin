@@ -14,144 +14,100 @@
 </script>
 ```
  
-#### Step 2: Initialize Chat Plugin
+#### Step 2: Login or Register with userId and username
+Applozic will create a new user if the user doesn't exists.
+userId is the unique identifier for any user, it can be anything like email, phone number or uuid from your database.
 
 ``` 
 <script type="text/javascript">
-  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', imageLink : 'PUT_USER_IMAGE_LINK_HERE', email : 'PUT_USER_EMAIL_ID_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE', accessToken: 'PUT_USER_AUTHENTICATION_TOKEN_HERE', authenticationTypeId: 'PUT_AUTHENTICATION_TYPE_ID_HERE', desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE'});
+  window.applozic.init({
+    appId: applozicApplicationKey,      //Get your application key from https://www.applozic.com
+    userId: userId,                     //Logged in user's id, a unique identifier for user
+    userName: username,                 //User's display name
+    imageLink : '',                     //User's profile picture url
+    email : '',                         //optional
+    contactNumber: '',                  //optional, pass with internationl code eg: +16508352160
+    desktopNotification: true,
+    notificationIconLink: 'https://www.applozic.com/favicon.ico',    //Icon to show in desktop notification, replace with your icon
+    authenticationTypeId: '1',          //1 for password verification from Applozic server and 0 for access Token verification from your server
+    accessToken: '',                    //optional, leave it blank for testing purpose, read this if you want to add additional security by verifying password from your server https://www.applozic.com/docs/configuration.html#access-token-url
+    onInit : function(response) {
+       if (response === "success") {
+          // login successful, perform your actions if any, for example: load contacts, getting unread message count, etc
+       } else {
+          // error in user login/register (you can hide chat button or refresh page)
+       }
+   },
+   contactDisplayName: function(otherUserId) {
+         //return the display name of the user from your application code based on userId.
+         return "";
+   },
+   contactDisplayImage: function(otherUserId) {
+         //return the display image url of the user from your application code based on userId.
+         return "";
+   }
+  });
 </script>
 ```    
 
 It can also be called from any event, for example: on click of a button.
 
-Above options description :-    
+**Note** : desktopNotification support only for chrome browser, notificationIconLink will be displayed in desktop notification.
 
-```
- appId: 'YOUR APPLICATION KEY'                            // obtained from Step 1 (required)    
- userId: 'UNIQUE USER ID OF ACTIVE USER'                  // loggedIn user Id (required)  
- userName: 'ACTIVE USER DISPLAY NAME'                     // loggedIn user name (optional)  
- imageLink: 'ACTIVE USER IMAGE LINK'                      // loggedIn user image url (optional)   
- email: 'ACTIVE USER EMAIL ID'                            // loggedIn user email Id (optional)       
- contactNumber : 'CONTACT NUMBER OF USER ALONG WITH INTERNATIONAL CODE eg: +919535008745' //optional
- accessToken : 'ACTIVE USER AUTHENTICATION TOKEN OR PASSWORD'      // optional
- authenticationTypeId : 1                                 // 1 for password verification from Applozic server  (optional)  
-                                                          // 0 for access Token verification from client server (optional)
- desktopNotification: true or false                       // optional
- notificationIconLink : 'YOUR WEB APP LOGO'               // required for desktop notification (optional)      
+
+#### Step 3: Initiate chat with other user
+
+To initiate chat with another user using userId:
+``` 
+  $applozic.fn.applozic('loadTab', otherUserId);
 ```
 
-**Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
+Alternatively, you can add a chat button inside your web page using a tag and use 'userId' of the other user for data attribute "data-mck-id"
+
+``` 
+  <a href="#" class="applozic-launcher" data-mck-id="PUT_OTHER_USERID_HERE" data-mck-name="PUT_OTHER_USER_DISPLAY_NAME_HERE">CHAT BUTTON</a>
+``` 
+
+To open the chat list:
+``` 
+  $applozic.fn.applozic('loadTab', '');
+``` 
 
 
-#### Step 3: More options with callback functions
-
-```
- 1) onInit : function(response) { 
-        if (response === "success") {
-           // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
-        } else {
-           // error in loading plugin (you can hide chat button or refresh page) 
-        }
-    }                      
-    
-  Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization. 
-  
- 2) contactDisplayName: function(userId) {  
-          //return the display name of the user from your application code based on userId.
-          return "";
-    }                    
-  Function should return USER_DISPLAY_NAME by taking USERID as input parameter. 
-  
- 3) contactDisplayImage: function(userId) {  
-          //return the display image url of the user from your application code based on userId.
-          return "";
-    }                 
-    
-  Function should return USER_IMAGE_URL by taking USERID as a input parameter. 
-  
- 4) accessToken: 'PASS_USER_ACCESS_TOKEN_HERE'                            //Type - String (optional)    
- 
- Access token is to authenticate user from your end. To enable access token authentication you have to configure authentication url in admin dashboard. 
- For more detail about access token, read :**https://www.applozic.com/app-config.html#authentication-url**.
-```
-
-Example of how to use above mentioned options:
-```
-     window.applozic.init({
-       userId: USER_ID,
-       appId: APPLICATION_KEY,
-       onInit: function(response) { 
-            if (response === "success") {
-               // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
-            } else {
-               // error in loading plugin (you can hide chat button or refresh page) 
-            }
-        }
-     });
-```
-
-
-#### Step 4: Contacts
+#### Step 4: Populate contact list
 
 Javascript code to load contacts
 
 ```
-var CONTACT_LIST_JSON = 
-          {"contacts": [{"userId": "USER_1", "displayName": "Devashish", 
-                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, 
-                        {"userId": "USER_2", "displayName": "Adarsh", 
-                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, 
+$applozic.fn.applozic('loadContacts', {"contacts": [{"userId": "USER_1", "displayName": "Devashish",
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"},
+                        {"userId": "USER_2", "displayName": "Adarsh",
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"},
                         {"userId": "USER_3", "displayName": "Shanki",
                           "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}
                         ]
-         };  //Replace this with contacts json from your application
-         
-
-$applozic.fn.applozic('loadContacts', CONTACT_LIST_JSON);
-
+         });
 ```
 
-**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 3 for reference).
+**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 2 onInit function for reference).
 
 
-#### Step 5: Chat screen
+#### Step 5: Group Messaging
+Group have 2 identifiers:
+groupId: Auto generated by Applozic
+clientGroupId (optional): In case if you already have group identifier on your applicaiton side, use clientGroupId in all functions.
 
-Javascript to open main chat box containing list of contacts
+Open group chat
 
 ```
- $applozic.fn.applozic('loadTab', '');  
+ $applozic.fn.applozic('loadGroupTab', groupId);  // group Id returned in response to group create api  
  ``` 
  
-Javascript to open chat with User
-
-```
- $applozic.fn.applozic('loadTab', 'PUT_OTHER_USERID_HERE');  // user Id of other person with whom you want to open conversation 
- ``` 
- 
- Javascript to open group chat
-
-```
- $applozic.fn.applozic('loadGroupTab', 'PUT_GROUP_ID_HERE');  // group Id returned in response to group create api  
- ``` 
- 
-  Javascript to open group chat using Client Group Id
+Open group chat using Client Group Id
  
 ```
- $applozic.fn.applozic('loadGroupTabByClientGroupId',{clientGroupId:'CLIENT_GROUP_ID'});
+ $applozic.fn.applozic('loadGroupTabByClientGroupId',{'clientGroupId':clientGroupId});
 ```
-
-Anchor tag or button to load(open) individual tab conversation directly
-
-Add a chat button inside your web page using ```a``` tag and use 'userId' for data attribute "data-mck-id"   
-
-```
-<a href="#" class="applozic-launcher" data-mck-id="PUT_OTHER_USERID_HERE" data-mck-name="PUT_OTHER_USER_DISPLAY_NAME_HERE">CHAT BUTTON</a>
- ```        
- 
- **Note** - Data attribute **mck-name** is optional in above tag        
- 
-
-#### Step 6: Group 
  
  Javascript to get group list
  
@@ -176,57 +132,53 @@ Sample response:
 ```
 
 
- Javascript to create group
+Create Group
  
  ```
- $applozic.fn.applozic('initGroupTab', {'groupName' : 'GROUP_NAME',   // required
-                                        'type' :1,                    // 1 for private , 2 for public (required)
-                                        'clientGroupId' : 'CLIENT_UNIQUE_GROUP_ID', // optional
-                                        'users': [{userId:'USER_ID_1', displayName:'USER_NAME'},
-                                                  {userId:'USER_ID_2', displayName:'USER_NAME'}
-                                                 ]});   
+$applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
+                                       'type' : 1,                // 1 for private , 2 for public (required)
+                                       'clientGroupId' : '',      // optional
+                                       'users': [{userId:userId1, displayName:''},
+                                                 {userId:userId2, displayName:''}
+                                                ]}); 
  ``` 
  
-Javascript to add group member (only for group admin)
- 
+Add User to Group (only for Group Admin)
  ```
-$applozic.fn.applozic('addGroupMember',{'groupId':'GROUP_ID',  
-                                        'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
-                                        'userId':'USER_ID_OF_MEMBER_TO_ADD', 
+$applozic.fn.applozic('addGroupMember',{'groupId': groupId,
+                                        'clientGroupId': clientGroupId, //use either groupId or clientGroupId
+                                        'userId': userIdToAdd,
                                         'callback': function(response) {console.log(response);}
                                         });
  ``` 
  
- Javascript to remove group member (only for group admin)
- 
+Remove User from Group (only for Group Admin)
  ```
-$applozic.fn.applozic('removeGroupMember',{'groupId':'GROUP_ID',
-                                          'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
-                                          'userId':'USER_ID_OF_MEMBER_TO_REMOVE', 
+$applozic.fn.applozic('removeGroupMember',{'groupId': groupId,
+                                          'clientGroupId' : clientGroupId, //use either groupId or clientGroupId
+                                          'userId': userIdToRemove,         
                                           'callback': function(response) {console.log(response);}
                                           });
  ```  
  
- Javascript to exit group
- 
+Leave Group
  ```
-$applozic.fn.applozic('leaveGroup', {'groupId' : 'GROUP_ID', 
-                                     'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId
+$applozic.fn.applozic('leaveGroup', {'groupId' : groupId,
+                                     'clientGroupId' : clientGroupId, //use either groupId or clientGroupId
                                      'callback' :function(response){console.log(response);}
                                      });
  ``` 
   
- Javascript to update group info
- 
+Update Group 
  ```
-$applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID', 
-                                     'clientGroupId' : 'CLIENT_GROUP_ID', //use either groupId or clientGroupId,
-                                     'name' : 'GROUP_NAME', // optional
-                                     'imageUrl' : 'GROUP_ICON_URL',  //optional
+$applozic.fn.applozic('updateGroupInfo', {'groupId' : groupId
+                                     'clientGroupId' : clientGroupId, //use either groupId or clientGroupId,
+                                     'name' : groupName, // optional
+                                     'imageUrl' : '',  //optional
                                      'callback' : function(response){console.log(response);}});
  ```  
   
-#### Step 7: Context (Topic) based Chat
+#### Step 6: Context (Topic) based Chat
  
  Add the following in window.applozic.init call:
  
@@ -263,7 +215,7 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID',
  ```
  
  
-#### Step 8: Events subscription
+#### Step 7: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -311,7 +263,7 @@ $applozic.fn.applozic('subscribeToEvents', {
 
 
  
-#### Step 9: Messages     
+#### Step 8: Messages     
 
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
