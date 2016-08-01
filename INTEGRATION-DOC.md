@@ -108,28 +108,6 @@ Open group chat using Client Group Id
 ```
  $applozic.fn.applozic('loadGroupTabByClientGroupId',{'clientGroupId':clientGroupId});
 ```
- 
- Javascript to get group list
- 
- ```
- $applozic.fn.applozic('getGroupList', {'callback':function (response) { //write your logic}});   
- ``` 
- 
-Sample response:
-
-```
-           {'status' : 'success' ,                 // or error
-            'data': [ {'id': 'GROUP_ID',
-                       'name' : 'GROUP_NAME',
-                       'type' : 'GROUP_TYPE',      // 1,2 or 5   (private, public or broadcast)
-                       'memberName':[],           // Array of group member ids
-                       'adminName': 'ADMIN_USER_ID',
-                       'removedMembersId' [],     // Array including removed or left members Id  
-                       'unreadCount' : '10'       // total unread count of messages for current logged in user
-                        }]    
-                     }]
-           }
-```
 
 
 Create Group
@@ -177,6 +155,29 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : groupId
                                      'imageUrl' : '',  //optional
                                      'callback' : function(response){console.log(response);}});
  ```  
+  
+Get group list
+ 
+ ```
+ $applozic.fn.applozic('getGroupList', {'callback':function (response) { //write your logic}});   
+ ``` 
+ 
+Sample response:
+
+```
+           {'status' : 'success' ,                 // or error
+            'data': [ {'id': groupId,
+                       'name' : groupName',
+                       'type' : '2',               // 1,2 or 5   (private, public or broadcast)
+                       'memberName':[],           // Array of group member ids
+                       'adminName': '',           // Put group admin's userId
+                       'removedMembersId' [],     // Array including removed or left members Id  
+                       'unreadCount' : '10'       // total unread count of messages for current logged in user
+                        }]    
+                     }]
+           }
+```
+
   
 #### Step 6: Context (Topic) based Chat
  
