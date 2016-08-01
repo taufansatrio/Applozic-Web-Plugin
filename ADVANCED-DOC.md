@@ -2,11 +2,10 @@
 
 Send message from logged in user to another user
  ```
- var messageJson = 
-          {"to":'USER_ID',                                 // required
-           "message" : 'TEXT_MESSAGE'                      // required
-        }; 
-$applozic.fn.applozic('sendMessage', messageJson);
+$applozic.fn.applozic('sendMessage', {
+                                      "to": otherUserId,            //userId of the receiver
+                                      "message" : messageText       //message to send           
+                                    });
  ```
 
 Response contains message key.
@@ -15,13 +14,12 @@ Response contains message key.
 
 Send message visible only to the receiver.
  ```
-var messageJson = 
-          {"to":'USER_ID',                                     // required
-           "type" : 12,                                        // required
-           "message" : 'TEXT_MESSAGE'                          // required
-        };  
-$applozic.fn.applozic('sendMessage', messageJson);
- ```
+$applozic.fn.applozic('sendMessage', {
+                                      "to": otherUserId,            //userId of the receiver
+                                      "message" : messageText,       //message to send    
+                                      "type" : 12
+                                    }); 
+```
 
 ####  Get User Details
 
