@@ -1,4 +1,4 @@
-##### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+#### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
 
 ```
 <script type="text/javascript">
