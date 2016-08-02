@@ -17,8 +17,9 @@ Applozic One to One and Group Chat SDK
 
 Documentation: https://www.applozic.com/docs/web-chat-plugin.html
 
-Features:
 
+
+Features:
 
  One to one and Group Chat
  
