@@ -2,7 +2,7 @@ Applozic comes with 2 ready to use UI layout full view and sidebox.
 
 #### Full view layout
 
-Demo: https://www.applozic.com/docs/chat-examples/web.html
+Demo: [https://www.applozic.com/docs/chat-examples/web.html](https://www.applozic.com/docs/chat-examples/web.html)
 
 
 ![full-view-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/fullview/fullview.png)     
@@ -12,7 +12,7 @@ Demo: https://www.applozic.com/docs/chat-examples/web.html
 
 #### Sidebox layout
 
-Demo: https://www.applozic.com/plugin.html
+Demo: [https://www.applozic.com/plugin.html](https://www.applozic.com/plugin.html)
 
 
 ![sidebox-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/advanced/sidebox.png)     
