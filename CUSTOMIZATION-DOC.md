@@ -1,4 +1,4 @@
-For customizing the UI,
+Applozic comes with 2 ready to use UI layout full view and sidebox.
 
 1. Download source code
 
