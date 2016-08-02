@@ -9,7 +9,7 @@ Signup at https://www.applozic.com to get the application key.
 
 <img align="left" src="message/fullview/fullview.png" />
 
-<img align="right" src="message/advanced/sidebox.png" />
+<img align="middle" src="message/advanced/sidebox.png" />
 
 
 
