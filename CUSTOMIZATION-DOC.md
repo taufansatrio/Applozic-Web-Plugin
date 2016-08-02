@@ -1,4 +1,14 @@
-For customizing the UI,
+Applozic comes with 2 ready to use UI layout.
+
+#### Full view layout
+<img align="left" src="message/fullview/fullview.png" />
+
+
+
+#### Sidebox layout
+<img align="middle" src="message/advanced/sidebox.png" />
+
+
 
 1. Download source code
 
