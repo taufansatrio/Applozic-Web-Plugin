@@ -65,17 +65,7 @@ A jQuery plugin to integrate messaging into your web page for real time communic
 
 ### Overview      
 
-
-Integrate messaging into your mobile apps and website without developing or maintaining any infrastructure. Sign up at https://www.applozic.com         
-
-
-### Getting Started          
-
-
-****Applozic messaging jQuery plugin****
-
-Javascript chat and messaging plugin that lets you enable real time chat using websockets in your website without developing or maintaining any infrastructure.
-
+Integrate messaging into your mobile apps and website without developing or maintaining any infrastructure.
 
 Signup at [Applozic](https://www.applozic.com/signup.html) to get the application key.
 
