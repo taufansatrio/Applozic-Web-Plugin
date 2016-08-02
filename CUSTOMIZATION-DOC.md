@@ -1,4 +1,6 @@
-Applozic comes with 2 ready to use UI layout full view and sidebox.
+Applozic comes with 2 ready to use UI layout
+1. Full view and 
+2. Sidebox
 
 #### Full view layout
 
