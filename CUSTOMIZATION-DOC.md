@@ -1,13 +1,4 @@
-Applozic comes with 2 ready to use UI layout.
-
-#### Full view layout
-![full-view-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/fullview/fullview.png)     
-
-
-#### Sidebox layout
-![sidebox-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/advanced/sidebox.png)     
-
-
+Applozic comes with 2 ready to use UI layout full view and sidebox.
 
 1. Download source code
 
