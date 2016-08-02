@@ -1444,6 +1444,7 @@ var $applozic = jQuery.noConflict(true);
                             mckInitializeChannel.sendTypingStatus(0, $mck_msg_inner.data('mck-id'));
                         }
                     }
+                    $applozic('.mcktypeahead.mck-dropdown-menu').hide();
                 });
             };
             _this.sendMessage = function(messagePxy) {
@@ -3276,6 +3277,7 @@ var $applozic = jQuery.noConflict(true);
                         }
                     });
                 }
+                mckMessageService.initSearch();
             };
             _this.getStatusIcon = function(msg) {
                 return '<span class="' + _this.getStatusIconName(msg) + ' move-right ' + msg.key + '_status status-icon"></span>';

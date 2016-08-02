@@ -99,82 +99,31 @@ Signup at [Applozic](https://www.applozic.com/signup.html) to get the applicatio
 
 ``` 
 <script type="text/javascript">
-  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE', userId: 'PUT_USERID_HERE', userName: 'PUT_USER_DISPLAYNAME_HERE', imageLink : 'PUT_USER_IMAGE_LINK_HERE', email: 'PUT_USER_EMAIL_ID_HERE', contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE', accessToken: 'PUT_USER_AUTHENTICATION_TOKEN_HERE', authenticationTypeId : 'PUT_AUTHENTICATION_TYPE_ID_HERE', desktopNotification: true,  notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE'});
+  window.applozic.init({appId: 'PUT_APPLICATION_KEY_HERE',     // obtained from Step 1 (required)  
+                        userId: 'PUT_USERID_HERE',             // loggedIn user Id (required)  
+                        userName: 'PUT_USER_DISPLAYNAME_HERE',  // loggedIn user name (optional)  
+                        imageLink : 'PUT_USER_IMAGE_LINK_HERE',        // loggedIn user image url (optional)    
+                        email: 'PUT_USER_EMAIL_ID_HERE',      // optional
+                        contactNumber: 'CONTACT_NUMBER_WITH_INTERNATIONAL_CODE eg: +919535008745', //optional
+                        accessToken: 'PUT_USER_AUTHENTICATION_TOKEN_HERE',   // optional
+                        authenticationTypeId : 'PUT_AUTHENTICATION_TYPE_ID_HERE',   
+                                                        // 1 for password verification from Applozic server  (optional)  
+                                                        // 0 for access Token verification from client server (optional)
+                        desktopNotification: true or false,           // optional
+                        notificationIconLink: 'PUT_LOGO_IMAGE_LINK_HERE',    // required for desktop notification (optional) 
+                        maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP', // max limit is 100 (optional)
+                        contactDisplayName: function(userId) {},   //Function should return USER_DISPLAY_NAME by taking USERID as input parameter (optional).
+                        contactDisplayImage: function(userId) {},  // Function should return USER_IMAGE_URL by taking USERID as a input parameter (optional). 
+                        onInit : function(response) {}  // Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization (optional).   
+                          
+                        });
 </script>
 ```    
-
-It can also be called from any event, for example: on click of a button.
-
-Above options description :-    
-
-```
- appId: 'YOUR APPLICATION KEY'                         // obtained from Step 1 (required)    
- userId: 'UNIQUE USER ID OF ACTIVE USER'               // loggedIn user Id (required)  
- userName: 'ACTIVE USER DISPLAY NAME'                  // loggedIn user name (optional)  
- imageLink: 'ACTIVE USER IMAGE LINK'                   // loggedIn user image url (optional)      
- email: 'ACTIVE USER EMAIL'                            // optional
- contactNumber : 'CONTACT NUMBER OF USER ALONG WITH INTERNATIONAL CODE eg: +919535008745' //optional
- accessToken : 'ACTIVE USER AUTHENTICATION TOKEN OR PASSWORD'      // optional
- authenticationTypeId : 1                              // 1 for password verification from Applozic server  (optional)  
-                                                       // 0 for access Token verification from client server (optional)
- desktopNotification: true or false                    // optional
- notificationIconLink : 'YOUR WEB APP LOGO'            // required for desktop notification (optional) 
- maxGroupSize: 'MAX NUMBER OF USERS ALLOWED PER GROUP WHILE CREATING GROUP' // max limit is 100 (optional)
- 
-```
-
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be display in desktop notification
 
 
-#### Step 3: More options with callback functions
 
-```
- 1) onInit : function(response) { 
-        if (response === "success") {
-           // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
-        } else {
-           // error in loading plugin (you can hide chat button or refresh page) 
-        }
-    }                      
-    
-  Callback function which gets triggered on plugin initialized. You can write your own logic inside this function to execute on plugin initialization. 
-  
- 2) contactDisplayName: function(userId) {  
-          //return the display name of the user from your application code based on userId.
-          return "";
-    }                    
-  Function should return USER_DISPLAY_NAME by taking USERID as input parameter. 
-  
- 3) contactDisplayImage: function(userId) {  
-          //return the display image url of the user from your application code based on userId.
-          return "";
-    }                 
-    
-  Function should return USER_IMAGE_URL by taking USERID as a input parameter. 
-  
- 4) accessToken: 'PASS_USER_ACCESS_TOKEN_HERE'                            //Type - String (optional)    
- 
- Access token is to authenticate user from your end. To enable access token authentication you have to configure authentication url in admin dashboard. 
- For more detail about access token, read :**https://www.applozic.com/app-config.html#authentication-url**.
-```
-
-Example of how to use above mentioned options:
-```
-     window.applozic.init({
-       userId: USER_ID,
-       appId: APPLICATION_KEY,
-       onInit: function(response) { 
-            if (response === "success") {
-               // plugin loaded successfully, perform your actions if any, for example: load contacts, getting unread message count, etc
-            } else {
-               // error in loading plugin (you can hide chat button or refresh page) 
-            }
-        }
-     });
-```
-
-
-#### Step 4: Contacts
+#### Step 3: Contacts
 
 Javascript code to load contacts
 
@@ -197,7 +146,7 @@ $applozic.fn.applozic('loadContacts', CONTACT_LIST_JSON);
 **NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 3 for reference).
 
 
-#### Step 5: Chat screen
+#### Step 4: Chat screen
 
 Javascript to open main chat box containing list of contacts
 
@@ -233,7 +182,7 @@ Add a chat button inside your web page using ```a``` tag and use 'userId' for da
  
  **Note** - Data attribute **mck-name** is optional in above tag       
  
-#### Step 6: Group 
+#### Step 5: Group 
  
  Javascript to get group list
  
@@ -305,7 +254,7 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID',
                                      'callback' : function(response){console.log(response);}});
  ```  
  
-#### Step 7: Context (Topic) based Chat
+#### Step 6: Context (Topic) based Chat
  
  Add the following in window.applozic.init call:
  
@@ -341,7 +290,7 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : 'GROUP_ID',
  <a href="#" class="applozic-wt-launcher" data-mck-id="PUT_USERID_HERE" data-mck-name="PUT_DISPLAYNAME_HERE" data-mck-topicid="PUT_TOPICID_HERE">CHAT ON TOPIC</a>
  ```
  
-#### Step 8: Events subscription
+#### Step 7: Events subscription
 
 Using events callback, you can subscribe to the following events.
 
@@ -401,7 +350,7 @@ Response object - {'message': message}
 
 6) onMessageSentUpdate: Triggered when message sent successfully to server. 
 
-Response object- {'messageKey': 'sent-message-key'} 
+Response object- {'messageKey':'sent-message-key'} 
 
 
 7) onUserConnect: Triggered when some other user comes online.
@@ -437,7 +386,7 @@ Response object - {'status': 'UNBLOCKED_TO or UNBLOCKED_BY', 'userId': userId}
  $applozic.fn.applozic('subscribeToEvents', apzEvents);  // object containing event definations 
  ``` 
 
-#### Step 9: Messages     
+#### Step 8: Messages     
 
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',   
@@ -485,6 +434,10 @@ Send message from logged in user to another user
  var messageJson = 
           {"to":'USER_ID',                                 // required
            "message" : 'TEXT_MESSAGE'                      // required
+           "metadata" : {
+             "key1" : "value1",
+             "key2" : "value2"
+           }
         }; 
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
@@ -497,6 +450,10 @@ var messageJson =
           {"to":'USER_ID',                                     // required
            "type" : 12,                                        // required
            "message" : 'TEXT_MESSAGE'                          // required
+           "metadata" : {
+             "key1" : "value1",
+             "key2" : "value2"
+           }
         };  
 $applozic.fn.applozic('sendMessage', messageJson);
  ```
