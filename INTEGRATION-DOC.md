@@ -180,7 +180,9 @@ Sample response:
 
   
 #### Step 6: Context (Topic) based Chat
- 
+
+![contextual-chat](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/img/contextchat.png)     
+
  Add the following in window.applozic.init call:
  
  ```
