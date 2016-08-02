@@ -11,6 +11,8 @@ Signup at https://www.applozic.com to get the application key.
 
 <img align="right" src="message/advanced/sidebox.png" />
 
+
+
 Applozic One to One and Group Chat SDK
 
 Documentation: https://www.applozic.com/docs/web-chat-plugin.html
