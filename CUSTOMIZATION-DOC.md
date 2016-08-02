@@ -1,8 +1,10 @@
 For customizing the UI,
 
 1. Download source code
+
 For a full view layout like https://www.applozic.com/docs/chat-examples/web.html, download files from:
 https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/fullview
+
 For a sidebox chat layout like https://www.applozic.com/plugin.html, download files from: https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/advanced
 Paste js, css folders in your project.
 
