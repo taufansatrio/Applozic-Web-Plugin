@@ -180,24 +180,30 @@ Sample response:
 
   
 #### Step 6: Context (Topic) based Chat
+Context based chat (chat about any particular listing/offering/product..) for eg. online marketplace for new and used cars, if you wish to chat about any particular car with the dealer and so on.
 
 ![contextual-chat](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/img/contextchat.png)     
 
- Add the following in window.applozic.init call:
+ Add 'topicBox' and 'getTopicDetail' in 'window.applozic.init' call:
  
  ```
-  topicBox: true,
-  getTopicDetail: function(topicId) {
-         //Based on topicId, return the following details from your application
-         return {'title': 'topic-title',      // Product title
-                     'subtitle': 'sub-title',     // Product subTitle or Product Id
-                     'link' :'image-link',        // Product image link
-                     'key1':'key1' ,              // Small text anything like Qty (Optional)
-                     'value1':'value1',           // Value of key1 ex-10 (number of quantity) Optional
-                     'key2': 'key2',              // Small text anything like MRP (product price) (Optional)
-                     'value2':'value2'            // Value of key2 ex-$100  (Optional)
-                  };
-  }
+  window.applozic.init({
+    appId: applozicApplicationKey,      //Get your application key from https://www.applozic.com
+    userId: userId,                     //Logged in user's id, a unique identifier for user
+    userName: username,                 //User's display name
+    topicBox: true,
+    getTopicDetail: function(topicId) {
+            //Based on topicId, return the following details from your application
+            return {'title': 'topic-title',      // Product title
+                        'subtitle': 'sub-title',     // Product subTitle or Product Id
+                        'link' :'image-link',        // Product image link
+                        'key1':'key1' ,              // Small text anything like Qty (Optional)
+                        'value1':'value1',           // Value of key1 ex-10 (number of quantity) Optional
+                        'key2': 'key2',              // Small text anything like MRP (product price) (Optional)
+                        'value2':'value2'            // Value of key2 ex-$100  (Optional)
+                     };
+            }
+  });
  ```
  
  Add a chat button inside your web page using ```a``` tag and add the following:
