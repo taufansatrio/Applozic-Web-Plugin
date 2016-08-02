@@ -13,7 +13,7 @@ Signup at https://www.applozic.com to get the application key.
 
 
 
-Applozic One to One and Group Chat SDK
+#### Applozic One to One and Group Chat SDK
 
 Documentation: https://www.applozic.com/docs/web-chat-plugin.html
 
