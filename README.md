@@ -7,9 +7,9 @@ Open source Chat and Messaging SDK that lets you add real time chat and messagin
 
 Signup at https://www.applozic.com to get the application key.
 
-<img align="left" src="message/fullview/fullview.jpg" />
+<img align="left" src="message/fullview/fullview.png" />
 
-<img align="middle" src="message/advanced/sidebox.jpg" />
+<img align="middle" src="message/advanced/sidebox.png" />
 
 
 
