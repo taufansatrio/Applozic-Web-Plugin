@@ -1,12 +1,11 @@
 Applozic comes with 2 ready to use UI layout.
 
 #### Full view layout
-<img align="left" src="message/fullview/fullview.png" />
-
+![full-view-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/fullview/fullview.png)     
 
 
 #### Sidebox layout
-<img align="middle" src="message/advanced/sidebox.png" />
+![sidebox-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/advanced/sidebox.png)     
 
 
 
