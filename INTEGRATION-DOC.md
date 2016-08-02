@@ -147,7 +147,7 @@ $applozic.fn.applozic('leaveGroup', {'groupId' : groupId,
                                      });
  ``` 
   
-#### Update Group 
+##### Update Group 
  ```
 $applozic.fn.applozic('updateGroupInfo', {'groupId' : groupId
                                      'clientGroupId' : clientGroupId, //use either groupId or clientGroupId,
