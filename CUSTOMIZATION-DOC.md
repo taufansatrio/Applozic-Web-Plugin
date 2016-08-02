@@ -1,11 +1,29 @@
 Applozic comes with 2 ready to use UI layout full view and sidebox.
 
+#### Full view layout
+
+Demo: [https://www.applozic.com/docs/chat-examples/web.html](https://www.applozic.com/docs/chat-examples/web.html)
+
+
+![full-view-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/fullview/fullview.png)     
+
+
+
+
+#### Sidebox layout
+
+Demo: [https://www.applozic.com/plugin.html](https://www.applozic.com/plugin.html)
+
+
+![sidebox-layout](https://raw.githubusercontent.com/AppLozic/Applozic-Web-Plugin/master/message/advanced/sidebox.png)     
+
+
 1. Download source code
 
-For a full view layout like https://www.applozic.com/docs/chat-examples/web.html, download files from:
+For a full view layout, download files from:
 https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/fullview
 
-For a sidebox chat layout like https://www.applozic.com/plugin.html, download files from: https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/advanced
+For a sidebox chat layout, download files from: https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/message/advanced
 Paste js, css folders in your project.
 
 2. Remove script mentioned in Step 1 under Getting Started section.
