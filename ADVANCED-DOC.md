@@ -45,6 +45,36 @@ Sample response:
            }
 ```
 
+ 
+#### Get Messages list     
+
+```
+  $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
+                                        'isGroup': false,               // True in case of group 
+                                        'clientGroupId' : 'CLIENT_GROUP_ID', // use either groupId or clientGroupId
+                                        'callback': function(response){ // write your logic} 
+                                        });
+```        
+
+ 
+Sample response:           
+
+ ```
+ response = {'status' : 'success',                     // or error
+             'messages' :[{'key': "MESSAGE_IDENTIFIER",
+                          'from': "SENDER_USERID",         
+                          'to': 'RECEIVER_USERID',
+                          'message': "MESSAGE_TEXT",
+                          'type': 'inbox or outbox',
+                          'status': "MESSAGE__CURRENT_STATUS",        // For outbox message  (sent, delivered or read)
+                                                                    // For inbox messsage (read, unread)
+                          'timeStamp': 'MESSAGE_CREATED_TIMESTAMP'          
+                         }]                
+           }
+```
+
+
+
 
 #### Events subscription
 
@@ -89,34 +119,4 @@ $applozic.fn.applozic('subscribeToEvents', {
                        //user is deactivated by app admin
                  }
                });
-```
-
-
-
- 
-#### Get Messages list     
-
-```
-  $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
-                                        'isGroup': false,               // True in case of group 
-                                        'clientGroupId' : 'CLIENT_GROUP_ID', // use either groupId or clientGroupId
-                                        'callback': function(response){ // write your logic} 
-                                        });
-```        
-
- 
-Sample response:           
-
- ```
- response = {'status' : 'success',                     // or error
-             'messages' :[{'key': "MESSAGE_IDENTIFIER",
-                          'from': "SENDER_USERID",         
-                          'to': 'RECEIVER_USERID',
-                          'message': "MESSAGE_TEXT",
-                          'type': 'inbox or outbox',
-                          'status': "MESSAGE__CURRENT_STATUS",        // For outbox message  (sent, delivered or read)
-                                                                    // For inbox messsage (read, unread)
-                          'timeStamp': 'MESSAGE_CREATED_TIMESTAMP'          
-                         }]                
-           }
 ```
