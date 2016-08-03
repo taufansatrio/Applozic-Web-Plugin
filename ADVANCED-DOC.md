@@ -21,30 +21,6 @@ $applozic.fn.applozic('sendMessage', {
                                     }); 
 ```
 
-####  Get User Details
-
-
-```
-  $applozic.fn.applozic('getUserDetail', {callback: function getUserDetail(response) {
-        if(response.status === 'success') {
-           // write your logic
-        }
-     }
-  });
-```
-
-Sample response:
-
-```
-           {'status' : 'success' ,                     // or error
-            'data':  {'totalUnreadCount': 15           // total unread count for user          
-                     'users':                          // Array of other users detail
-                        [{"userId":"USERID_1","connected":false,"lastSeenAtTime":1453462368000,"createdAtTime":1452150981000,"unreadCount":3}, 
-                        {"userId":"USERID_2","connected":false,"lastSeenAtTime":1452236884000,"createdAtTime":1452236884000,"unreadCount":1}]    
-                     }
-           }
-```
-
  
 #### Get Messages list     
 
@@ -74,6 +50,29 @@ Sample response:
 ```
 
 
+####  User Details
+Get details of all users present in user's contact list.
+
+```
+  $applozic.fn.applozic('getUserDetail', {callback: function getUserDetail(response) {
+        if(response.status === 'success') {
+           // write your logic
+        }
+     }
+  });
+```
+
+Sample response:
+
+```
+           {'status' : 'success' ,                     // or error
+            'data':  {'totalUnreadCount': 15           // total unread count for user          
+                     'users':                          // Array of other users detail
+                        [{"userId":"USERID_1","connected":false,"lastSeenAtTime":1453462368000,"createdAtTime":1452150981000,"unreadCount":3}, 
+                        {"userId":"USERID_2","connected":false,"lastSeenAtTime":1452236884000,"createdAtTime":1452236884000,"unreadCount":1}]    
+                     }
+           }
+```
 
 
 #### Events subscription
