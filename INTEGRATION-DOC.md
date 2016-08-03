@@ -1,4 +1,5 @@
-#### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+#### Step 1: Add Plugin
+Add the Applozic Chat plugin script before ```</head>``` into your web page            
 
 ```
 <script type="text/javascript">
@@ -14,7 +15,8 @@
 </script>
 ```
  
-#### Step 2: Login or Register with userId and username
+#### Step 2: Login/Register user
+Login or Register with userId and username
 Applozic will create a new user if the user doesn't exists.
 userId is the unique identifier for any user, it can be anything like email, phone number or uuid from your database.
 
@@ -55,7 +57,7 @@ It can also be called from any event, for example: on click of a button.
 **Note** : desktopNotification support only for chrome browser, notificationIconLink will be displayed in desktop notification.
 
 
-#### Step 3: Initiate chat with other user
+#### Step 3: Initiate Chat
 
 To initiate chat with another user using userId:
 ``` 
