@@ -22,7 +22,7 @@ $applozic.fn.applozic('sendMessage', {
 ```
 
  
-#### Get Messages list     
+#### Messages list    
 
 ```
   $applozic.fn.applozic('messageList', {'id': 'Group Id or User Id',     
