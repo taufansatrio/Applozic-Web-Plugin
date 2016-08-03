@@ -217,7 +217,7 @@ body {
 }
 
 .mck-container .left .people .person .mck-icon-user, .mck-container .left .people .person.active .mck-icon-user,
-	.mck-container .left .people .person:hover .mck-icon-user {
+	.mck-container .left .people .person:hover .mck-icon-user, .mck-group-search-list .mck-icon-user, .mck-group-member-list .mck-icon-user {
 	background: url(app/images/mck-plugin-sprite.png);
 	background-position: -6px 2px;
 	width: 40px;
