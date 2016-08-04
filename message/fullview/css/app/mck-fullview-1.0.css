@@ -733,6 +733,7 @@ a:hover {
 
 .mck-group-search-box .mck-box-body {
 	padding: 10px;
+	padding-top :0;
 }
 
 .mck-top-btn-panel {
@@ -1884,7 +1885,7 @@ ol,  ul {
 }
 
 .mck-group-search-box input {
-	width: 245px;
+	width: 255px;
 }
 
 .mck-loc-box input {
