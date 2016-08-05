@@ -1,6 +1,3 @@
-var MCK_BASE_URL;
-var MCK_GROUP_MAP = [];
-var MCK_CLIENT_GROUP_MAP = [];
 var mckContactUtils = new MckContactUtils();
 var mckGroupUtils = new MckGroupUtils();
 var mckGroupService = new MckGroupService();

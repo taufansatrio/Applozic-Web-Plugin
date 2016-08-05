@@ -1,4 +1,7 @@
 var $applozic = jQuery.noConflict(true);
+var MCK_BASE_URL;
+var MCK_GROUP_MAP = [];
+var MCK_CLIENT_GROUP_MAP = [];
 (function($applozic, w, d) {
 	"use strict";
 	var default_options = {
