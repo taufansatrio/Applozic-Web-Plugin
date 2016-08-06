@@ -1,4 +1,7 @@
 var $applozic = jQuery.noConflict(true);
+var MCK_BASE_URL;
+var MCK_GROUP_MAP = [];
+var MCK_CLIENT_GROUP_MAP = [];
 (function($applozic, w, d) {
     "use strict";
     var default_options = {
@@ -155,7 +158,7 @@ var $applozic = jQuery.noConflict(true);
         var ELEMENT_NODE = 1;
         var USER_COUNTRY_CODE;
         var MCK_WEBSOCKET_URL;
-        var MCK_GROUP_MAP = [];
+        MCK_GROUP_MAP = [];
         var MCK_CONTACT_MAP = [];
         var MCK_TYPING_STATUS = 0;
         var CONTACT_SYNCING = false;
@@ -169,14 +172,14 @@ var $applozic = jQuery.noConflict(true);
         var MCK_LAST_SEEN_AT_MAP = [];
         var MCK_CONVERSATION_MAP = [];
         var IS_MCK_TAB_FOCUSED = true;
-        var MCK_CLIENT_GROUP_MAP = [];
+        MCK_CLIENT_GROUP_MAP = [];
         var MCK_TOTAL_UNREAD_COUNT = 0;
         var MCK_MODE = appOptions.mode;
         var MCK_APP_ID = appOptions.appId;
         var MCK_CONNECTED_CLIENT_COUNT = 0;
         var MCK_TOPIC_CONVERSATION_MAP = [];
         var IS_MCK_USER_DEACTIVATED = false;
-        var MCK_BASE_URL = appOptions.baseUrl;
+        MCK_BASE_URL = appOptions.baseUrl;
         var MCK_LAUNCHER = appOptions.launcher;
         var IS_MCK_VISITOR = appOptions.visitor;
         var MCK_USER_NAME = appOptions.userName;
@@ -235,8 +238,8 @@ var $applozic = jQuery.noConflict(true);
         var mckMapService = new MckMapService();
         var mckGroupLayout = new MckGroupLayout();
         var mckFileService = new MckFileService();
-        var mckContactUtils = new MckContactUtils();
-        var mckGroupService = new MckGroupService();
+    //    var mckContactUtils = new MckContactUtils();
+   //     var mckGroupService = new MckGroupService();
         var mckMessageLayout = new MckMessageLayout();
         var mckMessageService = new MckMessageService();
         var mckContactService = new MckContactService();
@@ -349,7 +352,7 @@ var $applozic = jQuery.noConflict(true);
             if (typeof tabId === 'undefined' || tabId === "") {
                 return "Group Id Required";
             }
-            var group = mckGroupLayout.getGroup(tabId);
+            var group = mckGroupUtils.getGroup(tabId);
             if (typeof group === 'object') {
                 mckMessageLayout.loadTab({
                         tabId: tabId, 'isGroup': true
@@ -357,7 +360,9 @@ var $applozic = jQuery.noConflict(true);
                 $applozic("#mck-search").val("");
             } else {
                 mckGroupService.getGroupFeed({
-                        'groupId': tabId, 'callback': mckGroupLayout.loadGroupTab
+                        'groupId': tabId, 
+                        'apzCallback': mckGroupLayout.onGroupFeed,
+                        'callback': mckGroupLayout.loadGroupTab
                 });
             }
         };
@@ -365,7 +370,7 @@ var $applozic = jQuery.noConflict(true);
             if ((typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
                 return "Client Group Id Required";
             }
-            var group = mckGroupLayout.getGroupByClientGroupId(params.clientGroupId);
+            var group = mckGroupUtils.getGroupByClientGroupId(params.clientGroupId);
             if (typeof group === 'object') {
                 mckMessageLayout.loadTab({
                         tabId: group.contactId, 'isGroup': true
@@ -373,7 +378,9 @@ var $applozic = jQuery.noConflict(true);
                 $applozic("#mck-search").val("");
             } else {
                 mckGroupService.getGroupFeed({
-                        'clientGroupId': params.clientGroupId, 'callback': mckGroupLayout.loadGroupTab
+                        'clientGroupId': params.clientGroupId,
+                        'apzCallback': mckGroupLayout.onGroupFeed,
+                        'callback': mckGroupLayout.loadGroupTab
                 });
             }
         };
@@ -404,6 +411,7 @@ var $applozic = jQuery.noConflict(true);
         };
         _this.getGroupList = function(params) {
             if (typeof params.callback === 'function') {
+            	params.apzCallback = mckGroupLayout.loadGroups;
                 mckGroupService.loadGroups(params);
                 return "success";
             } else {
@@ -418,6 +426,7 @@ var $applozic = jQuery.noConflict(true);
                 return "GroupId or Client GroupId Required";
             }
             if (typeof params.callback === 'function') {
+            	params.apzCallback = mckGroupLayout.onGroupLeft;
                 mckGroupService.leaveGroup(params);
                 return "success";
             } else {
@@ -434,7 +443,8 @@ var $applozic = jQuery.noConflict(true);
             if (typeof params.userId === 'undefined' || params.userId === "") {
                 return "User Id Required";
             }
-            if (typeof params.callback === 'function') {
+            if (typeof params.callback === 'function') {            	
+            	params.apzCallback = mckGroupLayout.onAddedGroupMember;
                 mckGroupService.addGroupMember(params);
                 return "success";
             } else {
@@ -452,6 +462,7 @@ var $applozic = jQuery.noConflict(true);
                 return "User Id Required";
             }
             if (typeof params.callback === 'function') {
+            	params.apzCallback = mckGroupLayout.onRemovedGroupMember;
                 mckGroupService.removeGroupMember(params);
                 return "success";
             } else {
@@ -469,6 +480,7 @@ var $applozic = jQuery.noConflict(true);
                 return "Group name or Group image required";
             }
             if (typeof params.callback === 'function') {
+            	params.apzCallback = mckGroupLayout.onUpdateGroupInfo;
                 mckGroupService.updateGroupInfo(params);
                 return "success";
             } else {
@@ -1261,7 +1273,7 @@ var $applozic = jQuery.noConflict(true);
                     }
                     if (confirm('Are you sure want to exit this group!')) {
                         mckGroupService.leaveGroup({
-                            'groupId': tabId
+                            'groupId': tabId, 'apzCallback' : mckGroupLayout.onGroupLeft
                         });
                     }
                 });
@@ -1278,11 +1290,11 @@ var $applozic = jQuery.noConflict(true);
                     var userId = $applozic(this).parents('.mck-li-group-member').data('mck-id');
                     var groupId = $mck_group_info_tab.data('mck-id');
                     if (typeof groupId !== 'undefined' && typeof userId !== 'undefined') {
-                        var group = mckGroupLayout.getGroup(groupId);
+                        var group = mckGroupUtils.getGroup(groupId);
                         if (typeof group === 'object' && MCK_USER_ID === group.adminName) {
                             if (confirm('Are you sure want to remove this member!')) {
                                 mckGroupService.removeGroupMember({
-                                        'groupId': groupId, 'userId': userId
+                                        'groupId': groupId, 'userId': userId, 'apzCallback' :mckGroupLayout.onRemovedGroupMember
                                 });
                             }
                         } else {
@@ -1301,7 +1313,7 @@ var $applozic = jQuery.noConflict(true);
                     }
                     if (confirm('Are you sure want to exit this group!')) {
                         mckGroupService.leaveGroup({
-                            'groupId': groupId
+                            'groupId': groupId, 'apzCallback' : mckGroupLayout.onGroupLeft
                         });
                     }
                 });
@@ -1344,7 +1356,7 @@ var $applozic = jQuery.noConflict(true);
                     e.preventDefault();
                     var groupId = $mck_group_info_tab.data('mck-id');
                     if (groupId) {
-                        var group = mckGroupLayout.getGroup(groupId);
+                        var group = mckGroupUtils.getGroup(groupId);
                         if (group && group.adminName === MCK_USER_ID) {
                             if (MCK_GROUP_SEARCH_ARRAY.length > 0) {
                                 mckGroupLayout.addMembersToGroupSearchList();
@@ -1501,9 +1513,9 @@ var $applozic = jQuery.noConflict(true);
                 }
                 var contact = "";
                 if (messagePxy.groupId) {
-                    contact = mckGroupLayout.getGroup(messagePxy.groupId);
+                    contact = mckGroupUtils.getGroup(messagePxy.groupId);
                     if (typeof contact === "undefined") {
-                        contact = mckGroupLayout.createGroup(messagePxy.groupId);
+                        contact = mckGroupUtils.createGroup(messagePxy.groupId);
                     }
                 } else {
                     contact = mckMessageLayout.fetchContact(messagePxy.to);
@@ -1923,7 +1935,7 @@ var $applozic = jQuery.noConflict(true);
                                         }
                                         if (data.groupFeeds.length > 0) {
                                             $applozic.each(data.groupFeeds, function(i, groupFeed) {
-                                                mckGroupLayout.addGroup(groupFeed);
+                                            	mckGroupUtils.addGroup(groupFeed);
                                                 if (!params.startTime) {
                                                     var membersIds = groupFeed.membersId;
                                                     var userIdArray = [];
@@ -1938,7 +1950,7 @@ var $applozic = jQuery.noConflict(true);
                                                         params.isLoadMessageList = true;
                                                         mckContactService.getUsersDetail(userIdArray, params);
                                                     } else {
-                                                        mckGroupLayout.addGroupStatus(mckGroupLayout.getGroup(params.tabId));
+                                                        mckGroupLayout.addGroupStatus(mckGroupUtils.getGroup(params.tabId));
                                                         $mck_loading.removeClass('vis').addClass('n-vis');
                                                         if (isMessages) {
                                                             mckMessageLayout.processMessageList(data, true);
@@ -1977,7 +1989,7 @@ var $applozic = jQuery.noConflict(true);
                                         if (data.groupFeeds.length > 0) {
                                             $applozic.each(data.groupFeeds, function(i, groupFeed) {
                                                 mckMessageLayout.updateUnreadCount('group_' + groupFeed.id, groupFeed.unreadCount, false);
-                                                mckGroupLayout.addGroup(groupFeed);
+                                                mckGroupUtils.addGroup(groupFeed);
                                             });
                                         }
                                         if (data.blockedUserPxyList.blockedToUserList.length > 0) {
@@ -2133,7 +2145,7 @@ var $applozic = jQuery.noConflict(true);
                                             MCK_TAB_CONVERSATION_MAP[params.tabId] = tabConvArray;
                                         }
                                         if (params.isGroup) {
-                                            var group = mckGroupLayout.addGroup(groupPxy);
+                                            var group = mckGroupUtils.addGroup(groupPxy);
                                             params.tabId = group.contactId;
                                         }
                                         (params.isMessage && conversationPxy.created) ? mckMessageLayout.loadTab(params, _this.dispatchMessage) : mckMessageLayout.loadTab(params);
@@ -2281,7 +2293,7 @@ var $applozic = jQuery.noConflict(true);
                                 if (typeof data === 'object' && data.status === "success") {
                                     var groupPxy = data.response;
                                     if (typeof groupPxy === 'object') {
-                                        var group = mckGroupLayout.addGroup(groupPxy);
+                                        var group = mckGroupUtils.addGroup(groupPxy);
                                         if (groupPxy.users.length > 0) {
                                             $applozic.each(groupPxy.users, function(i, userDetail) {
                                                 MCK_USER_DETAIL_MAP[userDetail.userId] = userDetail;
@@ -2306,20 +2318,6 @@ var $applozic = jQuery.noConflict(true);
                             }, error: function() {}
                     });
                 }
-            };
-        }
-        function MckContactUtils() {
-            var _this = this;
-            _this.getContactId = function(contact) {
-                var contactId = contact.contactId;
-                return _this.formatContactId(contactId);
-            };
-            _this.formatContactId = function(contactId) {
-                if (contactId.indexOf("+") === 0) {
-                    contactId = contactId.substring(1);
-                }
-                contactId = decodeURIComponent(contactId);
-                return contactId.replace(/\@/g, "AT").replace(/\./g, "DOT").replace(/\*/g, "STAR").replace(/\#/g, "HASH").replace(/\|/g, "VBAR").replace(/\+/g, "PLUS").replace(/\;/g, "SCOLON").replace(/\?/g, "QMARK");
             };
         }
         function MckMessageLayout() {
@@ -2766,7 +2764,7 @@ var $applozic = jQuery.noConflict(true);
                         return;
                     }
                     mckGroupService.getGroupFeed({
-                            'groupId': msg.groupId, 'isReloadTab': true
+                            'groupId': msg.groupId, 'isReloadTab': true, 'apzCallback': mckGroupLayout.onGroupFeed
                     });
                 }
             };
@@ -2971,10 +2969,10 @@ var $applozic = jQuery.noConflict(true);
             };
             _this.addGroupFromMessage = function(message, update) {
                 var groupId = message.groupId;
-                var group = mckGroupLayout.getGroup('' + groupId);
+                var group = mckGroupUtils.getGroup('' + groupId);
                 if (typeof group === 'undefined') {
-                    group = mckGroupLayout.createGroup(groupId);
-                    mckGroupService.loadGroups();
+                    group = mckGroupUtils.createGroup(groupId);
+                    mckGroupService.loadGroups({apzCallback : mckGroupLayout.loadGroups});
                 }
                 _this.updateRecentConversationList(group, message, update);
             };
@@ -3284,7 +3282,7 @@ var $applozic = jQuery.noConflict(true);
             };
             _this.removeConversationThread = function(tabId, isGroup) {
                 mckStorage.clearMckMessageArray();
-                var contact = (isGroup) ? mckGroupLayout.getGroup(tabId) : mckMessageLayout.getContact(tabId);
+                var contact = (isGroup) ? mckGroupUtils.getGroup(tabId) : mckMessageLayout.getContact(tabId);
                 var currentTabId = $mck_msg_inner.data('mck-id');
                 if (typeof currentTabId === 'undefined' || currentTabId === '') {
                     var htmlId = (typeof contact !== 'undefined') ? contact.htmlId : mckContactUtils.formatContactId(tabId);
@@ -3482,7 +3480,7 @@ var $applozic = jQuery.noConflict(true);
             };
             _this.populateMessage = function(messageType, message, notifyUser) {
                 var tabId = $mck_msg_inner.data('mck-id');
-                var contact = (message.groupId) ? mckGroupLayout.getGroup(message.groupId) : mckMessageLayout.getContact(message.to);
+                var contact = (message.groupId) ? mckGroupUtils.getGroup(message.groupId) : mckMessageLayout.getContact(message.to);
                 if ((typeof tabId === "undefined") || tabId === "") {
                     var mckContactListLength = $applozic("#mck-contact-list").length;
                     if (mckContactListLength > 0) {
@@ -3490,7 +3488,7 @@ var $applozic = jQuery.noConflict(true);
                     }
                     if (messageType === "APPLOZIC_01" || messageType === "MESSAGE_RECEIVED") {
                         if (typeof contact === 'undefined') {
-                            contact = (message.groupId) ? mckGroupLayout.createGroup(message.groupId) : mckMessageLayout.createContact(message.to);
+                            contact = (message.groupId) ? mckGroupUtils.createGroup(message.groupId) : mckMessageLayout.createContact(message.to);
                         }
                         if (IS_LAUNCH_TAB_ON_NEW_MESSAGE) {
                             mckMessageLayout.loadTab({
@@ -3512,7 +3510,7 @@ var $applozic = jQuery.noConflict(true);
                     }
                 } else {
                     if (typeof contact === 'undefined') {
-                        contact = (message.groupId) ? mckGroupLayout.createGroup(message.groupId) : mckMessageLayout.createContact(message.to);
+                        contact = (message.groupId) ? mckGroupUtils.createGroup(message.groupId) : mckMessageLayout.createContact(message.to);
                     }
                     if (messageType === "APPLOZIC_01" || messageType === "MESSAGE_RECEIVED") {
                         if (typeof contact !== 'undefined') {
@@ -3849,7 +3847,7 @@ var $applozic = jQuery.noConflict(true);
                                 if (params.message) {
                                     mckMessageLayout.populateMessage(params.messageType, params.message, params.notifyUser);
                                 } else if (params.isLoadMessageList) {
-                                    mckGroupLayout.addGroupStatus(mckGroupLayout.getGroup(params.tabId));
+                                    mckGroupLayout.addGroupStatus(mckGroupUtils.getGroup(params.tabId));
                                     $mck_loading.removeClass('vis').addClass('n-vis');
                                     var currTabId = $mck_msg_inner.data('mck-id');
                                     var isGroupTab = $mck_msg_inner.data('isgroup');
@@ -3881,7 +3879,7 @@ var $applozic = jQuery.noConflict(true);
                                         } else if (params.message) {
                                             mckMessageLayout.populateMessage(params.messageType, params.message, params.notifyUser);
                                         } else if (params.isLoadMessageList) {
-                                            mckGroupLayout.addGroupStatus(mckGroupLayout.getGroup(params.tabId));
+                                            mckGroupLayout.addGroupStatus(mckGroupUtils.getGroup(params.tabId));
                                             $mck_loading.removeClass('vis').addClass('n-vis');
                                             var currTabId = $mck_msg_inner.data('mck-id');
                                             var isGroupTab = $mck_msg_inner.data('isgroup');
@@ -3946,404 +3944,10 @@ var $applozic = jQuery.noConflict(true);
                         }, error: function() {}
                 });
             };
-        }
-        function MckGroupService() {
-            var _this = this;
-            var $mck_loading = $applozic("#mck-contact-loading");
-            var GROUP_LIST_URL = "/rest/ws/group/list";
-            var GROUP_FEED_URL = "/rest/ws/group/info";
-            var GROUP_LEAVE_URL = "/rest/ws/group/left";
-            var GROUP_UPDATE_INFO_URL = "/rest/ws/group/update";
-            var GROUP_ADD_MEMBER_URL = "/rest/ws/group/add/member";
-            var GROUP_REMOVE_MEMBER_URL = "/rest/ws/group/remove/member";
-            _this.loadGroups = function(params) {
-                var isInternal = true;
-                if (params && typeof params.callback === 'function') {
-                    isInternal = false;
-                    var response = new Object();
-                }
-                $applozic.ajax({
-                        url: MCK_BASE_URL + GROUP_LIST_URL, type: 'get', global: false, success: function(data) {
-                            if (data.status === "success") {
-                                if (isInternal) {
-                                    var groups = data.response;
-                                    if (groups + '' === "null" || typeof groups === "undefined" || typeof groups.length === 0) {
-                                        return;
-                                    }
-                                    mckGroupLayout.loadGroups(groups);
-                                } else {
-                                    response.status = "success";
-                                    response.data = data.response;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                    return;
-                                }
-                            } else if (!isInternal) {
-                                response.status = "error";
-                                if (params.callback) {
-                                    params.callback(response);
-                                }
-                            }
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                        }, error: function() {
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                            w.console.log('Unable to load groups. Please reload page.');
-                            if (!isInternal) {
-                                response.status = "error";
-                                if (params.callback) {
-                                    params.callback(response);
-                                }
-                            }
-                        }
-                });
-            };
-            _this.getGroupFeed = function(params) {
-                var data = "";
-                var isInternal = true;
-                if (typeof params.callback === 'function') {
-                    isInternal = false;
-                    var response = new Object();
-                }
-                if (params.groupId) {
-                    data += "groupId=" + params.groupId;
-                } else if (params.clientGroupId) {
-                    data += "clientGroupId=" + params.clientGroupId;
-                } else {
-                    if (!isInternal) {
-                        response.status = "error";
-                        response.errorMessage = "GroupId or Client GroupId Required";
-                        params.callback(response);
-                    }
-                    return;
-                }
-                if (params.conversationId) {
-                    data += "&conversationId=" + params.conversationId;
-                }
-                $applozic.ajax({
-                        url: MCK_BASE_URL + GROUP_FEED_URL, data: data, type: 'get', global: false, success: function(data) {
-                            if (data.status === "success") {
-                                var groupFeed = data.response;
-                                if (groupFeed + '' === "null" || typeof groupFeed !== "object") {
-                                    if (!isInternal) {
-                                        response.status = "error";
-                                        response.errorMessage = "GroupId not found";
-                                        params.callback(response);
-                                    }
-                                    return;
-                                }
-                                var conversationPxy = groupFeed.conversationPxy;
-                                var group = mckGroupLayout.addGroup(groupFeed);
-                                var tabConvArray = new Array();
-                                if (typeof conversationPxy === "object") {
-                                    MCK_CONVERSATION_MAP[conversationPxy.id] = conversationPxy;
-                                    MCK_TOPIC_CONVERSATION_MAP[conversationPxy.topicId] = [ conversationPxy.id ];
-                                    if (conversationPxy.topicDetail) {
-                                        MCK_TOPIC_DETAIL_MAP[conversationPxy.topicId] = $applozic.parseJSON(conversationPxy.topicDetail);
-                                    }
-                                    tabConvArray.push(conversationPxy);
-                                }
-                                if (tabConvArray.length > 0) {
-                                    MCK_TAB_CONVERSATION_MAP[params.groupId] = tabConvArray;
-                                }
-                                if (params.isMessage && typeof params.message === 'object') {
-                                    mckMessageLayout.populateMessage(params.messageType, params.message, params.notifyUser);
-                                }
-                                if (params.isReloadTab) {
-                                    mckGroupLayout.reloadGroupTab(group);
-                                }
-                                if (!isInternal) {
-                                    response.status = "success";
-                                    response.data = group;
-                                    params.callback(response);
-                                }
-                            } else if (data.status === "error") {
-                                if (!isInternal) {
-                                    response.status = "error";
-                                    response.errorMessage = data.errorResponse[0].description;
-                                    params.callback(response);
-                                }
-                            }
-                        }, error: function() {
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                            w.console.log('Unable to load group. Please reload page.');
-                            if (!isInternal) {
-                                response.status = "error";
-                                response.errorMessage = 'Please reload page.';
-                                params.callback(response);
-                            }
-                        }
-                });
-            };
-            _this.leaveGroup = function(params) {
-                var data = "";
-                var isInternal = true;
-                if (typeof params.callback === 'function') {
-                    isInternal = false;
-                    var response = new Object();
-                }
-                if (params.groupId) {
-                    data += "groupId=" + params.groupId;
-                } else if (params.clientGroupId) {
-                    data += "clientGroupId=" + params.clientGroupId;
-                } else {
-                    if (!isInternal) {
-                        response.status = "error";
-                        response.errorMessage = "GroupId or Client GroupId Required";
-                        params.callback(response);
-                    }
-                    return;
-                }
-                $applozic.ajax({
-                        url: MCK_BASE_URL + GROUP_LEAVE_URL, data: data, type: 'get', global: false, success: function(data) {
-                            if (data.status === "success") {
-                                if (params.clientGroupId) {
-                                    var group = mckGroupLayout.getGroupByClientGroupId(params.clientGroupId);
-                                    if (typeof group === 'object') {
-                                        params.groupId = group.contactId;
-                                    }
-                                }
-                                if (params.groupId) {
-                                    mckGroupLayout.onGroupLeft(params.groupId);
-                                }
-                                if (isInternal) {
-                                    // mckGroupLayout.onGroupLeft(params.groupId);
-                                } else {
-                                    response.status = "success";
-                                    response.data = data.response;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                    return;
-                                }
-                            } else {
-                                if (isInternal) {
-                                    alert("Unable to process your request. " + data.errorResponse[0].description);
-                                } else {
-                                    response.status = "error";
-                                    response.errorMessage = data.errorResponse[0].description;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                            }
-                        }, error: function() {
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                            w.console.log('Unable to process your request. Please reload page.');
-                            if (!isInternal) {
-                                response.status = "error";
-                                if (params.callback) {
-                                    params.callback(response);
-                                }
-                            }
-                        }
-                });
-            };
-            _this.removeGroupMember = function(params) {
-                var data = "";
-                var isInternal = true;
-                if (typeof params.callback === 'function') {
-                    isInternal = false;
-                    var response = new Object();
-                }
-                if (params.groupId) {
-                    data += "groupId=" + params.groupId;
-                } else if (params.clientGroupId) {
-                    data += "clientGroupId=" + params.clientGroupId;
-                } else {
-                    if (!isInternal) {
-                        response.status = "error";
-                        response.errorMessage = "GroupId or Client GroupId Required";
-                        params.callback(response);
-                    }
-                    return;
-                }
-                data += "&userId=" + encodeURIComponent(params.userId);
-                $applozic.ajax({
-                        url: MCK_BASE_URL + GROUP_REMOVE_MEMBER_URL, data: data, type: 'get', global: false, success: function(data) {
-                            if (data.status === "success") {
-                                if (isInternal) {
-                                    // mckGroupLayout.onRemoveGroupMember(params.groupId,
-                                    // params.userId);
-                                } else {
-                                    response.status = "success";
-                                    response.data = data.response;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                                if (params.clientGroupId) {
-                                    var group = mckGroupLayout.getGroupByClientGroupId(params.clientGroupId);
-                                    if (typeof group === 'object') {
-                                        params.groupId = group.contactId;
-                                    }
-                                }
-                                if (params.groupId) {
-                                    mckGroupLayout.onRemovedGroupMember(params.groupId, params.userId);
-                                }
-                                return;
-                            } else {
-                                if (isInternal) {
-                                    alert("Unable to process your request. " + data.errorResponse[0].description);
-                                } else {
-                                    response.status = "error";
-                                    response.errorMessage = data.errorResponse[0].description;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                            }
-                        }, error: function() {
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                            w.console.log('Unable to process your request. Please reload page.');
-                            if (!isInternal) {
-                                response.status = "error";
-                                if (params.callback) {
-                                    params.callback(response);
-                                }
-                            }
-                        }
-                });
-            };
-            _this.addGroupMember = function(params) {
-                var data = "";
-                var isInternal = true;
-                if (typeof params.callback === 'function') {
-                    isInternal = false;
-                    var response = new Object();
-                }
-                if (params.groupId) {
-                    data += "groupId=" + params.groupId;
-                } else if (params.clientGroupId) {
-                    data += "clientGroupId=" + params.clientGroupId;
-                } else {
-                    if (!isInternal) {
-                        response.status = "error";
-                        response.errorMessage = "GroupId or Client GroupId Required";
-                        params.callback(response);
-                    }
-                    return;
-                }
-                data += "&userId=" + encodeURIComponent(params.userId);
-                $applozic.ajax({
-                        url: MCK_BASE_URL + GROUP_ADD_MEMBER_URL, data: data, type: 'get', global: false, success: function(data) {
-                            if (data.status === "success") {
-                                if (isInternal) {
-                                    // mckGroupLayout.onAddedGroupMember(params.groupId,
-                                    // params.userId);
-                                } else {
-                                    response.status = "success";
-                                    response.data = data.response;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                                if (params.clientGroupId) {
-                                    var group = mckGroupLayout.getGroupByClientGroupId(params.clientGroupId);
-                                    if (typeof group === 'object') {
-                                        params.groupId = group.contactId;
-                                    }
-                                }
-                                if (params.groupId) {
-                                    mckGroupLayout.onAddedGroupMember(params.groupId, params.userId);
-                                }
-                                return;
-                            } else {
-                                if (isInternal) {
-                                    alert("Unable to process your request. " + data.errorResponse[0].description);
-                                } else {
-                                    response.status = "error";
-                                    response.errorMessage = data.errorResponse[0].description;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                            }
-                        }, error: function() {
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                            w.console.log('Unable to process your request. Please reload page.');
-                            if (!isInternal) {
-                                response.status = "error";
-                                if (params.callback) {
-                                    params.callback(response);
-                                }
-                            }
-                        }
-                });
-            };
-            _this.updateGroupInfo = function(params) {
-                var groupInfo = {};
-                var isInternal = true;
-                if (typeof params.callback === 'function') {
-                    isInternal = false;
-                    var response = new Object();
-                }
-                if (params.groupId) {
-                    groupInfo.groupId = params.groupId;
-                } else if (params.clientGroupId) {
-                    groupInfo.clientGroupId = params.clientGroupId;
-                } else {
-                    if (!isInternal) {
-                        response.status = "error";
-                        response.errorMessage = "GroupId or Client GroupId Required";
-                        params.callback(response);
-                    }
-                    return;
-                }
-                if (params.name) {
-                    groupInfo.newName = params.name;
-                }
-                if (params.imageUrl) {
-                    groupInfo.imageUrl = params.imageUrl;
-                }
-                $applozic.ajax({
-                        url: MCK_BASE_URL + GROUP_UPDATE_INFO_URL, type: 'post', data: w.JSON.stringify(groupInfo), contentType: 'application/json', global: false, success: function(data) {
-                            if (data.status === "success") {
-                                if (isInternal) {
-                                    // mckGroupLayout.onRemoveGroupMember(params.groupId,
-                                    // params.userId);
-                                } else {
-                                    response.status = "success";
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                                if (params.clientGroupId) {
-                                    var group = mckGroupLayout.getGroupByClientGroupId(params.clientGroupId);
-                                    if (typeof group === 'object') {
-                                        params.groupId = group.contactId;
-                                    }
-                                }
-                                if (params.groupId) {
-                                    mckGroupLayout.onUpdateGroupInfo(params.groupId, groupInfo);
-                                }
-                                return;
-                            } else {
-                                if (isInternal) {
-                                    alert("Unable to process your request. " + data.errorResponse[0].description);
-                                } else {
-                                    response.status = "error";
-                                    response.errorMessage = data.errorResponse[0].description;
-                                    if (params.callback) {
-                                        params.callback(response);
-                                    }
-                                }
-                            }
-                        }, error: function() {
-                            $mck_loading.removeClass('vis').addClass('n-vis');
-                            w.console.log('Unable to process your request. Please reload page.');
-                            if (!isInternal) {
-                                response.status = "error";
-                                if (params.callback) {
-                                    params.callback(response);
-                                }
-                            }
-                        }
-                });
-            };
-        }
+        }       
         function MckGroupLayout() {
             var _this = this;
+    		var $mck_loading = $applozic("#mck-contact-loading");
             var $mck_msg_form = $applozic("#mck-msg-form");
             var $mck_msg_error = $applozic("#mck-msg-error");
             var $mck_tab_title = $applozic("#mck-tab-title");
@@ -4399,7 +4003,7 @@ var $applozic = jQuery.noConflict(true);
                         $mck_group_name_save.removeClass('vis').addClass('n-vis');
                         $mck_group_title.attr('contenteditable', false);
                         var params = {
-                                groupId: currTabId, name: groupName
+                                groupId: currTabId, name: groupName, apzCallback : mckGroupLayout.onUpdateGroupInfo
                         }
                         mckGroupService.updateGroupInfo(params);
                     }
@@ -4410,28 +4014,14 @@ var $applozic = jQuery.noConflict(true);
             _this.loadGroups = function(groups) {
                 if (typeof groups.length === "undefined") {
                     if ((typeof groups.id !== "undefined")) {
-                        mckGroupLayout.addGroup(groups);
+                    	mckGroupUtils.addGroup(groups);
                     }
                 } else {
                     $applozic.each(groups, function(i, group) {
                         if ((typeof group.id !== "undefined")) {
-                            mckGroupLayout.addGroup(group);
+                        	mckGroupUtils.addGroup(group);
                         }
                     });
-                }
-            };
-            _this.getGroup = function(groupId) {
-                if (typeof MCK_GROUP_MAP[groupId] === 'object') {
-                    return MCK_GROUP_MAP[groupId];
-                } else {
-                    return;
-                }
-            };
-            _this.getGroupByClientGroupId = function(clientGroupId) {
-                if (typeof MCK_CLIENT_GROUP_MAP[clientGroupId] === 'object') {
-                    return MCK_CLIENT_GROUP_MAP[clientGroupId];
-                } else {
-                    return;
                 }
             };
             _this.getGroupDisplayName = function(groupId) {
@@ -4461,24 +4051,6 @@ var $applozic = jQuery.noConflict(true);
             _this.getGroupImage = function(imageSrc) {
                 return (imageSrc) ? '<img src="' + imageSrc + '"/>' : '<img src="' + MCK_BASE_URL + '/resources/sidebox/css/app/images/mck-icon-group.png"/>';
             };
-            _this.addGroup = function(group) {
-                var name = (group.name) ? group.name : group.id;
-                var groupFeed = {
-                        'contactId': group.id.toString(), 'htmlId': mckContactUtils.formatContactId('' + group.id), 'displayName': name, 'name': name + " <" + group.id + ">" + " [" + "Main" + "]", 'value': group.id.toString(), 'adminName': group.adminName, 'type': group.type, 'members': group.membersName, 'imageUrl': group.imageUrl, 'removedMembersId': group.removedMembersId, 'clientGroupId': group.clientGroupId, 'isGroup': true
-                };
-                MCK_GROUP_MAP[group.id] = groupFeed;
-                if (group.clientGroupId) {
-                    MCK_CLIENT_GROUP_MAP[group.clientGroupId] = groupFeed;
-                }
-                return groupFeed;
-            };
-            _this.createGroup = function(groupId) {
-                var group = {
-                        'contactId': groupId.toString(), 'htmlId': mckContactUtils.formatContactId('' + groupId), 'name': groupId + " <" + groupId + ">" + " [" + "Main" + "]", 'displayName': groupId.toString(), 'value': groupId.toString(), 'type': 2, 'adminName': "", 'imageUrl': "", 'removedMembersId': [], 'clientGroupId': "", 'isGroup': true
-                };
-                MCK_GROUP_MAP[groupId] = group;
-                return group;
-            };
             _this.addMemberToGroup = function(group, userId) {
                 if (typeof group.members === 'object') {
                     group.members.push(userId);
@@ -4498,7 +4070,7 @@ var $applozic = jQuery.noConflict(true);
                 var isGroupLeft = _this.isGroupLeft(group);
                 if (isGroupLeft || IS_GROUP_SUBTITLE_HIDDEN) {
                     if (isGroupLeft) {
-                        mckGroupLayout.onGroupLeft(group.contactId);
+                        mckGroupLayout.onGroupLeft("", {groupId:group.contactId});
                     }
                     $mck_tab_title.removeClass("mck-tab-title-w-status");
                     $mck_tab_status.removeClass('vis').addClass('n-vis');
@@ -4542,7 +4114,16 @@ var $applozic = jQuery.noConflict(true);
                 }
                 return isGroupLeft;
             };
-            _this.onGroupLeft = function(groupId) {
+            _this.onGroupLeft = function(response, params) {
+            	$mck_loading.removeClass('vis').addClass('n-vis');
+				if(typeof response === 'object') {
+					if(response.status === "error") {
+						alert("Unable to process your request. "
+								+ response.errorMessage);
+						return;
+					}
+				}
+				var groupId =params.groupId;
                 if ($mck_group_info_tab.hasClass('vis')) {
                     var currGroupId = $mck_group_info_tab.data('mck-id');
                     if (groupId === currGroupId) {
@@ -4557,8 +4138,18 @@ var $applozic = jQuery.noConflict(true);
                     }
                 }
             };
-            _this.onAddedGroupMember = function(groupId, userId) {
-                var group = _this.getGroup(groupId);
+    		_this.onAddedGroupMember = function(response, params) {
+				$mck_loading.removeClass('vis').addClass('n-vis');
+				if(typeof response === 'object') {
+					if(response.status === "error") {
+						alert("Unable to process your request. "
+								+ response.errorMessage);
+						return;
+					}
+				}
+				var groupId = params.groupId;
+				var userId = params.userId;
+                var group = mckGroupUtils.getGroup(groupId);
                 if (typeof group === 'object') {
                     group = _this.addMemberToGroup(group, userId);
                     if ($mck_group_info_tab.hasClass('vis')) {
@@ -4580,12 +4171,23 @@ var $applozic = jQuery.noConflict(true);
                     }
                 } else {
                     mckGroupService.getGroupFeed({
-                        'groupId': groupId
+                        'groupId': groupId,
+                    	'apzCallback' : mckGroupLayout.onGroupFeed
                     });
                 }
             };
-            _this.onRemovedGroupMember = function(groupId, userId) {
-                var group = _this.getGroup(groupId);
+            _this.onRemovedGroupMember = function(response, params) {
+        		$mck_loading.removeClass('vis').addClass('n-vis');
+				if(typeof response === 'object') {
+					if(response.status === "error") {
+						alert("Unable to process your request. "
+								+ response.errorMessage);
+						return;
+					}
+				}
+				var groupId = params.groupId;
+				var userId = params.userId;
+                var group = mckGroupUtils.getGroup(groupId);
                 if (typeof group === 'object') {
                     group = _this.removeMemberFromGroup(group, userId);
                     if ($mck_group_info_tab.hasClass('vis')) {
@@ -4606,12 +4208,51 @@ var $applozic = jQuery.noConflict(true);
                     }
                 } else {
                     mckGroupService.getGroupFeed({
-                        'groupId': groupId
+                        'groupId': groupId,
+                    	'apzCallback' : mckGroupLayout.onGroupFeed
                     });
                 }
             };
-            _this.onUpdateGroupInfo = function(groupId, groupInfo) {
-                var group = _this.getGroup(groupId);
+        	_this.onGroupFeed = function(response, params) {
+				$mck_loading.removeClass('vis').addClass('n-vis');
+				if (response.status === 'success') {
+					var groupFeed = response.data;
+					var conversationPxy = groupFeed.conversationPxy;
+					var group = mckGroupUtils.getGroup(groupFeed.id);
+					var tabConvArray = new Array();
+					if (typeof conversationPxy === "object") {
+						MCK_CONVERSATION_MAP[conversationPxy.id] = conversationPxy;
+						MCK_TOPIC_CONVERSATION_MAP[conversationPxy.topicId] = [ conversationPxy.id ];
+						if (conversationPxy.topicDetail) {
+							MCK_TOPIC_DETAIL_MAP[conversationPxy.topicId] = $applozic
+									.parseJSON(conversationPxy.topicDetail);
+						}
+						tabConvArray.push(conversationPxy);
+					}
+					if (tabConvArray.length > 0) {
+						MCK_TAB_CONVERSATION_MAP[params.groupId] = tabConvArray;
+					}
+					if (params.isMessage && typeof params.message === 'object') {
+						mckMessageLayout.populateMessage(params.messageType,
+								params.message, params.notifyUser);
+					}
+					if (params.isReloadTab) {
+						_this.reloadGroupTab(group);
+					}
+				}
+			};
+            _this.onUpdateGroupInfo = function(response, params) {
+        		$mck_loading.removeClass('vis').addClass('n-vis');
+				if(typeof response === 'object') {
+					if(response.status === "error") {
+						alert("Unable to process your request. "
+								+ response.errorMessage);
+						return;
+					}
+				}
+				var groupId = params.groupId;
+				var groupInfo = params.groupInfo;
+                var group = mckGroupUtils.getGroup(groupId);
                 if (typeof group === 'object') {
                     if (groupInfo.imageUrl) {
                         group.imageUrl = groupInfo.imageUrl;
@@ -4652,6 +4293,7 @@ var $applozic = jQuery.noConflict(true);
                             params.conversationId = message.conversationId;
                         }
                     }
+                	params.apzCallback = mckGroupLayout.onGroupFeed;
                     mckGroupService.getGroupFeed(params);
                 }
             };
@@ -4778,7 +4420,7 @@ var $applozic = jQuery.noConflict(true);
                         $mck_group_info_tab.data('mck-conversation-id', params.conversationId);
                     }
                     $mck_group_member_List.html('');
-                    var group = _this.getGroup(params.groupId);
+                    var group = mckGroupUtils.getGroup(params.groupId);
                     if (typeof group === 'object') {
                         $mck_group_icon.html(_this.getGroupImage(group.imageUrl));
                         $mck_group_title.html(group.displayName);
@@ -4786,7 +4428,7 @@ var $applozic = jQuery.noConflict(true);
                         (group.adminName === MCK_USER_ID) ? $mck_group_add_member_box.removeClass('n-vis').addClass('vis') : $mck_group_add_member_box.removeClass('vis').addClass('n-vis');
                     } else {
                         mckGroupService.getGroupFeed({
-                            'groupId': params.groupId
+                            'groupId': params.groupId, 'apzCallback': mckGroupLayout.onGroupFeed
                         });
                     }
                 }
@@ -4799,10 +4441,10 @@ var $applozic = jQuery.noConflict(true);
             _this.addGroupMemberFromSearch = function(userId) {
                 var groupId = $mck_group_info_tab.data('mck-id');
                 if (typeof groupId !== 'undefined' && typeof userId !== 'undefined') {
-                    var group = mckGroupLayout.getGroup(groupId);
+                    var group = mckGroupUtils.getGroup(groupId);
                     if (typeof group === 'object' && MCK_USER_ID === group.adminName) {
                         mckGroupService.addGroupMember({
-                                'groupId': groupId, 'userId': userId
+                                'groupId': groupId, 'userId': userId, 'apzCallback': mckGroupLayout.onAddedGroupMember
                         });
                     } else {
                         $mck_group_admin_options.removeClass('vis').addClass('n-vis');
@@ -5228,7 +4870,7 @@ var $applozic = jQuery.noConflict(true);
                 if (message.type === 7) {
                     return;
                 }
-                var contact = (message.groupId) ? mckGroupLayout.getGroup('' + message.groupId) : mckMessageLayout.fetchContact('' + message.to.split(",")[0]);
+                var contact = (message.groupId) ? mckGroupUtils.getGroup('' + message.groupId) : mckMessageLayout.fetchContact('' + message.to.split(",")[0]);
                 var isGroup = false;
                 if (message.groupId) {
                     isGroup = true;
@@ -5730,7 +5372,7 @@ var $applozic = jQuery.noConflict(true);
                             var messageArray = [];
                             messageArray.push(message);
                             mckStorage.updateMckMessageArray(messageArray);
-                            var contact = (message.groupId) ? mckGroupLayout.getGroup(message.groupId) : mckMessageLayout.getContact(message.to);
+                            var contact = (message.groupId) ? mckGroupUtils.getGroup(message.groupId) : mckMessageLayout.getContact(message.to);
                             var $mck_sidebox_content = $applozic("#mck-sidebox-content");
                             var tabId = $mck_message_inner.data('mck-id');
                             if (messageType === "APPLOZIC_01" || messageType === "MESSAGE_RECEIVED") {
