@@ -2155,6 +2155,10 @@ ol,  ul {
 .mck-group-inner {
 	background: #F0F0F0;
 }
+.mck-tab-info, .mck-tab-info:hover, .mck-tab-info:active, .mck-tab-info:focus  { 
+	color: #333;
+    text-decoration: none;
+}
 
 .mck-group-inner .mck-msg-left .mck-msg-box {
 	padding: 4px 8px;
