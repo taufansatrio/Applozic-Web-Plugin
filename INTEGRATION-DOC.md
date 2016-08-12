@@ -1,5 +1,5 @@
 #### Step 1: Add Plugin
-Add the Applozic Chat plugin script before ```</head>``` into your web page            
+Add the Applozic Chat plugin script before closing of ```</body>``` into your web page            
 
 ```
 <script type="text/javascript">
@@ -19,6 +19,7 @@ Add the Applozic Chat plugin script before ```</head>``` into your web page
 Login or Register with userId and username
 Applozic will create a new user if the user doesn't exists.
 userId is the unique identifier for any user, it can be anything like email, phone number or uuid from your database.
+Add the below code just after Step 1.
 
 ``` 
 <script type="text/javascript">
