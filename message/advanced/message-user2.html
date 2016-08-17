@@ -15,7 +15,7 @@
 <script src="js/jquery-2.2.2.min.js"></script>
 </head>
 <body>
-	<div id="mck-side-panel">
+		<div id="mck-side-panel">
 		<div id="mck-sidebox" class="mck-sidebox mck-box fade">
 			<div class="mck-box-dialog mck-box-sm mck-right mck-bg-white">
 				<div id="mck-sidebox-content"
@@ -101,7 +101,9 @@
 								<div class="blk-lg-2 move-right">
 									<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 										aria-expanded="true">
-										<img src="css/app/images/mck-icon-menu.png" alt="Tab Menu">
+										<img
+											src="css/app/images/mck-icon-menu.png"
+											alt="Tab Menu">
 									</div>
 									<ul id="mck-tab-menu-list"
 										class="mck-dropdown-menu mck-tab-menu-box menu-right"
@@ -140,7 +142,7 @@
 							</div>
 							<div class="mck-message-inner"></div>
 							<div id="mck-contact-loading" class="mck-loading">
-								<span class="mck-icon-loading"></span>
+								<img src="css/app/images/ring.gif" />
 							</div>
 							<div id="mck-show-more-icon" class="mck-show-more-icon n-vis">
 								<h3>No more conversations!</h3>
@@ -231,8 +233,9 @@
 						<div id="mck-contacts-content"
 							class="mck-contacts-content mck-text-center">
 							<button type="submit" id="mck-msg-new"
-								class="mck-msg-new mck-btn mck-btn-blue" title="New Message">
-								<span>New Message</span>
+								class="mck-msg-new mck-btn mck-btn-blue"
+								title="New Conversation">
+								<span>New Conversation</span>
 							</button>
 						</div>
 					</div>
@@ -249,7 +252,27 @@
 							<a href="#" role="link" class="mck-conversation-tab-link"><span
 								class="mck-icon-backward"></span></a>
 						</div>
-						<div class="blk-lg-8">
+						<div class="blk-lg-5">
+							<div class="mck-box-title mck-truncate" title="Start New">Start
+								New</div>
+						</div>
+						<div
+							class="blk-lg-3 move-right mck-start-new-menu mck-tab-menu-box">
+							<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
+								aria-expanded="true">
+								<img src="css/app/images/icon-menu.png"
+									alt="Tab Menu">
+							</div>
+							<ul id="mck-start-new-menu-list"
+								class="mck-dropdown-menu  menu-right" role="menu">
+								<li><a href="#" id="mck-new-group"
+									class="mck-new-group-button menu-item" title="New Group">New
+										Group</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="mck-box-top mck-search-box-top">
+						<div class="blk-lg-12">
 							<div class="mck-input-group">
 								<input type="text" id="mck-search" data-provide="typeahead"
 									placeholder="Search..." autofocus /> <span
@@ -265,7 +288,78 @@
 									class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
 							</div>
 							<div id="mck-search-loading" class="mck-loading n-vis">
-								<span class="mck-icon-loading"></span>
+								<img src="css/app/images/ring.gif" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="mck-group-create-tab"
+					class="mck-group-create-tab mck-sidebox-content mck-box-content vis">
+					<div class="mck-box-top">
+						<div class="mck-tab-link blk-lg-4">
+							<a id="mck-search-tab-link" href="#" role="link"
+								class="mck-search-tab-link mck-msg-new"><span
+								class="mck-icon-backward"></span> </a>
+						</div>
+						<div class="blk-lg-8">
+							<div class="mck-box-title mck-truncate" title="Group Info">New
+								Group</div>
+						</div>
+					</div>
+					<div class="mck-box-body">
+						<div class="mck-tab-cell">
+							<div id="mck-group-create-panel"
+								class="mck-tab-panel mck-message-inner mck-group-create-inner">
+								<div class="mck-group-sub-sec">
+									<div id="mck-group-create-icon-box"
+										class="mck-group-create-icon-box mck-group-icon-box mck-hover-on">
+										<div class="mck-group-icon"></div>
+										<span class="mck-overlay-box">
+											<div class="mck-overlay">
+												<span class="mck-camera-icon"></span> <span
+													class="mck-overlay-label">Add Group Icon</span>
+											</div>
+											<div id="mck-group-create-icon-loading"
+												class="mck-loading n-vis">
+												<img
+													src="css/app/images/mck-loading.gif" />
+											</div> <input id="mck-group-icon-upload"
+											class="mck-group-icon-upload n-vis" type="file"
+											name="files[]">
+										</span>
+									</div>
+								</div>
+								<div id="mck-group-create-name-sec" class="mck-group-sub-sec">
+									<div id="mck-group-create-name-box"
+										class="mck-row mck-group-name-box">
+										<div class="blk-lg-12">
+											<div class="mck-label">Group Title</div>
+										</div>
+										<div class="blk-lg-12">
+											<div id="mck-group-create-title" class="mck-group-title"
+												contenteditable="true">Group title</div>
+										</div>
+									</div>
+								</div>
+								<div id="mck-group-create-type-sec" class="mck-group-sub-sec">
+									<div id="mck-group-create-type-box"
+										class="mck-row mck-group-type-box">
+										<div class="blk-lg-12">
+											<div class="mck-label">Group Type</div>
+										</div>
+										<div class="blk-lg-12">
+											<select id="mck-group-create-type" class="mck-select">
+												<option value="2" selected>Public</option>
+												<option value="1">Private</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div id="mck-group-create-btn-sec" class="mck-group-sub-sec">
+									<button type="button" id="mck-btn-group-create"
+										class="mck-btn mck-btn-green mck-btn-group-create"
+										title="Create Group">Create Group</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -286,8 +380,28 @@
 					<div id="mck-group-info-panel"
 						class="mck-tab-panel mck-group-info-panel vis">
 						<div class="mck-group-icon-sec">
-							<div id="mck-group-icon-box" class="mck-group-icon-box">
+							<div id="mck-group-info-icon-box"
+								class="mck-group-icon-box mck-group-info-icon-box mck-hover-on">
 								<div class="mck-group-icon"></div>
+								<span class="mck-overlay-box n-vis">
+									<div class="mck-overlay">
+										<span class="mck-camera-icon"></span> <span
+											class="mck-overlay-label">Change Group Icon</span>
+									</div>
+									<div id="mck-group-info-icon-loading" class="mck-loading vis">
+										<img
+											src="css/app/images/mck-loading.gif" />
+									</div> <input id="mck-group-icon-change"
+									class="mck-group-icon-change n-vis" type="file" name="file[]" />
+								</span>
+							</div>
+							<div class="mck-text-center">
+								<a id="mck-btn-group-icon-save" href="#" role="link"
+									class="mck-btn-group-icon-save n-vis" title="Click to save">
+									<img
+									src="css/app/images/mck-icon-save.png"
+									alt="Save">
+								</a>
 							</div>
 						</div>
 						<div id="mck-group-name-sec" class="mck-group-name-sec">
@@ -303,7 +417,8 @@
 										alt="Edit"></a> <a id="mck-group-name-save" href="#"
 										role="link" class="mck-group-name-save n-vis"
 										title="Click to save"> <img
-										src="css/app/images/mck-icon-save.png" alt="Save"></a>
+										src="css/app/images/mck-icon-save.png"
+										alt="Save"></a>
 								</div>
 							</div>
 						</div>
@@ -317,7 +432,8 @@
 								<a id="mck-group-add-member" class="mck-group-add-member"
 									href="#">
 									<div class="blk-lg-3">
-										<img src="css/app/images/mck-icon-add-member.png"
+										<img
+											src="css/app/images/mck-icon-add-member.png"
 											alt="Add Member">
 									</div>
 									<div class="blk-lg-9">Add member</div>
@@ -394,7 +510,9 @@
 			<div class="mck-box-content">
 				<div class="mck-box-top mck-row">
 					<div class="blk-lg-3">
-						<img src="css/app/images/mck-icon-add-member.png" alt="Add Member">
+						<img
+							src="css/app/images/mck-icon-add-member.png"
+							alt="Add Member">
 					</div>
 					<div class="blk-lg-7">
 						<h4 class="mck-box-title">Add Member</h4>
