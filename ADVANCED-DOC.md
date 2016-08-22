@@ -108,7 +108,7 @@ $applozic.fn.applozic('subscribeToEvents', {
                  onUserBlocked: function (obj) {
                        //user blocks someone or gets blocked by someone: {'status': 'BLOCKED_TO or BLOCKED_BY', 'userId': userId}
                  },
-                 onUserUnblocked': function (obj) {
+                 onUserUnblocked: function (obj) {
                        //user unblocks someone or get unblocked by someone: {'status': 'BLOCKED_TO or BLOCKED_BY', 'userId': userId}
                  },
                  onUserActivated: function () {
