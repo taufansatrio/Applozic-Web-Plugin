@@ -4403,6 +4403,9 @@ var MCK_CLIENT_GROUP_MAP = [];
             };
             _this.loadGroupInfo = function(params) {
                 if (params.groupId) {
+                	$mck_group_title.attr('contenteditable', false);
+                    $mck_group_name_save.removeClass('vis').addClass('n-vis');
+                    $mck_group_name_edit.removeClass('n-vis').addClass('vis');
                     $mck_group_info_tab.data('mck-id', params.groupId);
                     if (params.conversationId) {
                         $mck_group_info_tab.data('mck-conversation-id', params.conversationId);
