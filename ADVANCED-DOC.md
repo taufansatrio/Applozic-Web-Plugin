@@ -106,10 +106,10 @@ $applozic.fn.applozic('subscribeToEvents', {
                        //all messages deleted obj json : {'userId': userId}
                  },
                  onUserConnect: function (obj) {
-                       //user from the contact list came online: {'userID': 'connected-user-Id'}
+                       //user from the contact list came online: {'userId': 'connected-user-Id'}
                  },
                  onUserDisconnect: function (obj) {
-                       //user from the contact list went offline: {'userID': 'connected-user-Id'}
+                       //user from the contact list went offline: {'userId': 'connected-user-Id'}
                  },
                  onUserBlocked: function (obj) {
                        //user blocks someone or gets blocked by someone: {'status': 'BLOCKED_TO or BLOCKED_BY', 'userId': userId}
