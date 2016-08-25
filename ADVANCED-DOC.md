@@ -99,6 +99,12 @@ $applozic.fn.applozic('subscribeToEvents', {
                  onMessageSentUpdate: function (obj) {
                        //message sent confirmation: {'messageKey': 'sent-message-key'}
                  },
+                 onMessageDeleted: function (obj) {
+                       //message delete obj json : {'messageKey': 'deleted-message-key'}
+                 },
+                 onConversationDeleted: function (obj) {
+                       //all messages deleted obj json : {'userId': userId}
+                 },
                  onUserConnect: function (obj) {
                        //user from the contact list came online: {'userID': 'connected-user-Id'}
                  },
