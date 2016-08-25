@@ -5280,7 +5280,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                         if (typeof userId !== 'undefined') {
                             mckMessageLayout.removeConversationThread(userId, false);
                             events.onConversationDeleted({
-                                'userKey': userId
+                                'userId': userId
                             });
                         }
                     } else if (messageType === "APPLOZIC_11") {
