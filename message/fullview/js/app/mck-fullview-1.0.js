@@ -28,6 +28,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                     case "loadTab":
                         oInstance.loadTab(params);
                         break;
+                    case "loadContextualTab":  
+                        return oInstance.loadTabWithTopic(params);
+                        break;
                     case "addWelcomeMessage":
                         oInstance.addWelcomeMessage(params);
                         break;
@@ -367,6 +370,37 @@ var MCK_CLIENT_GROUP_MAP = [];
                 mckMessageLayout.loadTab({
                         tabId: optns.userId, conversationId: optns.convId, 'isGroup': false
                 });
+            }
+        };
+        _this.loadTabWithTopic = function(optns) {
+            if (typeof optns === 'object' && optns.userId && optns.topicId) {
+            	var params = {
+                        'tabId': optns.userId,
+                        'isGroup': false,
+                        'topicId': optns.topicId, 
+                        'isMessage': false
+                }
+                if(optns.userName) {
+                	 params.userName = optns.userName;
+                }
+                if (optns.topicStatus) {
+                    params.topicStatus = (CONVERSATION_STATUS_MAP.indexOf(optns.topicStatus) === -1) ? CONVERSATION_STATUS_MAP[0] : optns.topicStatus.toString();
+                } else {
+                    params.topicStatus = CONVERSATION_STATUS_MAP[0];
+                }
+                if (typeof (MCK_GETTOPICDETAIL) === "function") {
+                    var topicDetail = MCK_GETTOPICDETAIL(optns.topicId);
+                    if (typeof topicDetail === 'object' && topicDetail.title !== 'undefined') {
+                        MCK_TOPIC_DETAIL_MAP[optns.topicId] = topicDetail;
+                    }
+                }
+                mckMessageService.getConversationId(params);
+            } else {
+            	if(!optns.userId) {
+            		return 'UserId required';
+            	} else if (!optns.topicId) {
+            		return 'TopicId required';
+            	}            
             }
         };
         _this.loadContacts = function(contacts) {
@@ -940,18 +974,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (e.keyCode === 13 && (e.shiftKey || e.ctrlKey)) {
                         e.preventDefault();
                         if (w.getSelection) {
-                            var selection = w.getSelection(), range = selection.getRangeAt(0), br = d.createElement("br"), textNode = d.createTextNode("\u00a0"); // Passing
-                            // " "
-                            // directly
-                            // will
-                            // not
-                            // end
-                            // up
-                            // being
-                            // shown
-                            // correctly
-                            range.deleteContents(); // required
-                            // or not?
+                            var selection = w.getSelection(), range = selection.getRangeAt(0), br = d.createElement("br"), textNode = d.createTextNode("\u00a0");
+                            range.deleteContents(); // required or not?
                             range.insertNode(br);
                             range.collapse(false);
                             range.insertNode(textNode);
