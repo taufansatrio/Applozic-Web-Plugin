@@ -692,6 +692,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     (isReInit) ? mckInitializeChannel.reconnect() : mckInitializeChannel.init();
                                     // mckGroupService.loadGroups();
                                 }
+                                mckMessageLayout.loadTab({
+                                    tabId: '', 'isGroup': false
+                                });
                                 mckStorage.clearMckMessageArray();
                                 var mckContactNameArray = mckStorage.getMckContactNameArray();
                                 if (mckContactNameArray !== null && mckContactNameArray.length > 0) {
