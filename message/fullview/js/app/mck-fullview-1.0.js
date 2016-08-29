@@ -2359,10 +2359,10 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if ($applozic('.person[data-mck-id ="' + params.tabId + '"]').length == 0) {
                         _this.updateRecentConversationList(params.isGroup ? mckGroupUtils.getGroup(params.tabId) : _this.fetchContact(params.tabId), undefined, true, params.prepend);
                         $applozic('.person[data-mck-id ="' + params.tabId + '"]').addClass('active');
-                        $applozic(".mck-contacts-inner").scrollTop($(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
                     } else {
                         $applozic('.person[data-mck-id ="' + params.tabId + '"]').addClass('active');
                     }
+                    $applozic(".mck-contacts-inner").scrollTop($(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
                     var displayName = params.isGroup ? mckGroupLayout.getGroupDisplayName(params.tabId) : _this.fetchContact(params.tabId).displayName;
                     $applozic('.right .top .name').html(displayName);
                     $applozic('.chat[data-mck-id ="' + params.tabId + '"]').addClass('active-chat');
