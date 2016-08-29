@@ -217,6 +217,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var mckStorage = new MckStorage();
         var TAB_FILE_DRAFT = new Object();
         var MCK_CONTACT_ARRAY = new Array();
+        var MCK_CHAT_CONTACT_ARRAY = new Array();
         var TAB_MESSAGE_DRAFT = new Object();
         var MCK_CONTACT_NAME_MAP = new Array();
         var MCK_UNREAD_COUNT_MAP = new Array();
@@ -284,6 +285,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             IS_MCK_VISITOR = optns.visitor;
             MCK_TOPIC_CONVERSATION_MAP = [];
             MCK_CONTACT_ARRAY = new Array();
+            MCK_CHAT_CONTACT_ARRAY = new Array();
             TAB_MESSAGE_DRAFT = new Object();
             MCK_FILE_URL = optns.fileBaseUrl;
             IS_MCK_LOCSHARE = optns.locShare;
@@ -875,10 +877,8 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_write_box = $applozic("#mck-write-box");
             var $mck_msg_form = $applozic("#mck-msg-form");
             var $mck_msg_sbmt = $applozic("#mck-msg-sbmt");
-            var $mck_tab_title = $applozic("#mck-tab-individual .mck-tab-title");
             var $mck_msg_error = $applozic("#mck-msg-error");
             var $mck_btn_attach = $applozic("#mck-btn-attach");
-            var $mck_tab_status = $applozic("#mck-tab-individual .mck-tab-status");
             var $mck_msg_cell = $applozic("#mck-message-cell");
             var $mck_typing_box = $applozic(".mck-typing-box");
             var $mck_loading = $applozic("#mck-contact-loading");
@@ -889,6 +889,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_block_button = $applozic("#mck-block-button");
             var $li_mck_block_user = $applozic("#li-mck-block-user");
             var $mck_response_text = $applozic("#mck_response_text");
+            var $mck_contacts_inner = $applozic(".mck-contacts-inner");
             var $mck_group_info_tab = $applozic("#mck-group-info-tab");
             var $mck_price_text_box = $applozic("#mck-price-text-box");
             var $mck_sidebox_search = $applozic("#mck-sidebox-search");
@@ -906,7 +907,8 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_group_menu_options = $applozic(".mck-group-menu-options");
             var $mck_tab_message_option = $applozic(".mck-tab-message-option");
             var $mck_group_admin_options = $applozic(".mck-group-admin-options");
-            var $mck_contacts_inner = $applozic(".mck-contacts-inner");
+            var $mck_tab_title = $applozic("#mck-tab-individual .mck-tab-title");
+            var $mck_tab_status = $applozic("#mck-tab-individual .mck-tab-status");
             var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner-right");
             var $mck_msg_inner;
             var MESSAGE_SEND_URL = "/rest/ws/message/send";
@@ -945,7 +947,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $mck_sidebox_search.removeClass('n-vis').addClass('vis');
                 $mck_search_inner.html('<ul id="mck-search-list" class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>');
                 if (MCK_CONTACT_ARRAY.length !== 0) {
-                    mckMessageLayout.addContactsToSearchList([], true);
+                    mckMessageLayout.addContactsToSearchList();
                 } else if (!IS_MCK_OWN_CONTACTS) {
                     mckContactService.loadContacts();
                 } else {
@@ -2986,17 +2988,23 @@ var MCK_CLIENT_GROUP_MAP = [];
                     _this.addContact(contact, $listId, message, prepend);
                 }
             };
-            _this.addContactsToSearchList = function(userIdArray, isLocal) {
-                var contactsArray = [];
-                if (isLocal) {
-                    for (var i = 0; i < MCK_CONTACT_ARRAY.length; i++) {
-                        var contact = MCK_CONTACT_ARRAY[i];
+            _this.addContactsToSearchList = function() {
+            	if(MCK_CONTACT_ARRAY.length === 0  && MCK_CHAT_CONTACT_ARRAY.length === 0) {
+            		return;
+            	}
+                var contactsArray = [], userIdArray = [];
+                $applozic.each(MCK_CONTACT_ARRAY, function(i, contact) {
                         userIdArray.push(contact.contactId);
-                    }
-                }
-                userIdArray.sort();
-                for (var j = 0; j < userIdArray.length; j++) {
-                    var userId = userIdArray[j];
+                });
+                $applozic.each(MCK_CHAT_CONTACT_ARRAY, function(i, contact) {
+                    userIdArray.push(contact.contactId);
+                });
+                var uniqueUserIdArray = userIdArray.filter(function(item, pos) {
+                    return userIdArray.indexOf(item) === pos;
+                });
+                uniqueUserIdArray.sort();
+                for (var j = 0; j < uniqueUserIdArray.length; j++) {
+                    var userId = uniqueUserIdArray[j];
                     if (userId) {
                         var contact = _this.fetchContact('' + userId);
                         contactsArray.push(contact);
@@ -3133,6 +3141,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var emoji_template = "";
                 var conversationId = "";
                 var isGroupTab = contact.isGroup;
+                if(!isGroupTab) {
+                	MCK_CHAT_CONTACT_ARRAY.push(contact);
+                }
                 if (typeof message !== "undefined") {
                     emoji_template = _this.getMessageTextForContactPreview(message, contact, 100)
                     if (message.conversationId) {
@@ -3850,7 +3861,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     });
                                     mckStorage.updateMckContactNameArray(mckContactNameArray);
                                     if (userIdArray !== null && userIdArray.length > 0) {
-                                        mckMessageLayout.addContactsToSearchList(userIdArray, false);
+                                        mckMessageLayout.addContactsToSearchList();
                                         return;
                                     }
                                 }
