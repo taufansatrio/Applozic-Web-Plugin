@@ -431,7 +431,6 @@ body {
 	float: right;
 	color: #fff;
 	font-size: 14px;
-	border-radius: 5px;
 	margin-right: 15px;
 	padding: 10px 14px 12px;
 	background-color: #00b0ff;
@@ -441,6 +440,8 @@ body {
 	-webkit-animation-name: slideFromLeft;
 	animation-name: slideFromLeft;
 	border-radius: 5px;
+	max-width: 80%;
+    display: inline-block;
 }
 
 .mck-container .right .mck-group-inner .bubble.mck-msg-left .mck-msg-box
