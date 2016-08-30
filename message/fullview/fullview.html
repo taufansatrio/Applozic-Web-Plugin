@@ -23,6 +23,21 @@
 		<div class="mck-container">
 			<div class="left mck-message-inner-left">
 				<div class="panel-content">
+				<div class="mck-box-top mck-row mck-wt-user-icon">
+					<div class="blk-lg-3">
+					<div id="mck-user-icon" class="mck-user-icon">					
+					</div>
+					</div>
+				<div class="blk-lg-7">
+				   <h4 id="mck-box-title" class="mck-box-title mck-truncate">Conversations</h4>
+				</div>
+				<div class="blk-lg-2 mck-text-right move-right">
+				<a id="mck-start-new" href="#" class="mck-start-new" title="Start New">
+														<img src="css/app/images/mck-icon-plus.png"
+														 alt="Start New">
+												</a>
+				</div>
+			</div>
 					<div class="top">
 						<span class="mck-search-icon"> <a href="#" role="link"
 							class="mck-tab-search"> <span class="mck-icon-search"></span>
@@ -47,14 +62,6 @@
 							</div>
 						</div>
 					</div>
-					<!--
-                  <li id="li-user-nitin" class="person nitin" data-chat="person1" data-msg-time="1468413476857">
-                      <img src="http://s13.postimg.org/ih41k9tqr/img1.jpg" alt="" />
-                      <span class="name">Nitin</span>
-                      <span class="time">2:09 PM</span>
-                      <span class="preview">I was wondering...</span>
-                  </li>
-                -->
 					</ul>
 				</div>
 			</div>
@@ -112,7 +119,6 @@
 
 							</div>
 						</div>
-
 					</div>
 					<div id="mck-product-group"
 						class="mck-tab-panel mck-btn-group mck-product-group">
@@ -167,32 +173,8 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="write">
 						<!-- Create message send form -->
-
-						<!-- 						<div id="mck-file-menu" class="mck-file-menu">
-							<div class="mck-row">
-								<div class="blk-lg-6 mck-left mck-pt10">
-									<a id="mck-file-up" class="mck-btn-text-panel mck-file-upload"
-										href="#">
-										<div class="mck-menu-icon">
-											<span class="mck-icon-photo"></span>
-										</div>
-										<p class="mck-truncate" title="File &amp; Photos">Files
-											&amp; Photos</p>
-									</a>
-								</div>
-								<div class="blk-lg-6 mck-pt10">
-									<a id="mck-btn-loc" href="#" class="mck-btn-loc">
-										<div class="mck-menu-icon">
-											<span class="mck-icon-marker-blue"></span>
-										</div>
-										<p class="mck-truncate" title="Location">Location</p>
-									</a>
-								</div>
-							</div>
-						</div> -->
 						<div id="mck-sidebox-ft" class="mck-box-ft mck-panel-ft">
 							<div class="mck-box-form mck-row">
 								<div class="blk-lg-12">
@@ -382,7 +364,45 @@
 			</div>
 		</div>
 	</div>
-	<div id="mck-goup-search-box" class="mck-box mck-group-search-box fade"
+    <div id="mck-contact-search-box" class="mck-box mck-contact-search-box mck-sm-modal-box fade"
+		aria-hidden="false">
+		<div class="mck-box-dialog mck-box-sm">
+			<div class="mck-box-content">
+				<div class="mck-box-top mck-row">
+					<div class="blk-lg-10">
+						<h4 class="mck-box-title" title="Start New">Start New</h4>
+					</div>
+					<div class="blk-lg-2">
+						<button type="button" class="mck-box-close" data-dismiss="mckbox"
+							aria-label="Close">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+				</div>
+				<div class="mck-box-body">
+					<div class="mck-form-group">
+						<div class="mck-input-group blk-lg-12">
+							<input id="mck-contact-search" type="text" data-provide="typeahead"
+								placeholder="Search..." autofocus /> <span
+								class="mck-search-icon"><a href="#" role="link"
+								class="mck-contact-search-link"><span class="mck-icon-search"></span></a></span>
+						</div>
+					</div>
+					<div class="mck-tab-cell">
+						<div class="mck-message-inner">
+							<ul id="mck-contact-search-list"
+								class="mck-contact-list mck-contact-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
+						<div id="mck-no-search-contacts"
+									class="mck-show-more-icon n-vis">
+									<h3>No contacts yet!</h3>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="mck-goup-search-box" class="mck-box mck-group-search-box mck-sm-modal-box fade"
 		aria-hidden="false">
 		<div class="mck-box-dialog mck-box-sm">
 			<div class="mck-box-content">
