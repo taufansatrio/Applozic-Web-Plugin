@@ -1117,7 +1117,7 @@ ol,  ul {
 	-webkit-overflow-scrolling: touch;
 }
 
-.mck-group-search-box .mck-box-body .mck-tab-cell, .mck-contact-search-box .mck-box-body .mck-tab-cell {
+.mck-sm-modal-box .mck-box-body .mck-tab-cell {
 	height: 300px;
 }
 
@@ -1881,7 +1881,7 @@ ol,  ul {
 	line-height: 1.42857143;
 	color: #555;
 	outline: none;
-	background-color: #E7F1F5;
+	background-color: #F5F5F5;
 	background-image: none;
 	border: 0;
 	border-radius: 4px;
@@ -1947,7 +1947,7 @@ ol,  ul {
 	color: #555;
 	text-align: center;
 	border-left: 0px;
-	background-color: #E7F1F5;
+	background-color: #F5F5F5;
 	border: 0;
 	border-radius: 4px;
 	border-bottom-left-radius: 0px;
