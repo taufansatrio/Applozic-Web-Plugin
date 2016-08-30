@@ -450,14 +450,14 @@
 	<script type="text/javascript" src="js/mck-emojis.min.js"></script>
 	<script type="text/javascript" src="js/mck-socket.min.js"></script>
 
-	<!-- Location Sharing plugin js , remove it if location sharing not required -->
+	<!-- JS for location sharing plugin, remove it if location sharing not required -->
 	<script type="text/javascript"
 		src="https://maps.google.com/maps/api/js?key=AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4&libraries=places"></script>
 	<script type="text/javascript" src="js/locationpicker.jquery.min.js"></script>
 
-	<!-- Auto suggest plugin js , remove it if auto suggest not required -->
-	<script type="text/javascript" src="autosuggest/js/jquery.caret.min.js"></script>
-	<script type="text/javascript" src="autosuggest/js/jquery.atwho.min.js"></script>
+	<!--JS for auto suggest plugin, use it if auto suggestions required -->
+<!-- 	<script type="text/javascript" src="autosuggest/js/jquery.caret.min.js"></script>
+	    <script type="text/javascript" src="autosuggest/js/jquery.atwho.min.js"></script> -->
 
 
 	<script type="text/javascript" src="js/app/mck-common-1.0.js"></script>
@@ -537,7 +537,7 @@
 		     ]
 		  }
           // Function to initialize auto suggest plugin on message textbox
-		  function initAutoSuggestions() {
+/* 		  function initAutoSuggestions() {
 		    $('#mck-text-box').atwho({
 		          at: "#queries",
 		          insertTpl: '${content}',
@@ -554,7 +554,7 @@
 		          displayTpl: '<li>${name} <small>${content}</small></li>',
 		          data: autoSuggest.templates
 		    });
-		  }
+		  } */
           
 		$(document).ready(function() {
 							//Function to initialize plugin
