@@ -2,6 +2,9 @@
 <head>
 <!-- Custom CSS -->
 <link href="css/mck-app-combined.css" rel="stylesheet">
+<!-- AutoSuggest Plugin CSS -->
+<link href="autosuggest/css/jquery.atwho.min.css" rel="stylesheet">
+
 <link href="css/app/mck-fullview-1.0.css" rel="stylesheet">
 
 <!-- Custom JS -->
@@ -17,27 +20,24 @@
 <script src="js/jquery-2.2.2.min.js"></script>
 </head>
 <body>
-
-
 	<div class="wrapper">
 		<div class="mck-container">
 			<div class="left mck-message-inner-left">
 				<div class="panel-content">
-				<div class="mck-box-top mck-row mck-wt-user-icon">
-					<div class="blk-lg-3">
-					<div id="mck-user-icon" class="mck-user-icon">					
+					<div class="mck-box-top mck-row mck-wt-user-icon">
+						<div class="blk-lg-3">
+							<div id="mck-user-icon" class="mck-user-icon"></div>
+						</div>
+						<div class="blk-lg-7">
+							<h4 id="mck-box-title" class="mck-box-title mck-truncate">Conversations</h4>
+						</div>
+						<div class="blk-lg-2 mck-text-right move-right">
+							<a id="mck-start-new" href="#" class="mck-start-new"
+								title="Start New"> <img
+								src="css/app/images/mck-icon-plus.png" alt="Start New">
+							</a>
+						</div>
 					</div>
-					</div>
-				<div class="blk-lg-7">
-				   <h4 id="mck-box-title" class="mck-box-title mck-truncate">Conversations</h4>
-				</div>
-				<div class="blk-lg-2 mck-text-right move-right">
-				<a id="mck-start-new" href="#" class="mck-start-new" title="Start New">
-														<img src="css/app/images/mck-icon-plus.png"
-														 alt="Start New">
-												</a>
-				</div>
-			</div>
 					<div class="top">
 						<span class="mck-search-icon"> <a href="#" role="link"
 							class="mck-tab-search"> <span class="mck-icon-search"></span>
@@ -364,7 +364,8 @@
 			</div>
 		</div>
 	</div>
-    <div id="mck-contact-search-box" class="mck-box mck-contact-search-box mck-sm-modal-box fade"
+	<div id="mck-contact-search-box"
+		class="mck-box mck-contact-search-box mck-sm-modal-box fade"
 		aria-hidden="false">
 		<div class="mck-box-dialog mck-box-sm">
 			<div class="mck-box-content">
@@ -382,27 +383,28 @@
 				<div class="mck-box-body">
 					<div class="mck-form-group">
 						<div class="mck-input-group blk-lg-12">
-							<input id="mck-contact-search" type="text" data-provide="typeahead"
-								placeholder="Search..." autofocus /> <span
+							<input id="mck-contact-search" type="text"
+								data-provide="typeahead" placeholder="Search..." autofocus /> <span
 								class="mck-search-icon"><a href="#" role="link"
-								class="mck-contact-search-link"><span class="mck-icon-search"></span></a></span>
+								class="mck-contact-search-link"><span
+									class="mck-icon-search"></span></a></span>
 						</div>
 					</div>
 					<div class="mck-tab-cell">
 						<div class="mck-message-inner">
 							<ul id="mck-contact-search-list"
 								class="mck-contact-list mck-contact-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
-						<div id="mck-no-search-contacts"
-									class="mck-show-more-icon n-vis">
-									<h3>No contacts yet!</h3>
-								</div>
+							<div id="mck-no-search-contacts" class="mck-show-more-icon n-vis">
+								<h3>No contacts yet!</h3>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="mck-goup-search-box" class="mck-box mck-group-search-box mck-sm-modal-box fade"
+	<div id="mck-goup-search-box"
+		class="mck-box mck-group-search-box mck-sm-modal-box fade"
 		aria-hidden="false">
 		<div class="mck-box-dialog mck-box-sm">
 			<div class="mck-box-content">
@@ -447,9 +449,17 @@
 	<script type="text/javascript" src="js/mck-ui-widget.min.js"></script>
 	<script type="text/javascript" src="js/mck-emojis.min.js"></script>
 	<script type="text/javascript" src="js/mck-socket.min.js"></script>
+
+	<!-- Location Sharing plugin js , remove it if location sharing not required -->
 	<script type="text/javascript"
 		src="https://maps.google.com/maps/api/js?key=AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4&libraries=places"></script>
 	<script type="text/javascript" src="js/locationpicker.jquery.min.js"></script>
+
+	<!-- Auto suggest plugin js , remove it if auto suggest not required -->
+	<script type="text/javascript" src="autosuggest/js/jquery.caret.min.js"></script>
+	<script type="text/javascript" src="autosuggest/js/jquery.atwho.min.js"></script>
+
+
 	<script type="text/javascript" src="js/app/mck-common-1.0.js"></script>
 	<script type="text/javascript" src="js/app/mck-fullview-1.0.js"></script>
 	<script type="text/javascript">
@@ -509,22 +519,58 @@
 				//write your logic exectute after plugin initialize.
 			}
 		}
-		$(document)
-				.ready(
-						function() {
+		// Examples shows how to define variable for auto suggest
+		  var autoSuggest = {
+		     queries : [           
+		       { name: "How to integrate?", content: "How to integrate Applozic SDK?"},
+		       { name: "Android", content: "https://www.applozic.com/docs/android-chat-sdk.html"},
+		       { name: "iOS", content: "https://www.applozic.com/docs/ios-chat-sdk.html"},
+		       { name: "Web Plugin", content: "https://www.applozic.com/docs/web-chat-plugin.html"}
+		     ], 
+		     templates : [
+		       { name: "I am busy. I will call you later", content: "I am busy. I will call you later"},
+		       { name: "I'm in a meeting.", content: "I'm in a meeting."},
+		       { name: "Where are You?", content: "Where are You?"},
+		       { name: "Please reply ASAP. It's Urgent.", content: "Please reply ASAP. It's Urgent."},
+		       { name: "I'm on my way home", content: "I'm on my way home"},
+		       { name: "I'm coming", content: "I'm coming"}
+		     ]
+		  }
+          // Function to initialize auto suggest plugin on message textbox
+		  function initAutoSuggestions() {
+		    $('#mck-text-box').atwho({
+		          at: "#queries",
+		          insertTpl: '${content}',
+		          displayTpl: '<li>${name} <small>${content}</small></li>',
+		          data: autoSuggest.queries
+		    }).atwho({
+			      at: "@templates",
+			      insertTpl: '${content}',
+			      displayTpl: '<li>${name} <small>${content}</small></li>',
+			      data: autoSuggest.templates
+			}).atwho({
+		          at: "#templates",
+		          insertTpl: '${content}',
+		          displayTpl: '<li>${name} <small>${content}</small></li>',
+		          data: autoSuggest.templates
+		    });
+		  }
+          
+		$(document).ready(function() {
 							//Function to initialize plugin
-							$applozic.fn
-									.applozic({
+							$applozic.fn.applozic({
 										userId: 'customer-1', userName: 'Customer1', appId: 'applozic-sample-app',
 										ojq : $original,
 										obsm : oModal,
+									 //	autoTypeSearchEnabled : false,
 										notificationIconLink : "https://www.applozic.com/resources/images/applozic_icon.png",
 										readConversation : readMessage, // readMessage function defined above
 										onInit : onInitialize, //callback function execute on plugin initialize
 										maxAttachmentSize : 25, //max attachment size in MB
 										desktopNotification : true,
 										locShare : true,
-										googleApiKey : "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4"
+										googleApiKey : "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4", // replace it with your Google API key
+								     // initAutoSuggestions : initAutoSuggestions //  function to enable auto suggestions
 									});
 
 							// var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}]};

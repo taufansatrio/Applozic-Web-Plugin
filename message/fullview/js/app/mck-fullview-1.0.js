@@ -197,6 +197,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var MCK_PRICE_DETAIL = appOptions.finalPriceResponse;
         var MCK_GETUSERIMAGE = appOptions.contactDisplayImage;
         var MCK_PRICE_WIDGET_ENABLED = appOptions.priceWidget;
+        var MCK_INIT_AUTO_SUGGESTION  = appOptions.initAutoSuggestions;
         var MCK_AUTHENTICATION_TYPE_ID = appOptions.authenticationTypeId;
         var MCK_GETCONVERSATIONDETAIL = appOptions.getConversationDetail;
         var MCK_NOTIFICATION_ICON_LINK = appOptions.notificationIconLink;
@@ -309,6 +310,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             MCK_PRICE_DETAIL = optns.finalPriceResponse;
             MCK_GETUSERIMAGE = optns.contactDisplayImage;
             MCK_PRICE_WIDGET_ENABLED = optns.priceWidget;
+            MCK_INIT_AUTO_SUGGESTION = optns.initAutoSuggestions;
             MCK_GETCONVERSATIONDETAIL = optns.getConversationDetail;
             MCK_AUTHENTICATION_TYPE_ID = optns.authenticationTypeId;
             MCK_USER_ID = (IS_MCK_VISITOR) ? "guest" : $applozic.trim(optns.userId);
@@ -749,6 +751,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     }
                                 }
                                 mckUserUtils.checkUserConnectedStatus();
+                                if (typeof MCK_INIT_AUTO_SUGGESTION === "function") {
+                                	MCK_INIT_AUTO_SUGGESTION();	
+                                }
                                 if (typeof MCK_ON_PLUGIN_INIT === "function") {
                                     MCK_ON_PLUGIN_INIT("success");
                                 }
@@ -1008,6 +1013,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                             return false;
                         }
                     } else if (e.keyCode === 13) {
+                    	   if (typeof MCK_INIT_AUTO_SUGGESTION === "function" && $applozic(".atwho-view:visible").length > 0) {
+                    		    return;
+                    	   }
                         e.preventDefault();
                         if (MCK_TYPING_STATUS === 1) {
                             mckInitializeChannel.sendTypingStatus(0, mckMessageLayout.getMckMessageInner().data('mck-id'));
