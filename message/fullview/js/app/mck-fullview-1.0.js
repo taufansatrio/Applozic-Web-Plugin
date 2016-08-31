@@ -136,6 +136,12 @@ var MCK_CLIENT_GROUP_MAP = [];
                         $.fn.linkify = $applozic.fn.linkify;
                         jQuery.fn.linkify = $applozic.fn.linkify;
                     }
+                    if (typeof $.fn.emojiarea === 'function') {
+                        $applozic.fn.emojiarea = $.fn.emojiarea;
+                    } else if (typeof $applozic.fn.emojiarea === 'function') {
+                    	$.fn.emojiarea = $applozic.fn.emojiarea;
+                        jQuery.fn.emojiarea = $applozic.fn.emojiarea;
+                    }
                     var applozic = new Applozic(appOptions);
                     applozic.init();
                     $mck_sidebox.data("applozic_instance", applozic);
