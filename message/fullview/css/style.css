@@ -308,6 +308,12 @@ body {
 	vertical-align: middle;
 }
 
+.mck-container .right .conversation-section {
+	height:100%;
+}
+.mck-container .right .conversation-section .mck-loading {
+    z-index: 100;	
+}
 .mck-container .right .chat {
 	position: relative;
 	display: none;
