@@ -4120,21 +4120,29 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $mck_group_member_List.html('');
             });
             var MAX_GROUP_NAME_SIZE = 30;
-            $('.mck-group-name-sec div[contenteditable]').keypress(function() {
-                return this.innerHTML.length < MAX_GROUP_NAME_SIZE;
-            }).on({
-                    'paste': function(e) {
-                        var len = this.innerHTML.length, cp = e.originalEvent.clipboardData.getData('text');
-                        if (len < MAX_GROUP_NAME_SIZE)
-                            this.innerHTML += cp.substring(0, MAX_GROUP_NAME_SIZE - len);
-                        return false;
-                    }, 'drop': function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
+            $applozic('.mck-group-name-box div[contenteditable]').keypress(function(e) {
+            	if(e.which === 8 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || (e.ctrlKey && e.which === 97)) {
+            		return true;
+            	} else {
+                    return  MAX_GROUP_NAME_SIZE > this.innerHTML.length;
+            	}
+            }).on('paste', function(e) {
+            	var $this = this;
+            	setTimeout(function() {
+                  var len = $this.innerHTML.length;
+                  if (len > MAX_GROUP_NAME_SIZE) {
+                      $this.innerHTML = $this.innerHTML.substring(0, MAX_GROUP_NAME_SIZE);
+                      mckUtils.setEndOfContenteditable($this);
+                  }
+                  return false;
+            	}, 'fast');
+            }).on('drop', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
             });
             $mck_group_name_edit.on('click', function() {
                 $mck_group_title.attr('contenteditable', true).focus();
+                mckUtils.setEndOfContenteditable($mck_group_title[0]);
                 $mck_group_name_save.removeClass('n-vis').addClass('vis');
                 $mck_group_name_edit.removeClass('vis').addClass('n-vis');
             })
