@@ -90,6 +90,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                     case "messageList":
                         return oInstance.getMessageList(params);
                         break;
+                    case "getMessageListByTopicId":  
+                        return oInstance.getMessageListByTopicId(params);
+                        break;
                     case "subscribeToEvents":
                         return oInstance.subscribeToEvents(params);
                         break;
@@ -225,10 +228,10 @@ var MCK_CLIENT_GROUP_MAP = [];
         var mckStorage = new MckStorage();
         var TAB_FILE_DRAFT = new Object();
         var MCK_CONTACT_ARRAY = new Array();
-        var MCK_CHAT_CONTACT_ARRAY = new Array();
         var TAB_MESSAGE_DRAFT = new Object();
         var MCK_CONTACT_NAME_MAP = new Array();
         var MCK_UNREAD_COUNT_MAP = new Array();
+        var MCK_CHAT_CONTACT_ARRAY = new Array();
         var MCK_GROUP_SEARCH_ARRAY = new Array();
         var MCK_TAB_CONVERSATION_MAP = new Array();
         var mckInit = new MckInit();
@@ -501,6 +504,37 @@ var MCK_CLIENT_GROUP_MAP = [];
         _this.getMessageList = function(params) {
             if (typeof params !== 'undefined' && typeof params.callback === 'function') {
                 mckMessageService.getMessageList(params);
+                return "success";
+            } else {
+                return "Callback function required.";
+            }
+        };
+        _this.getMessageListByTopicId = function(params) {
+            if ((typeof params.id === 'undefined' || params.id === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
+                return "Id or Client GroupId required";
+            }
+            if (params.id && typeof params.isGroup !== 'boolean') {
+                return "IsGroup parameter required";
+            }
+            if (!params.topicId) {
+                return "TopicId required";
+            }            
+            if(params.id) {
+            	params.tabId = params.id;
+            }
+            
+            if (typeof params !== 'undefined' && typeof params.callback === 'function') {
+            	params.topicStatus = CONVERSATION_STATUS_MAP[0];
+                var conversationId = MCK_TOPIC_CONVERSATION_MAP[params.topicId];
+                if (conversationId && typeof MCK_CONVERSATION_MAP[conversationId] === 'object') {
+                     params.conversationId = conversationId;   
+                     mckMessageService.getMessageList(params);
+                } else {
+                	  params.isExtMessageList = true;
+                	  params.pageSize = 1;
+                	  mckMessageService.fetchConversationByTopicId(params);
+                }
+              
                 return "success";
             } else {
                 return "Callback function required.";
@@ -940,6 +974,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             var CONVERSATION_ID_URL = "/rest/ws/conversation/id";
             var MESSAGE_READ_UPDATE_URL = "/rest/ws/message/read";
             var MESSAGE_ADD_INBOX_URL = "/rest/ws/message/add/inbox";
+            var CONVERSATION_FETCH_URL = "/rest/ws/conversation/get";
             var MESSAGE_DELIVERY_UPDATE_URL = "/rest/ws/message/delivered";
             var CONVERSATION_CLOSE_UPDATE_URL = "/rest/ws/conversation/close";
             var CONVERSATION_DELETE_URL = "/rest/ws/message/delete/conversation";
@@ -1692,34 +1727,42 @@ var MCK_CLIENT_GROUP_MAP = [];
             _this.getMessageList = function(params) {
                 var tabId = params.id;
                 if (typeof params.clientGroupId !== "undefined" && params.clientGroupId !== "") {
-                    var data = (params.pageSize) ? "&pageSize=" + params.pageSize : "&pageSize=50";
-                    data += "&clientGroupId=" + params.clientGroupId;
+                    var reqdata = (params.pageSize) ? "&pageSize=" + params.pageSize : "&pageSize=50";
+                    reqdata += "&clientGroupId=" + params.clientGroupId;
                     if (params.startTime) {
-                        data += "&endTime=" + params.startTime;
+                        reqdata += "&endTime=" + params.startTime;
                     }
                     var resp = {
                         'clientGroupId': params.clientGroupId
                     };
                 } else if (typeof tabId !== "undefined" && tabId !== "") {
-                    var data = (params.pageSize) ? "&pageSize=" + params.pageSize : "&pageSize=50";
-                    data += ('' + params.isGroup === 'true') ? "&groupId=" + tabId : "&userId=" + tabId;
+                    var reqdata = (params.pageSize) ? "&pageSize=" + params.pageSize : "&pageSize=50";
+                    reqdata += ('' + params.isGroup === 'true') ? "&groupId=" + tabId : "&userId=" + tabId;
                     if (params.startTime) {
-                        data += "&endTime=" + params.startTime;
+                        reqdata += "&endTime=" + params.startTime;
                     }
                     var resp = {
                         'id': tabId
                     };
                 } else {
-                    var data = (params.pageSize) ? "&mainPageSize=" + params.pageSize : "&mainPageSize=50";
+                    var reqdata = (params.pageSize) ? "&mainPageSize=" + params.pageSize : "&mainPageSize=50";
                     if (params.startTime) {
-                        data += "&endTime=" + params.startTime;
+                        reqdata += "&endTime=" + params.startTime;
                     }
                     var resp = {
                         'id': ""
                     };
                 }
+                if(params.topicId && (tabId || params.clientGroupId)) {
+               	   if (params.conversationId) {
+                       reqdata += "&conversationId=" + params.conversationId;
+               	   }
+                   if (params.topicId) {
+               	       resp['topicId'] = params.topicId;
+               	   }
+                }
                 $applozic.ajax({
-                        url: MCK_BASE_URL + MESSAGE_LIST_URL + "?startIndex=0" + data, type: 'get', global: false, success: function(data) {
+                        url: MCK_BASE_URL + MESSAGE_LIST_URL + "?startIndex=0" + reqdata, type: 'get', global: false, success: function(data) {
                             resp.status = "success";
                             if (typeof data.message === "undefined" || data.message.length === 0) {
                                 resp.messages = [];
@@ -2091,6 +2134,94 @@ var MCK_CLIENT_GROUP_MAP = [];
                             }, error: function() {}
                     });
                 }
+            };
+            _this.fetchConversationByTopicId = function(params) {
+             	var reqdata = 'topic='+ params.topicId;
+                if (params.tabId) {                     
+                	reqdata += ('' + params.isGroup === 'true') ? '&groupId=' + params.tabId :  '&userId=' + encodeURIComponent(params.tabId);
+                } else if(params.clientGroupId) {
+                	reqdata += '&clientGroupId=' + params.clientGroupId;
+                } else {
+                	return false;
+                }
+                if(params.pageSize) {
+                	reqdata += '&pageSize=' + params.pageSize;
+                }
+                $applozic.ajax({
+                            url: MCK_BASE_URL + CONVERSATION_FETCH_URL,
+                            data: reqdata,
+                            type: 'get',
+                            success: function(data) {
+                                if (typeof data === 'object' && data.status === "success") {
+                                    var conversationList = data.response;
+                                    if (conversationList.length > 0) {
+                                    	$applozic.each(conversationList, function(i, conversationPxy) {
+                                        MCK_CONVERSATION_MAP[conversationPxy.id] = conversationPxy;
+                                        MCK_TOPIC_CONVERSATION_MAP[conversationPxy.topicId] = [ conversationPxy.id ];
+                                        if (conversationPxy.topicDetail) {
+                                            try {
+                                                MCK_TOPIC_DETAIL_MAP[conversationPxy.topicId] = $applozic.parseJSON(conversationPxy.topicDetail);
+                                            } catch (ex) {
+                                                w.console.log('Incorect Topic Detail!');
+                                            }
+                                        }
+                                        if (params.tabId && typeof MCK_TAB_CONVERSATION_MAP[params.tabId] !== 'undefined') {
+                                            var tabConvArray = MCK_TAB_CONVERSATION_MAP[params.tabId];
+                                            tabConvArray.push(conversationPxy);
+                                            MCK_TAB_CONVERSATION_MAP[params.tabId] = tabConvArray;
+                                        }
+                                       })
+                                    }
+                                        if(params.isExtMessageList)  {
+                                        	if (conversationList.length > 0){
+                                                params.conversationId = conversationList[0].id;		
+                                                params.pageSize = 50;
+                                                mckMessageService.getMessageList(params);
+                                        	} else {
+                                        		if(typeof params.callback === 'function') {
+                                        			var resp = {};
+                                        			if(params.tabId) {
+                                        				resp.id = params.tabId;
+                                        				resp.isGroup = params.isGroup; 
+                                        			} else if(params.clientGroupId) {
+                                        				resp.clientGroupId = params.clientGroupId;	
+                                        			}
+                                        			resp.topicId = params.topicId;
+                                        			resp.status = "success";
+                                        			resp.messages = [];
+                                        			params.callback(resp);
+                                        		}
+                                        	}
+                                        }
+                                    } else {
+                                    	  if(params.isExtMessageList && typeof params.callback === 'function')  {
+                                        	  var resp = {};
+                                            	   if(params.tabId) {
+                                        				resp.id = params.tabId;
+                                        			} else if(params.clientGroupId) {
+                                        				resp.clientGroupId = params.clientGroupId;	
+                                        			}
+                                        			resp.topicId = params.topicId;
+                                        			resp.status = "error";
+                                        			resp.errorMessage = 'Unable to process request. Please try again.';
+                                        			params.callback(resp);
+                                          }	
+                                    }
+                                }, error: function() {
+                            	     if(typeof params.callback === 'function') {
+                        			    var resp = {};
+                        		   	    if(params.tabId) {
+                        		    	 	resp.id = params.tabId;
+                        		    	} else if(params.clientGroupId) {
+                        			    	resp.clientGroupId = params.clientGroupId;	
+                        			    }
+                        			    resp.topicId = params.topicId;
+                        			    resp.status = "error";
+                        			    resp.errorMessage = 'Unable to process request. Please try again.';
+                        			    params.callback(resp);
+                        		    }
+                               }
+               });
             };
             _this.getTopicId = function(params) {
                 if (params.conversationId) {
