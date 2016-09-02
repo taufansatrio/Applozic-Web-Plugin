@@ -278,11 +278,6 @@ body {
 	width: calc(100% - 600px);
 }
 
-.mck-container .right .mck-box-top {
-	background-color: #FFFFFF;
-	border-bottom:0;
-}
-
 .mck-container .right .top span {
 	font-size: 15px;
 	color: #999;

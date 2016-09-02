@@ -584,9 +584,6 @@ a:hover {
 	text-align: left;
 	border-bottom: 1px solid #F3F3F3;
 }
-.mck-group-info-tab .mck-box-top {
-	border-bottom:0;
-}
 .mck-box-top .icon {
 	margin-right: 12px;
 }
@@ -644,7 +641,6 @@ a:hover {
     box-shadow: inset 0 -1px 0 rgba(0,0,0,.07); 
     background-color: #f9f9f9 !important;
     border-bottom: 1px solid #e5e5e5;
-    border-top: 1px solid #e5e5e5;
 }
 
 .mck-sidebox .mck-msg-form {
@@ -1769,8 +1765,8 @@ ol,  ul {
 	display: inline-block;
 }
 
-.mck-message-status.mck-icon-read {
-	opacity: 1;
+.mck-message-status.mck-icon-read, .mck-message-status.mck-icon-sent {
+	opacity: 0.6;
 }
 
 .mck-sidebox-launcher {
