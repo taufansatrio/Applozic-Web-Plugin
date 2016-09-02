@@ -582,8 +582,11 @@ a:hover {
 	padding: 0 10px;
 	min-height: 49px;
 	text-align: left;
+	border-bottom: 1px solid #F3F3F3;
 }
-
+.mck-group-info-tab .mck-box-top {
+	border-bottom:0;
+}
 .mck-box-top .icon {
 	margin-right: 12px;
 }
@@ -705,12 +708,12 @@ a:hover {
 }
 
 .mck-file-expr .mck-box-close {
-	font-size: 14px !important;
+	font-size: 23px !important;
 }
 
 .mck-box-close {
 	float: right;
-	font-size: 16px !important;
+	font-size: 26px !important;
 	font-weight: 700;
 	color: #000;
 	text-shadow: 0 1px 0 #fff;
