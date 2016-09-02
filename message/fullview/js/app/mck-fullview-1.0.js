@@ -3589,8 +3589,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (message.message) {
                         if (message.contentType === 2) {
                             emoji_template = '<span class="mck-icon-marker"></span>';
-                            return emoji_template;
-                        }
+                        } else {
                         var msg = message.message;
                         if (mckUtils.startsWith(msg, "<img")) {
                             return '<span class="mck-icon-camera"></span>&nbsp;<span>image</span>';
@@ -3605,6 +3604,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 x.appendChild(d.createTextNode(emoji_template));
                                 emoji_template = x;
                             }
+                        }
                         }
                     } else if (message.fileMetaKey && typeof message.fileMeta === "object") {
                         emoji_template = (message.fileMeta.contentType.indexOf("image") !== -1) ? '<span class="mck-icon-camera"></span>&nbsp;<span>image</span>' : '<span class="mck-icon-attachment"></span>&nbsp;<span>file</span>';
@@ -4896,6 +4896,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $mck_loc_box.mckModal();
             });
             $mck_loc_submit.on("click", function() {
+            	$mck_msg_inner = mckMessageLayout.getMckMessageInner();
                 var messagePxy = {
                         "type": 5, "contentType": 2, "message": w.JSON.stringify(mckMapUtils.getSelectedLocation())
                 };
@@ -4947,6 +4948,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_file_input.trigger('click');
                 });
                 $mck_file_input.on('change', function() {
+                	$mck_msg_inner = mckMessageLayout.getMckMessageInner();
                     var data = new Object();
                     var file = $applozic(this)[0].files[0];
                     var uploadErrors = [];
@@ -5147,6 +5149,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
             };
             _this.showNewMessageNotification = function(message, contact, displayName) {
+            	$mck_msg_inner = mckMessageLayout.getMckMessageInner();
                 if (!IS_NOTIFICATION_ENABLED) {
                     return;
                 }
