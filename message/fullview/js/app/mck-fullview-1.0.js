@@ -1175,12 +1175,12 @@ var MCK_CLIENT_GROUP_MAP = [];
                     // in the list then add it first.
                     /*
                      * var personName =
-                     * $(this).find('.name').text(); $('.right
+                     * $applozic(this).find('.name').text(); $applozic('.right
                      * .top .name').html(personName);
-                     * $('.chat').removeClass('active-chat');
-                     * $('.left .person').removeClass('active');
-                     * $(this).addClass('active');
-                     * $('.chat[data-mck-id
+                     * $applozic('.chat').removeClass('active-chat');
+                     * $applozic('.left .person').removeClass('active');
+                     * $applozic(this).addClass('active');
+                     * $applozic('.chat[data-mck-id
                      * ="'+tabId+'"]').addClass('active-chat');
                      */
                     if (topicId && !conversationId) {
@@ -2473,14 +2473,14 @@ var MCK_CLIENT_GROUP_MAP = [];
             var searchContactbox = '<li id="li-${contHtmlExpr}" class="${contIdExpr}"><a class="mck-contact-search-tab" href="#" data-mck-id="${contIdExpr}" data-isgroup="${contTabExpr}"><div class="mck-row" title="${contNameExpr}">' +
              '<div class="blk-lg-3">{{html contImgExpr}}</div><div class="blk-lg-9"><div class="mck-row"><div class="blk-lg-12 mck-cont-name mck-truncate"><strong>${contNameExpr}</strong></div><div class="blk-lg-12 mck-text-muted">${contLastSeenExpr}</div></div></div></div></a></li>';
             var contactbox = '<li id="li-${contHtmlExpr}" class="person ${contIdExpr}" data-mck-id="${contIdExpr}" data-isgroup="${contTabExpr}" data-mck-conversationid="${conversationExpr}" data-msg-time="${msgCreatedAtTimeExpr}">' + '{{html contImgExpr}}' + '<span class="name">${contNameExpr}</span> ' + '<span class="time">${msgCreatedDateExpr}</span>' + '<span class="mck-cont-msg-wrapper preview msgTextExpr"></span>' + '<span class="mck-unread-count-box unreadcount ${contUnreadExpr}"><span class="mck-unread-count-text text">{{html contUnreadCount}}</span></span>' + '</li>';
-            var conversationbox = '<div class="chat mck-message-inner" data-mck-id="${contIdExpr}"><div class="chat ${contIdExpr}" data-mck-id="${contIdExpr}" data-isgroup="${contTabExpr}" data-mck-conversationid="${conversationExpr}"></div></div>';
+            var conversationbox = '<div class="chat mck-message-inner ${contIdExpr}" data-mck-id="${contIdExpr}" data-isgroup="${contTabExpr}" data-mck-conversationid="${conversationExpr}"></div>';
             var convbox = '<li id="li-${convIdExpr}" class="${convIdExpr}">' + '<a class="${mckLauncherExpr}" href="#" data-mck-conversationid="${convIdExpr}" data-mck-id="${tabIdExpr}" data-isgroup="${isGroupExpr}" data-mck-topicid="${topicIdExpr}" data-isconvtab="true">' + '<div class="mck-row mck-truncate" title="${convTitleExpr}">${convTitleExpr}</div>' + '</a></li>';
             $applozic.template("messageTemplate", markup);
             $applozic.template("contactTemplate", contactbox);
             $applozic.template("convTemplate", convbox);
             $applozic.template("searchContactbox", searchContactbox);
             $applozic.template("conversationTemplate", conversationbox);
-            var $mck_msg_inner = $("#mck-message-inner");
+            var $mck_msg_inner = $applozic("#mck-message-inner");
             _this.getMckMessageInner = function() {
                 return $mck_msg_inner;
             }
@@ -2508,20 +2508,21 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $applozic('.chat').removeClass('active-chat');
                 $applozic('.left .person').removeClass('active');
                 if (params.tabId) {
-                    if ($applozic('.person[data-mck-id ="' + params.tabId + '"]').length == 0) {
+                    if ($applozic('.person[data-mck-id ="' + params.tabId + '"][data-isgroup ="' + params.isGroup + '"]').length == 0) {
                         _this.updateRecentConversationList(params.isGroup ? mckGroupUtils.getGroup(params.tabId) : _this.fetchContact(params.tabId), undefined, true, params.prepend);
-                        $applozic('.person[data-mck-id ="' + params.tabId + '"]').addClass('active');
-                    } else {
-                        $applozic('.person[data-mck-id ="' + params.tabId + '"]').addClass('active');
                     }
+                    $applozic('.person[data-mck-id ="' + params.tabId + '"][data-isgroup ="' + params.isGroup + '"]').addClass('active');
                     CONTACT_SYNCING = true;
-                    $applozic(".mck-contacts-inner").scrollTop($(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
+                    $applozic(".mck-contacts-inner").animate({
+                        scrollTop: $applozic(".left .person.active").offset().top
+                    })
+                    $applozic(".mck-contacts-inner").scrollTop($applozic(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
                     var displayName = params.isGroup ? mckGroupLayout.getGroupDisplayName(params.tabId) : _this.fetchContact(params.tabId).displayName;
                     $applozic('.right .top .name').html(displayName);
-                    $applozic('.chat[data-mck-id ="' + params.tabId + '"]').addClass('active-chat');
+                    $applozic('.chat[data-mck-id ="' + params.tabId + '"][data-isgroup ="' + params.isGroup + '"]').addClass('active-chat');
                 }
-                if ($(".left .person.active").length) {
-                    $mck_msg_inner = $applozic(".mck-message-inner[data-mck-id='" + params.tabId + "']");
+                if ($applozic(".left .person.active").length > 0) {
+                    $mck_msg_inner = $applozic(".mck-message-inner[data-mck-id='" + params.tabId + "'][data-isgroup ='" + params.isGroup + "']");
                 }
                 var currTabId;
                 if ($mck_msg_inner) {
@@ -3417,7 +3418,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
                 var $textMessage = $applozic("#li-" + contHtmlExpr + " .msgTextExpr");
                 (typeof emoji_template === 'object') ? $textMessage.append(emoji_template) : $textMessage.html(emoji_template);
-                if (!$(".left .person").length) {
+                if (!$applozic(".left .person").length) {
                     _this.loadTab({
                             tabId: isGroupTab ? message.groupId : contact.contactId, 'isGroup': isGroupTab
                     });
