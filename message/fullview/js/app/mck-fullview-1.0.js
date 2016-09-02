@@ -391,9 +391,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             if (typeof optns === 'object' && optns.userId && optns.topicId) {
             	var params = {
                         'tabId': optns.userId,
-                        'isGroup': false,
-                        'topicId': optns.topicId, 
-                        'isMessage': false
+                        'topicId': optns.topicId
                 }
                 if(optns.userName) {
                 	 params.userName = optns.userName;
@@ -408,6 +406,21 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (typeof topicDetail === 'object' && topicDetail.title !== 'undefined') {
                         MCK_TOPIC_DETAIL_MAP[optns.topicId] = topicDetail;
                     }
+                }
+                if(optns.message) {                	
+                	var messagePxy = {
+                              "type": 5, "contentType": 0, "message": message
+                    };
+                    params.messagePxy = messagePxy;
+                    params.isMessage =  true;
+                } else {
+                	params.isMessage =  false;
+                }
+                if (optns.supportId) {
+                    params.isGroup = true;
+                    params.supportId = supportId;
+                } else {
+                    params.isGroup = false;
                 }
                 mckMessageService.getConversationId(params);
             } else {
