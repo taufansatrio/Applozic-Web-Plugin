@@ -86,8 +86,7 @@ function MckUtils() {
         for (--i; (i >= 0) && (matcher[i] === str[i]); --i)
             continue;
         return i < 0;
-    };
-    _this.setEndOfContenteditable = function(contentEditableElement) {
+    };    _this.setEndOfContenteditable = function(contentEditableElement) {
         var range,selection;
         if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
         {
@@ -106,6 +105,7 @@ function MckUtils() {
             range.select();//Select the range (make it the visible selection
         }
     };
+
 }
 function MckContactUtils() {
     var _this = this;
@@ -554,7 +554,6 @@ function MckGroupService() {
                         response.status = "success";
                         response.data = data.response;
                     } else {
-                        alert("Unable to process your request. " + data.errorResponse[0].description);
                         response.status = "error";
                         response.errorMessage = data.errorResponse[0].description;
                     }
