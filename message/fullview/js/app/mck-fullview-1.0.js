@@ -893,7 +893,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     }
                     if (IS_MCK_TAB_FOCUSED) {
                         if (MCK_IDLE_TIME_COUNTER < 1) {
-                            mckInitializeChannel.checkConnected();
+                            mckInitializeChannel.checkConnected(true);
                         }
                         _this.stopIdleTimeCounter();
                     } else {
@@ -1629,6 +1629,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     $mck_tab_message_option.removeClass('vis').addClass('n-vis');
                                 }
                             }
+                            mckInitializeChannel.checkConnected(false);
                         }, error: function() {
                             $mck_msg_error.html('Unable to process your request. Please try again.');
                             $mck_msg_error.removeClass('n-vis').addClass('vis');
@@ -5355,7 +5356,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 					}
 				}
 			};
-            _this.checkConnected = function() {
+            _this.checkConnected = function(isFetchMessages) {
                 if (stompClient.connected) {
                     if (checkConnectedIntervalId) {
                         clearInterval(checkConnectedIntervalId);
@@ -5364,19 +5365,19 @@ var MCK_CLIENT_GROUP_MAP = [];
                         clearInterval(sendConnectedStatusIntervalId);
                     }
                     checkConnectedIntervalId = setInterval(function() {
-                        _this.connectToSocket();
+                        _this.connectToSocket(isFetchMessages);
                     }, 600000);
                     sendConnectedStatusIntervalId = setInterval(function() {
                         _this.sendStatus(2);
                     }, 1200000);
                 } else {
-                    _this.connectToSocket();
+                    _this.connectToSocket(isFetchMessages);
                 }
             };
-            _this.connectToSocket = function() {
+            _this.connectToSocket = function(isFetchMessages) {
                 $mck_message_inner = mckMessageLayout.getMckMessageInner();
                 if (!stompClient.connected) {
-                    if ($mck_sidebox.css('display') === 'block') {
+                	 if(isFetchMessages) {
                         var currTabId = $mck_message_inner.data('mck-id');
                         if (currTabId) {
                             var isGroup = $mck_message_inner.data('isgroup');
@@ -5386,13 +5387,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                             mckMessageLayout.loadTab({
                                     'tabId': currTabId, 'isGroup': isGroup, 'conversationId': conversationId, 'topicId': topicId
                             });
-                        } else {
-                            mckStorage.clearMckMessageArray();
-                            mckMessageLayout.loadTab({
-                                    'tabId': "", 'isGroup': false
-                            });
                         }
-                    }
+                	}
                     _this.init();
                 }
             };
@@ -5533,12 +5529,12 @@ var MCK_CLIENT_GROUP_MAP = [];
                     }
                     subscriber = stompClient.subscribe("/topic/" + MCK_TOKEN, _this.onMessage);
                     _this.sendStatus(1);
-                    _this.checkConnected();
+                    _this.checkConnected(true);
                 } else {
                     setTimeout(function() {
                         subscriber = stompClient.subscribe("/topic/" + MCK_TOKEN, _this.onMessage);
                         _this.sendStatus(1);
-                        _this.checkConnected();
+                        _this.checkConnected(true);
                     }, 5000);
                 }
                 events.onConnect();
