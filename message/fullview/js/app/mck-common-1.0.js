@@ -555,7 +555,6 @@ function MckGroupService() {
                         response.status = "success";
                         response.data = data.response;
                     } else {
-                        alert("Unable to process your request. " + data.errorResponse[0].description);
                         response.status = "error";
                         response.errorMessage = data.errorResponse[0].description;
                     }
