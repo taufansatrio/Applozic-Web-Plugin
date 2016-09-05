@@ -52,7 +52,7 @@
 									class="people mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked">
 							</div>
 							<div id="mck-contact-loading" class="mck-loading">
-								<span class="mck-icon-loading"></span>
+								<img src="css/app/images/ring.gif">
 							</div>
 							<div id="mck-no-contact-text"
 								class="mck-no-data-text mck-text-muted n-vis">No
@@ -164,7 +164,7 @@
 								<div class="chat mck-message-inner mck-panel-inner"
 									data-mck-id="${contIdExpr}"></div>
 								<div id="mck-msg-loading" class="mck-loading n-vis">
-									<span class="mck-icon-loading"></span>
+									<img src="css/app/images/ring.gif">
 								</div>
 								<div id="mck-no-more-messages"
 									class="mck-no-more-messages mck-show-more-icon n-vis">
@@ -260,11 +260,27 @@
 					</div>
 					<div id="mck-group-detail-panel" class="mck-group-detail-box">
 						<div class="mck-group-icon-sec">
-							<div id="mck-group-icon-box" class="mck-group-icon-box">
-								<div class="mck-group-icon">
+							<div id="mck-group-info-icon-box"
+								class="mck-group-icon-box mck-group-info-icon-box mck-hover-on">
+								<div class="mck-group-icon"></div>
+								<span class="mck-overlay-box n-vis">
+									<div class="mck-overlay">
+										<span class="mck-camera-icon"></span> <span
+											class="mck-overlay-label">Change Group Icon</span>
+									</div>
+									<div id="mck-group-info-icon-loading" class="mck-loading n-vis">
+										<img src="css/app/images/mck-loading.gif" />
+									</div> <input id="mck-group-icon-change"
+									class="mck-group-icon-change n-vis" type="file" name="file[]" />
+								</span>
+							</div>
+							<div class="mck-text-center">
+								<a id="mck-btn-group-icon-save" href="#" role="link"
+									class="mck-btn-group-icon-save n-vis" title="Click to save">
 									<img
-										src="https://www.applozic.com/resources/images/applozic_logo.gif">
-								</div>
+									src="https://test.applozic.com/resources/1287/sidebox/css/app/images/mck-icon-save.png"
+									alt="Save">
+								</a>
 							</div>
 						</div>
 						<div id="mck-group-name-sec" class="mck-group-name-sec">
@@ -456,7 +472,7 @@
 	<script type="text/javascript" src="js/locationpicker.jquery.min.js"></script>
 
 	<!--JS for auto suggest plugin, use it if auto suggestions required -->
-<!-- 	<script type="text/javascript" src="autosuggest/js/jquery.caret.min.js"></script>
+	<!-- 	<script type="text/javascript" src="autosuggest/js/jquery.caret.min.js"></script>
 	    <script type="text/javascript" src="autosuggest/js/jquery.atwho.min.js"></script> -->
 
 
@@ -520,57 +536,80 @@
 			}
 		}
 		// Examples shows how to define variable for auto suggest
-		  var autoSuggest = {
-		     queries : [           
-		       { name: "How to integrate?", content: "How to integrate Applozic SDK?"},
-		       { name: "Android", content: "https://www.applozic.com/docs/android-chat-sdk.html"},
-		       { name: "iOS", content: "https://www.applozic.com/docs/ios-chat-sdk.html"},
-		       { name: "Web Plugin", content: "https://www.applozic.com/docs/web-chat-plugin.html"}
-		     ], 
-		     templates : [
-		       { name: "I am busy. I will call you later", content: "I am busy. I will call you later"},
-		       { name: "I'm in a meeting.", content: "I'm in a meeting."},
-		       { name: "Where are You?", content: "Where are You?"},
-		       { name: "Please reply ASAP. It's Urgent.", content: "Please reply ASAP. It's Urgent."},
-		       { name: "I'm on my way home", content: "I'm on my way home"},
-		       { name: "I'm coming", content: "I'm coming"}
-		     ]
-		  }
-          // Function to initialize auto suggest plugin on message textbox
-/* 		  function initAutoSuggestions() {
-		    $('#mck-text-box').atwho({
-		          at: "#queries",
-		          insertTpl: '${content}',
-		          displayTpl: '<li>${name} <small>${content}</small></li>',
-		          data: autoSuggest.queries
-		    }).atwho({
-			      at: "@templates",
-			      insertTpl: '${content}',
-			      displayTpl: '<li>${name} <small>${content}</small></li>',
-			      data: autoSuggest.templates
-			}).atwho({
-		          at: "#templates",
-		          insertTpl: '${content}',
-		          displayTpl: '<li>${name} <small>${content}</small></li>',
-		          data: autoSuggest.templates
-		    });
-		  } */
-          
-		$(document).ready(function() {
+		var autoSuggest = {
+			queries : [ {
+				name : "How to integrate?",
+				content : "How to integrate Applozic SDK?"
+			}, {
+				name : "Android",
+				content : "https://www.applozic.com/docs/android-chat-sdk.html"
+			}, {
+				name : "iOS",
+				content : "https://www.applozic.com/docs/ios-chat-sdk.html"
+			}, {
+				name : "Web Plugin",
+				content : "https://www.applozic.com/docs/web-chat-plugin.html"
+			} ],
+			templates : [ {
+				name : "I am busy. I will call you later",
+				content : "I am busy. I will call you later"
+			}, {
+				name : "I'm in a meeting.",
+				content : "I'm in a meeting."
+			}, {
+				name : "Where are You?",
+				content : "Where are You?"
+			}, {
+				name : "Please reply ASAP. It's Urgent.",
+				content : "Please reply ASAP. It's Urgent."
+			}, {
+				name : "I'm on my way home",
+				content : "I'm on my way home"
+			}, {
+				name : "I'm coming",
+				content : "I'm coming"
+			} ]
+		}
+		// Function to initialize auto suggest plugin on message textbox
+		/* 		  function initAutoSuggestions() {
+		 $('#mck-text-box').atwho({
+		 at: "#queries",
+		 insertTpl: '${content}',
+		 displayTpl: '<li>${name} <small>${content}</small></li>',
+		 data: autoSuggest.queries
+		 }).atwho({
+		 at: "@templates",
+		 insertTpl: '${content}',
+		 displayTpl: '<li>${name} <small>${content}</small></li>',
+		 data: autoSuggest.templates
+		 }).atwho({
+		 at: "#templates",
+		 insertTpl: '${content}',
+		 displayTpl: '<li>${name} <small>${content}</small></li>',
+		 data: autoSuggest.templates
+		 });
+		 } */
+
+		$(document)
+				.ready(
+						function() {
 							//Function to initialize plugin
 							$applozic.fn.applozic({
-										userId: 'customer-1', userName: 'Customer1', appId: 'applozic-sample-app',
+										userId : 'customer-1',
+										userName : 'Customer1',
+										appId : 'applozic-sample-app',
 										ojq : $original,
 										obsm : oModal,
-									 //	autoTypeSearchEnabled : false,
+									//	autoTypeSearchEnabled : false,
 										notificationIconLink : "https://www.applozic.com/resources/images/applozic_icon.png",
 										readConversation : readMessage, // readMessage function defined above
 										onInit : onInitialize, //callback function execute on plugin initialize
 										maxAttachmentSize : 25, //max attachment size in MB
 										desktopNotification : true,
 										locShare : true,
+									//	topicBox : true,
 										googleApiKey : "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4", // replace it with your Google API key
-								     // initAutoSuggestions : initAutoSuggestions //  function to enable auto suggestions
+									// initAutoSuggestions : initAutoSuggestions //  function to enable auto suggestions
 									});
 
 							// var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}]};
