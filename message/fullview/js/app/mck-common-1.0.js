@@ -512,9 +512,7 @@ function MckGroupService() {
                         params.callback(response);
                     }
                     if (params.apzCallback) {
-                        params.apzCallback(response, {
-                                groupId: params.groupId, userId: params.userId
-                        })
+                        params.apzCallback(response, params)
                     }
                 }, error: function() {
                     console.log('Unable to process your request. Please reload page.');
@@ -562,9 +560,7 @@ function MckGroupService() {
                         params.callback(response);
                     }
                     if (params.apzCallback) {
-                        params.apzCallback(response, {
-                                groupId: params.groupId, userId: params.userId
-                        })
+                        params.apzCallback(response, params)
                     }
                 }, error: function() {
                     console.log('Unable to process your request. Please reload page.');
