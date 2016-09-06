@@ -462,56 +462,61 @@ var MCK_CLIENT_GROUP_MAP = [];
                 return "Callback Function Required";
             }
         };
-        _this.leaveGroup = function(params) {
-            if (typeof params !== 'object') {
-                return "Unsupported Format. Please check format";
-            }
-            if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-                return "GroupId or Client GroupId Required";
-            }
-            if (typeof params.callback === 'function') {
-                params.apzCallback = mckGroupLayout.onGroupLeft;
-                mckGroupService.leaveGroup(params);
-                return "success";
-            } else {
-                return "Callback Function Required";
-            }
-        };
+	    _this.leaveGroup = function(params) {
+			if (typeof params !== 'object') {
+				return "Unsupported Format. Please check format";
+			}
+			if (typeof params.callback === 'function') {
+				if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
+					params.callback("GroupId or Client GroupId Required");
+					return;
+				}
+				params.apzCallback = mckGroupLayout.onGroupLeft;
+				mckGroupService.leaveGroup(params);
+				return "success";
+			} else {
+				return "Callback Function Required";
+			}
+		};
         _this.addGroupMember = function(params) {
             if (typeof params !== 'object') {
                 return "Unsupported Format. Please check format";
             }
-            if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-                return "GroupId or Client GroupId Required";
-            }
-            if (typeof params.userId === 'undefined' || params.userId === "") {
-                return "User Id Required";
-            }
-            if (typeof params.callback === 'function') {
-                params.apzCallback = mckGroupLayout.onAddedGroupMember;
-                mckGroupService.addGroupMember(params);
-                return "success";
-            } else {
-                return "Callback Function Required";
-            }
+			if (typeof params.callback === 'function') {
+				if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
+					params.callback("GroupId or Client GroupId Required");
+					return;
+				}
+				if (typeof params.userId === 'undefined' || params.userId === "") {
+					params.callback("User Id Required");
+					return;
+				}
+				params.apzCallback = mckGroupLayout.onAddedGroupMember;
+				mckGroupService.addGroupMember(params);
+				return "success";
+			} else {
+				return "Callback Function Required";
+			}
         };
         _this.removeGroupMember = function(params) {
             if (typeof params !== 'object') {
                 return "Unsupported Format. Please check format";
             }
-            if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-                return "GroupId or Client GroupId Required";
-            }
-            if (typeof params.userId === 'undefined' || params.userId === "") {
-                return "User Id Required";
-            }
-            if (typeof params.callback === 'function') {
-                params.apzCallback = mckGroupLayout.onRemovedGroupMember;
-                mckGroupService.removeGroupMember(params);
-                return "success";
-            } else {
-                return "Callback Function Required";
-            }
+			if (typeof params.callback === 'function') {
+				if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
+					params.callback("GroupId or Client GroupId Required");
+					return;
+				}
+				if (typeof params.userId === 'undefined' || params.userId === "") {
+					params.callback("User Id Required");
+					return;
+				}
+				params.apzCallback = mckGroupLayout.onRemovedGroupMember;
+				mckGroupService.removeGroupMember(params);
+				return "success";
+			} else {
+				return "Callback Function Required";
+			}
         };
         _this.getMessages = function(params) {
             if (typeof params.callback === 'function') {
@@ -519,44 +524,51 @@ var MCK_CLIENT_GROUP_MAP = [];
             }
         };
         _this.getMessageList = function(params) {
-            if (typeof params !== 'undefined' && typeof params.callback === 'function') {
+            if (typeof params === 'object' && typeof params.callback === 'function') {
                 mckMessageService.getMessageList(params);
                 return "success";
             } else {
                 return "Callback function required.";
             }
         };
-        _this.getMessageListByTopicId = function(params) {
-            if ((typeof params.id === 'undefined' || params.id === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-                return "Id or Client GroupId required";
-            }
-            if (params.id && typeof params.isGroup !== 'boolean') {
-                return "IsGroup parameter required";
-            }
-            if (!params.topicId) {
-                return "TopicId required";
-            }            
-            if(params.id) {
-            	params.tabId = params.id;
-            }
-            
-            if (typeof params !== 'undefined' && typeof params.callback === 'function') {
-            	params.topicStatus = CONVERSATION_STATUS_MAP[0];
-                var conversationId = MCK_TOPIC_CONVERSATION_MAP[params.topicId];
-                if (conversationId && typeof MCK_CONVERSATION_MAP[conversationId] === 'object') {
-                     params.conversationId = conversationId;   
-                     mckMessageService.getMessageList(params);
-                } else {
-                	  params.isExtMessageList = true;
-                	  params.pageSize = 1;
-                	  mckMessageService.fetchConversationByTopicId(params);
-                }
-              
-                return "success";
-            } else {
-                return "Callback function required.";
-            }
-        };
+		_this.getMessageListByTopicId = function(params) {
+			if (typeof params === 'object') {
+				if (typeof params.callback === 'function') {
+					if ((typeof params.id === 'undefined' || params.id === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
+						params.callback("Id or Client GroupId required");
+						return;
+					}
+					if (params.id && typeof params.isGroup !== 'boolean') {
+						params.callback("IsGroup parameter required");
+						return;
+					}
+					if (!params.topicId) {
+						params.callback("TopicId required");
+						return;
+					}
+					if (params.id) {
+						params.tabId = params.id;
+					}
+
+					params.topicStatus = CONVERSATION_STATUS_MAP[0];
+					var conversationId = MCK_TOPIC_CONVERSATION_MAP[params.topicId];
+					if (conversationId
+							&& typeof MCK_CONVERSATION_MAP[conversationId] === 'object') {
+						params.conversationId = conversationId;
+						mckMessageService.getMessageList(params);
+					} else {
+						params.isExtMessageList = true;
+						params.pageSize = 1;
+						mckMessageService.fetchConversationByTopicId(params);
+					}
+					return "success";
+				} else {
+					return "Callback function required.";
+				}
+			} else {
+				 return "Unsupported Format. Please check format";
+			}
+		};
         _this.sendMessage = function(params) {
             if (typeof params === "object") {
                 params = $applozic.extend(true, {}, message_default_options, params);
@@ -573,7 +585,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
                 message = $applozic.trim(message);
                 var messagePxy = {
-                        "to": to, "type": params.messageType, "contentType": params.type, "message": message
+                     "to": to, "type": params.messageType, "contentType": params.type, "message": message
                 };
                 mckMessageService.sendMessage(messagePxy);
                 return "success";
