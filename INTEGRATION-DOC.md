@@ -48,6 +48,13 @@ Add the below code just after Step 1.
    contactDisplayImage: function(otherUserId) {
          //return the display image url of the user from your application code based on userId.
          return "";
+   },
+   onTabClicked: function(response) {
+         // write your logic to execute task after tab load
+         // object response =  {
+             tabId : userId or groupId,
+             isGroup : 'tab is group or not'
+           }
    }
   });
 </script>
