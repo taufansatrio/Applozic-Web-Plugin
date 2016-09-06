@@ -129,7 +129,7 @@ userId is the unique identifier for any user, it can be anything like email, pho
          return "";
    },
    onTabClicked: function(response) {
-         // write your logic to execute task after tab load
+         // write your logic to execute task on tab load
          // object response =  {
              tabId : userId or groupId,
              isGroup : 'tab is group or not'
