@@ -127,6 +127,13 @@ userId is the unique identifier for any user, it can be anything like email, pho
    contactDisplayImage: function(otherUserId) {
          //return the display image url of the user from your application code based on userId.
          return "";
+   },
+   onTabClicked: function(response) {
+         // write your logic to execute task after tab load
+         // object response =  {
+             tabId : userId or groupId,
+             isGroup : 'tab is group or not'
+           }
    }
   });
 </script>
