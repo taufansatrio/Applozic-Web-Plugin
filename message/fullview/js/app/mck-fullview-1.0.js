@@ -40,6 +40,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                     case "sendMessage":
                         return oInstance.sendMessage(params);
                         break;
+                    case "createGroup":
+                        return oInstance.createGroup(params);
                     case "loadBroadcastTab":
                         params.groupName = (params.groupName) ? params.groupName : 'Broadcast';
                         params.type = 5;
@@ -223,7 +225,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var MCK_CHECK_USER_BUSY_STATUS = (typeof appOptions.checkUserBusyWithStatus === "boolean") ? (appOptions.checkUserBusyWithStatus) : false;
         var IS_LAUNCH_ON_UNREAD_MESSAGE_ENABLED = (typeof appOptions.launchOnUnreadMessage === "boolean") ? appOptions.launchOnUnreadMessage : false;
         var CONVERSATION_STATUS_MAP = [ "DEFAULT", "NEW", "OPEN" ];
-        var GROUP_TYPE_MAP = [ 1, 2, 5 ];
+        var GROUP_TYPE_MAP = [ 1, 2, 5, 6 ];
         var BLOCK_STATUS_MAP = [ "BLOCKED_TO", "BLOCKED_BY", "UNBLOCKED_TO", "UNBLOCKED_BY" ];
         var mckStorage = new MckStorage();
         var TAB_FILE_DRAFT = new Object();
@@ -587,6 +589,39 @@ var MCK_CLIENT_GROUP_MAP = [];
                     return "Message Content Required";
                 }
                 mckMessageService.sendWelcomeMessage(params);
+            } else {
+                return "Unsupported Format. Please check format";
+            }
+        };
+        _this.createGroup = function(params) {
+            if (typeof params === "object") {
+                if (typeof params.callback === 'function') {
+                    var users = params.users;
+                    if (typeof users === 'undefined' || users.length < 1) {
+                    	params.callback("Users List Required");
+                    	return;
+                    }
+                    if (users.length > MCK_GROUPMAXSIZE) {
+                    	params.callback("Users limit exceeds " + MCK_GROUPMAXSIZE + ". Max number of users allowed is " + MCK_GROUPMAXSIZE + ".");
+                    	return;
+                    }
+                    if (!params.groupName) {
+                    	params.callback("Group Name Required");
+                    	return;
+                    }
+                    if (!params.type) {
+                    	params.callback("Group Type Required");
+                    	return;
+                    }
+                    if (GROUP_TYPE_MAP.indexOf(params.type) === -1) {
+                    	params.callback("Invalid Group Type");
+                    	return;
+                    }
+                    mckMessageService.getGroup(params);
+                    return "success";
+                } else {
+                	return 'Callback Function Required';
+                }                
             } else {
                 return "Unsupported Format. Please check format";
             }
@@ -2372,6 +2407,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (params.clientGroupId) {
                         groupInfo.clientGroupId = params.clientGroupId;
                     }
+                    var response = new Object();
                     $applozic.ajax({
                             url: MCK_BASE_URL + GROUP_CREATE_URL, global: false, data: w.JSON.stringify(groupInfo), type: 'post', contentType: 'application/json', success: function(data) {
                                 if (typeof data === 'object' && data.status === "success") {
@@ -2398,9 +2434,30 @@ var MCK_CLIENT_GROUP_MAP = [];
                                         params.isGroup = true;
                                         params.prepend = true;
                                         (params.isMessage) ? mckMessageLayout.loadTab(params, _this.dispatchMessage) : mckMessageLayout.loadTab(params);
+                                        if(typeof params.callback === 'function') {
+                                        	response.status = 'success';
+                                        	response.data = group;
+                                        	params.callback(response);	
+                                        }
                                     }
+                                } else if(data.status === "error") {
+                               	  if(typeof params.callback === 'function') {
+                             		response.status = 'error';
+                                  	response.errorMessage = data.errorResponse[0].description;
+                                  	params.callback(response);	
+                                  }
                                 }
-                            }, error: function() {}
+                                if (params.isInternal) {
+                                    $mck_btn_group_create.attr('disabled', false);
+                                    $mck_btn_group_create.html('Create Group');
+                                }
+                            }, error: function() {
+                           	    if (typeof params.callback === 'function') {
+                      	        	response.status = 'error';
+                                	response.errorMessage = 'Unable to process request.';
+                                	params.callback(response);	
+                                }
+                            }
                     });
                 }
             };
@@ -4424,9 +4481,11 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_tab_status.removeClass('vis').addClass('n-vis');
                 } else if (group.members.length > 0) {
                     var groupMembers = "";
+                    var isGroupMember = false;
                     for (var i = 0; i < group.members.length; i++) {
                         if (MCK_USER_ID === '' + group.members[i] || (group.removedMembersId.indexOf(group.members[i]) !== -1)) {
-                            continue;
+                        	isGroupMember  = true;
+                        	continue;
                         }
                         var contact = mckMessageLayout.fetchContact('' + group.members[i]);
                         var name = mckMessageLayout.getTabDisplayName(contact.contactId, false);
