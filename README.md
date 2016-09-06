@@ -5,18 +5,24 @@
 
 Open source Chat and Messaging SDK that lets you add real time chat and messaging in your mobile (android, iOS) applications and website.
 
-Signup at https://www.applozic.com to get the application key.
+
+Signup at [https://www.applozic.com/signup.html](https://www.applozic.com/signup.html?utm_source=github&utm_medium=readme&utm_campaign=web) to get the application key.
+
+Documentation: [Applozic Web (Javascript) Chat & Messaging Plugin Documentation](https://www.applozic.com/docs/web-chat-plugin.html?utm_source=github&utm_medium=readme&utm_campaign=web)
+
+Applozic comes with 2 ready to use UI layout
+
+1. Full view 
 
 <img align="left" src="message/fullview/fullview.png" />
 
+
+2. Sidebox 
 <img align="middle" src="message/advanced/sidebox.png" />
 
 
 
 #### Applozic One to One and Group Chat SDK
-
-Documentation: https://www.applozic.com/docs/web-chat-plugin.html
-
 
 
 Features:
@@ -70,7 +76,7 @@ A jQuery plugin to integrate messaging into your web page for real time communic
 
 Integrate messaging into your mobile apps and website without developing or maintaining any infrastructure.
 
-Signup at [Applozic](https://www.applozic.com/signup.html) to get the application key.
+Signup at [https://www.applozic.com/signup.html](https://www.applozic.com/signup.html?utm_source=github&utm_medium=readme&utm_campaign=web) to get the application key.
 
 #### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
 
@@ -307,10 +313,9 @@ Paste js, css folders in your project.
 
 
  
-
-
 More details here: 
-https://www.applozic.com/docs/web-chat-plugin.html
+[Applozic Web (Javascript) Chat & Messaging Plugin Documentation](https://www.applozic.com/docs/web-chat-plugin.html?utm_source=github&utm_medium=readme&utm_campaign=web)
+
 
 
 ##Help
