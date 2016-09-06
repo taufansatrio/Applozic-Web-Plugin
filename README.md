@@ -14,9 +14,7 @@ Applozic comes with 2 ready to use UI layout
 
 ##1. Full view 
 
-<img align="left" src="message/fullview/fullview.png" />
-
-
+<img align="middle" src="message/fullview/fullview.png" />
 
 
 
@@ -29,7 +27,7 @@ Applozic comes with 2 ready to use UI layout
 #### Applozic One to One and Group Chat SDK
 
 
-Features:
+#####Features:
 
  One to one and Group Chat
  
