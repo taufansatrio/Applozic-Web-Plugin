@@ -42,6 +42,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                         break;
                     case "createGroup":
                         return oInstance.createGroup(params);
+                        break;
                     case "loadBroadcastTab":
                         params.groupName = (params.groupName) ? params.groupName : 'Broadcast';
                         params.type = 5;
