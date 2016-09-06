@@ -312,10 +312,11 @@ Paste js, css folders in your project.
 4. You can modify css and js files based on your design, files are present under css/app/ and js/app folders.
 
 
- 
-More details here: 
-[Applozic Web (Javascript) Chat & Messaging Plugin Documentation](https://www.applozic.com/docs/web-chat-plugin.html?utm_source=github&utm_medium=readme&utm_campaign=web)
 
+###Documentation:
+
+For advanced options and customization, refer: 
+[Applozic Web (Javascript) Chat & Messaging Plugin Documentation](https://www.applozic.com/docs/web-chat-plugin.html?utm_source=github&utm_medium=readme&utm_campaign=web)
 
 
 ##Help
