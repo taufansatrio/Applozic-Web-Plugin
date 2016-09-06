@@ -2441,6 +2441,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                         	params.callback(response);	
                                         }
                                     }
+                                    mckStorage.clearMckMessageArray();
                                 } else if(data.status === "error") {
                                	  if(typeof params.callback === 'function') {
                              		response.status = 'error';
