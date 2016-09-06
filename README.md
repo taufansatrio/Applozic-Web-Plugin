@@ -12,12 +12,16 @@ Documentation: [Applozic Web (Javascript) Chat & Messaging Plugin Documentation]
 
 Applozic comes with 2 ready to use UI layout
 
-1. Full view 
+##1. Full view 
 
 <img align="left" src="message/fullview/fullview.png" />
 
 
-2. Sidebox 
+
+
+
+
+##2. Sidebox 
 <img align="middle" src="message/advanced/sidebox.png" />
 
 
