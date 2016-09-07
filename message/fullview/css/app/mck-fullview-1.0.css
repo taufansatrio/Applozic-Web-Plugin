@@ -1895,12 +1895,14 @@ ol,  ul {
 }
 
 .mck-loc-box input {
-	width: 460px;
+	width: 470px;
 }
 
 .mck-loc-content {
 	width: 100%;
 	height: 280px;
+	position:relative;
+	display:table;
 }
 
 .mck-test-center {
