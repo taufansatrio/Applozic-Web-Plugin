@@ -75,13 +75,7 @@ body {
 	width:39px;
 	
 }
-.mck-container .left .mck-box-top .blk-lg-2 a {
-    height: 59px;
-    float: left;
-    width: 39px;
-    line-height: 59px;
-    display: inline-block;
-}
+
 .mck-container .left .mck-box-top .blk-lg-2 a img {
 	height:25px;
 	width:25px;
@@ -592,11 +586,11 @@ body {
 	width: 300px;
 }
 
-.mck-group-info-tab .mck-box-top .blk-lg-2 {
+.mck-group-info-tab .mck-box-top .blk-lg-2, .mck-group-create-tab .mck-box-top .blk-lg-2  {
 	width: 29px;
 }
 
-.mck-group-info-tab .mck-box-top .blk-lg-10 {
+.mck-group-info-tab .mck-box-top .blk-lg-10, .mck-group-create-tab .mck-box-top .blk-lg-10 {
 	width: 250px;
 }
 
@@ -609,6 +603,12 @@ body {
 	position: relative;
 	background-color: #F0F0F0;
 	margin: 0;
+}
+.mck-group-sub-sec {
+    padding: 10px 0;
+    position: relative;
+    vertical-align: baseline;
+    outline: none;
 }
 
 .mck-group-icon-sec {

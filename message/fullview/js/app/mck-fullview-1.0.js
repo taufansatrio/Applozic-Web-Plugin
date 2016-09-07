@@ -988,21 +988,24 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_sidebox = $applozic("#mck-sidebox");
             var $mck_file_box = $applozic("#mck-file-box");
             var $mck_text_box = $applozic("#mck-text-box");
-            var $mck_write_box = $applozic("#mck-write-box");
             var $mck_msg_form = $applozic("#mck-msg-form");
             var $mck_msg_sbmt = $applozic("#mck-msg-sbmt");
+            var $mck_write_box = $applozic("#mck-write-box");
             var $mck_msg_error = $applozic("#mck-msg-error");
+            var $mck_start_new = $applozic("#mck-start-new");
             var $mck_btn_attach = $applozic("#mck-btn-attach");
             var $mck_msg_cell = $applozic("#mck-message-cell");
             var $mck_typing_box = $applozic(".mck-typing-box");
             var $mck_loading = $applozic("#mck-contact-loading");
             var $mck_msg_loading = $applozic("#mck-msg-loading");
+            var $mck_group_title = $applozic("#mck-group-title");
             var $mck_group_search = $applozic("#mck-group-search");
             var $mck_msg_response = $applozic("#mck-msg-response");
             var $mck_form_field = $applozic("#mck-msg-form input");
             var $mck_block_button = $applozic("#mck-block-button");
             var $li_mck_block_user = $applozic("#li-mck-block-user");
             var $mck_response_text = $applozic("#mck_response_text");
+            var $mck_contact_search = $applozic("#mck-contact-search");
             var $mck_contacts_inner = $applozic(".mck-contacts-inner");
             var $mck_group_info_tab = $applozic("#mck-group-info-tab");
             var $mck_price_text_box = $applozic("#mck-price-text-box");
@@ -1018,8 +1021,9 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_group_add_member = $applozic("#mck-group-add-member");
             var $mck_contacts_content = $applozic("#mck-contacts-content");
             var $mck_tab_option_panel = $applozic("#mck-tab-option-panel");
-            var $mck_start_new = $applozic("#mck-start-new");
-            var $mck_contact_search = $applozic("#mck-contact-search");
+            var $mck_btn_group_create = $applozic("#mck-btn-group-create");
+            var $mck_group_create_close = $applozic("#mck-group-create-close");
+            var $mck_group_create_title = $applozic("#mck-group-create-title");
             var $mck_contact_search_box = $applozic("#mck-contact-search-box");
             var $mck_group_menu_options = $applozic(".mck-group-menu-options");
             var $mck_tab_message_option = $applozic(".mck-tab-message-option");
@@ -1528,6 +1532,12 @@ var MCK_CLIENT_GROUP_MAP = [];
                         if (MCK_TYPING_STATUS === 1) {
                             mckInitializeChannel.sendTypingStatus(0, $mck_msg_inner.data('mck-id'));
                         }
+                    }
+                    if (d.activeElement && d.activeElement.id !== 'mck-group-name-save') {
+                        $mck_group_title.removeClass('mck-req-border');
+                    }
+                    if (d.activeElement && d.activeElement.id !== 'mck-btn-group-create') {
+                        $mck_group_create_title.removeClass('mck-req-border');
                     }
                     $applozic('.mcktypeahead.mck-dropdown-menu').hide();
                 });
@@ -2413,12 +2423,14 @@ var MCK_CLIENT_GROUP_MAP = [];
                         usersArray.push(user);
                     }
                 });
-                if (usersArray.length > 0) {
                     var groupInfo = {
                             'groupName': params.groupName, 'users': usersArray, 'type': params.type
                     };
                     if (params.clientGroupId) {
                         groupInfo.clientGroupId = params.clientGroupId;
+                    }
+                    if (params.groupIcon) {
+                        groupInfo.imageUrl = params.groupIcon;
                     }
                     var response = new Object();
                     $applozic.ajax({
@@ -2463,7 +2475,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 }
                                 if (params.isInternal) {
                                     $mck_btn_group_create.attr('disabled', false);
-                                    $mck_btn_group_create.html('Create Group');
+                                    $mck_btn_group_create.html('Create Group');                                  
                                 }
                             }, error: function() {
                            	    if (typeof params.callback === 'function') {
@@ -2473,7 +2485,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 }
                             }
                     });
-                }
+                
             };
         }
         function MckContactUtils() {
@@ -2521,10 +2533,11 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_response_text = $applozic("#mck_response_text");
             var $li_mck_block_user = $applozic("#li-mck-block-user");
             var $mck_delete_button = $applozic("#mck-delete-button");
-            var $mck_tab_individual = $applozic("#mck-tab-individual");
+            var $mck_tab_header = $applozic("#mck-tab-header");
             var $li_mck_leave_group = $applozic("#li-mck-leave-group");
             var $mck_sidebox_search = $applozic("#mck-sidebox-search");
             var $mck_group_info_tab = $applozic("#mck-group-info-tab");
+            var $mck_group_create_tab = $applozic("#mck-group-create-tab");
             var $mck_contacts_inner = $applozic(".mck-contacts-inner");
             var $mck_contact_search = $applozic("#mck-contact-search");
             var $mck_group_tab_title = $applozic("#mck-group-tab-title");
@@ -2607,7 +2620,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_msg_inner = $applozic(".mck-message-inner[data-mck-id='" + params.tabId + "'][data-isgroup ='" + params.isGroup + "']");
                 }
                 if(params.isSearch) {
-                    $applozic(".mck-contacts-inner").scrollTop($(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
+                    $applozic(".mck-contacts-inner").scrollTop($applozic(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
                 }
                 var currTabId;
                 if ($mck_msg_inner) {
@@ -2649,6 +2662,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $mck_msg_inner.html("");
                 $mck_msg_error.removeClass('mck-no-mb');
                 $mck_group_info_close.trigger('click');
+                $mck_group_create_tab.removeClass('vis').addClass('n-vis');
                 $mck_contacts_content.removeClass('n-vis').addClass('vis');
                 $modal_footer_content.removeClass('vis').addClass('n-vis');
                 $mck_sidebox_search.removeClass('vis').addClass('n-vis');
@@ -2719,7 +2733,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_tab_title.html(name);
                     $mck_tab_title.attr('title', name);
                     $mck_tab_conversation.removeClass('vis').addClass('n-vis');
-                    $mck_tab_individual.removeClass('n-vis').addClass('vis');
+                    $mck_tab_header.removeClass('n-vis').addClass('vis');
                     if (MCK_MODE === 'support') {
                         $applozic('.mck-tab-link').removeClass('vis').addClass('n-vis');
                     }
@@ -2755,7 +2769,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     });
                 } else {
                     params.tabId = "";
-                    $mck_tab_individual.removeClass('vis').addClass('n-vis');
+                    $mck_tab_header.removeClass('vis').addClass('n-vis');
                     $mck_tab_conversation.removeClass('n-vis').addClass('vis');
                     $mck_product_box.removeClass('vis').addClass('n-vis');
                     $mck_msg_inner.data('mck-id', "");
@@ -4310,6 +4324,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_msg_form = $applozic("#mck-msg-form");
             var $mck_msg_error = $applozic("#mck-msg-error");
             var $mck_container = $applozic(".mck-container");
+            var $mck_new_group = $applozic("#mck-new-group");
             var $mck_loading = $applozic("#mck-contact-loading");
             var $mck_group_search = $applozic("#mck-group-search");
             var $mck_right_panel = $applozic(".mck-container .right");
@@ -4320,11 +4335,17 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_sidebox_content = $applozic("#mck-sidebox-content");
             var $mck_group_name_edit = $applozic("#mck-group-name-edit");
             var $mck_group_name_save = $applozic("#mck-group-name-save");
+            var $mck_group_create_tab = $applozic("#mck-group-create-tab");
             var $mck_group_info_close = $applozic("#mck-group-info-close");
+            var $mck_btn_group_create = $applozic("#mck-btn-group-create");
             var $mck_contacts_content = $applozic("#mck-contacts-content");
             var $mck_group_icon_change = $applozic("#mck-group-icon-change");
+            var $mck_group_icon_upload = $applozic("#mck-group-icon-upload");
             var $mck_group_search_list = $applozic("#mck-group-search-list");
             var $mck_group_member_List = $applozic("#mck-group-member-list");
+            var $mck_group_create_type = $applozic("#mck-group-create-type");
+            var $mck_group_create_close = $applozic("#mck-group-create-close");
+            var $mck_group_create_title = $applozic("#mck-group-create-title");
             var $mck_group_menu_options = $applozic(".mck-group-menu-options");
             var $mck_btn_group_icon_save = $applozic("#mck-btn-group-icon-save");
             var $mck_group_admin_options = $applozic(".mck-group-admin-options");
@@ -4334,11 +4355,19 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_msg_inner = $applozic("#mck-message-cell .mck-message-inner");
             var $mck_group_title = $applozic("#mck-group-name-sec .mck-group-title");
             var $mck_group_info_icon_loading = $applozic("#mck-group-info-icon-loading");
+            var $mck_group_create_icon_loading = $applozic("#mck-group-create-icon-loading");
             var $mck_group_info_icon = $applozic("#mck-group-info-icon-box .mck-group-icon");
+            var $mck_group_create_icon = $applozic("#mck-group-create-icon-box .mck-group-icon");
+            var $mck_group_create_overlay_box = $applozic("#mck-group-create-icon-box .mck-overlay-box");
+            var $mck_group_create_overlay_label = $applozic("#mck-group-create-icon-box .mck-overlay-label");
             var groupContactbox = '<li id="li-gm-${contHtmlExpr}" class="${contIdExpr} mck-li-group-member" data-mck-id="${contIdExpr}" data-alpha="${contFirstAlphaExpr}">' + '<div class="mck-row mck-group-member-info" title="${contNameExpr}">' + '<div class="blk-lg-3">{{html contImgExpr}}</div>' + '<div class="blk-lg-9">' + '<div class="mck-row">' + '<div class="blk-lg-8 mck-cont-name mck-truncate"><strong>${contNameExpr}</strong></div>' + '<div class="blk-lg-4 mck-group-admin-text move-right ${isAdminExpr}"><span>Admin</span></div></div>' + '<div class="mck-row">' + '<div class="blk-lg-10 mck-truncate mck-last-seen-status" title="${contLastSeenExpr}">${contLastSeenExpr}</div>' + '<div class="move-right blk-lg-2 mck-group-admin-options ${enableAdminMenuExpr}">' + '<div class="mck-menu-box n-vis"><div class="mck-dropdown-toggle mck-group-admin-menu-toggle mck-text-center" data-toggle="mckdropdown" aria-expanded="true">' + '<span class="mck-caret"></span></div>' + '<ul id="mck-group-admin-menu" class="mck-dropdown-menu mck-group-admin-menu mck-tab-menu-box menu-right" role="menu">' + '<li class="mck-tab-message-option">' + '<a href="#" class="mck-btn-remove-member menu-item" title="Remove member">Remove member</a>' + '</li></ul></div></div>' + '</div></div></div></li>';
             var groupSearchContact = '<li id="li-${contHtmlExpr}" class="${contIdExpr} mck-li-group-member" data-mck-id="${contIdExpr}">' + '<a class="mck-add-to-group" href="#" data-mck-id="${contIdExpr}">' + '<div class="mck-row" title="${contNameExpr}">' + '<div class="blk-lg-3">{{html contImgExpr}}</div>' + '<div class="blk-lg-9">' + '<div class="mck-row"><div class="blk-lg-12 mck-cont-name mck-truncate"><strong>${contNameExpr}</strong></div></div>' + '<div class="mck-row"><div class="blk-lg-12 mck-truncate mck-last-seen-status" title="${contLastSeenExpr}">${contLastSeenExpr}</div></div>' + '</div></div></a></li>';
             $applozic.template("groupMemberTemplate", groupContactbox);
             $applozic.template("groupSearchTemplate", groupSearchContact);
+            $mck_new_group.on('click', function(e) {
+                e.preventDefault();
+                mckGroupLayout.loadCreateGroupTab();
+            });
             $mck_group_info_close.on('click', function(e) {
                 e.preventDefault();
                 $mck_group_info_tab.removeClass('vis').addClass('n-vis');
@@ -4346,6 +4375,13 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $applozic('.emoji-menu').removeClass('mck-panel-3');
                 $applozic('body').removeClass('mck-panel-3');
                 $mck_group_member_List.html('');
+            });
+            $mck_group_create_close.on('click', function(e) {
+                e.preventDefault();
+                $mck_group_create_tab.removeClass('vis').addClass('n-vis');
+                $mck_container.removeClass('mck-panel-3');
+                $applozic('.emoji-menu').removeClass('mck-panel-3');
+                $applozic('body').removeClass('mck-panel-3');
             });
             var MAX_GROUP_NAME_SIZE = 30;
             $applozic('.mck-group-name-box div[contenteditable]').keypress(function(e) {
@@ -4375,6 +4411,17 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $applozic(this).find('.mck-overlay-box').removeClass('n-vis');
             }).on('mouseleave', '.mck-group-info-icon-box.mck-hover-on', function() {
                 $applozic(this).find('.mck-overlay-box').addClass('n-vis');
+            });
+            $applozic('#mck-group-create-icon-box .mck-overlay').on('click', function(e) {
+                $mck_group_icon_upload.trigger('click');
+            });
+            $applozic(d).on('mouseenter', '.mck-group-create-icon-box.mck-hover-on', function() {
+                $applozic(this).find('.mck-overlay-box').removeClass('n-vis');
+            }).on('mouseleave', '.mck-group-create-icon-box.mck-hover-on', function() {
+                var $this = $applozic(this);
+                if ($this.find('.mck-group-icon-default').length === 0) {
+                    $this.find('.mck-overlay-box').addClass('n-vis');
+                }
             });
             $mck_group_name_edit.on('click', function() {
                 $mck_group_title.attr('contenteditable', true).focus();
@@ -4420,7 +4467,36 @@ var MCK_CLIENT_GROUP_MAP = [];
                 } else {
                     $mck_group_title.addClass('mck-req-border');
                 }
-            })
+            });
+            $mck_btn_group_create.on('click', function() {
+                var groupName = $mck_group_create_title.html();
+                var groupType = $mck_group_create_type.val();
+                var iconUrl = $mck_group_create_icon.data('iconurl');
+                if (groupName.length > 0) {
+                    var params = {
+                        groupName: groupName
+                    }
+                    if (groupType) {
+                    	groupType = parseInt(groupType);
+						if (GROUP_TYPE_MAP.indexOf(groupType) !== -1) {
+							params.type = groupType;
+						}
+                    }
+                    if (iconUrl) {
+                        params.groupIcon = iconUrl;
+                    }
+                    $mck_group_create_icon.data('iconurl', '');
+                    params.isInternal = true;
+                    $mck_btn_group_create.attr('disabled', true);
+                    $mck_btn_group_create.html('Creating Group...');
+                    mckMessageService.getGroup(params);
+                } else {
+                    $mck_group_create_title.addClass('mck-req-border');
+                }
+            });
+            _this.getGroupDefaultIcon = function() {
+                return '<div class="mck-group-icon-default"></div>';
+            };
             _this.loadGroups = function(response) {
                 $mck_loading.removeClass('vis').addClass('n-vis');
                 var groups = response.data;
@@ -4864,8 +4940,22 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $applozic('body').addClass('mck-panel-3');
                     $applozic('.emoji-menu').addClass('mck-panel-3');
                     $mck_container.addClass('mck-panel-3');
+                    $mck_group_create_tab.removeClass('vis').addClass('n-vis');                	
                     $mck_group_info_tab.removeClass('n-vis').addClass('vis');
                 }
+            };
+            _this.loadCreateGroupTab = function() {
+                $mck_group_create_icon_loading.removeClass('vis').addClass('n-vis');
+                $mck_group_create_icon.data('iconurl', "");
+                $mck_group_create_title.html('')
+                $mck_group_create_overlay_box.removeClass('n-vis');
+                $mck_group_create_overlay_label.html('Add Group Icon');
+                $mck_group_create_icon.html(_this.getGroupDefaultIcon());
+                $applozic('body').addClass('mck-panel-3');
+                $applozic('.emoji-menu').addClass('mck-panel-3');
+                $mck_container.addClass('mck-panel-3');
+                $mck_group_info_tab.removeClass('vis').addClass('n-vis');
+                $mck_group_create_tab.removeClass('n-vis').addClass('vis');
             };
             _this.sortGroupMemberHtmlList = function() {
                 $applozic('#mck-group-member-list .mck-li-group-member').sort(function(a, b) {
@@ -5083,8 +5173,9 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_file_upload = $applozic(".mck-file-upload");
             var $mck_group_icon_upload = $applozic("#mck-group-icon-upload");
             var $mck_group_icon_change = $applozic("#mck-group-icon-change");
-            var $mck_group_info_icon_box = $applozic("#mck-group-info-icon-box");
             var $mck_btn_group_icon_save = $applozic("#mck-btn-group-icon-save");
+            var $mck_group_info_icon_box = $applozic("#mck-group-info-icon-box");
+            var $mck_group_create_icon_box = $applozic("#mck-group-create-icon-box");
             var $mck_msg_inner = $applozic("#mck-message-cell .mck-message-inner-right");
             var $mck_group_info_icon_loading = $applozic("#mck-group-info-icon-loading");
             var $mck_group_create_icon_loading = $applozic("#mck-group-create-icon-loading");
