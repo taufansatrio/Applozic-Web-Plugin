@@ -2619,7 +2619,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if ($applozic(".left .person.active").length > 0) {
                     $mck_msg_inner = $applozic(".mck-message-inner[data-mck-id='" + params.tabId + "'][data-isgroup ='" + params.isGroup + "']");
                 }
-                if(params.isSearch) {
+                if(params.tabId && params.isSearch) {
                     $applozic(".mck-contacts-inner").scrollTop($applozic(".left .person.active").offset().top - $applozic(".mck-contacts-inner").offset().top + $applozic(".mck-contacts-inner").scrollTop());
                 }
                 var currTabId;
