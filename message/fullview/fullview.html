@@ -616,9 +616,11 @@
 		      }
 		  }*/
 		//callback function execute after plugin initialize.
-		function onInitialize(status) {
-			if (status === 'success') {
+		function onInitialize(response) {
+			if (response === 'success') {
 				//write your logic exectute after plugin initialize.
+			} else if(response === 'object' && response.status === 'error') {
+				alert(response.errorMessage);
 			}
 		}
 		// Examples shows how to define variable for auto suggest
