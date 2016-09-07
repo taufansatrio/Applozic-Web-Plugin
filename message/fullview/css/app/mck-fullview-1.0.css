@@ -1902,7 +1902,7 @@ ol,  ul {
 	width: 100%;
 	height: 280px;
 	position:relative;
-	display:table;
+	overflow:hidden;
 }
 
 .mck-test-center {
