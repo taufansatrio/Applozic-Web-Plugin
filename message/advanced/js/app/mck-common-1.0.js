@@ -1,3 +1,8 @@
+var $applozic = jQuery.noConflict(true);
+if ($original) {
+    $ = $original;
+    jQuery = $original;
+} 
 var w = window, d = document;
 var MCK_BASE_URL;
 var MCK_CURR_LATITIUDE = 40.7324319;
@@ -78,7 +83,7 @@ function MckUtils() {
         }
     };
     _this.startsWith = function(matcher, str) {
-        if (str === null)
+        if (str === null || typeof matcher === 'undefined')
             return false;
         var i = str.length;
         if (matcher.length < i)
@@ -86,7 +91,8 @@ function MckUtils() {
         for (--i; (i >= 0) && (matcher[i] === str[i]); --i)
             continue;
         return i < 0;
-    };    _this.setEndOfContenteditable = function(contentEditableElement) {
+    };
+    _this.setEndOfContenteditable = function(contentEditableElement) {
         var range,selection;
         if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
         {
@@ -105,7 +111,6 @@ function MckUtils() {
             range.select();//Select the range (make it the visible selection
         }
     };
-
 }
 function MckContactUtils() {
     var _this = this;
@@ -304,7 +309,7 @@ function MckNotificationUtils() {
         if (MCK_SW_SUBSCRIPTION) {
             var subscriptionId = MCK_SW_SUBSCRIPTION.endpoint.split("/").slice(-1)[0];
             if (subscriptionId) {
-                $.ajax({
+                $applozic.ajax({
                         url: MCK_BASE_URL + MCK_SW_REGISTER_URL, type: 'post', data: 'registrationId=' + subscriptionId, success: function(data) {}, error: function() {}
                 });
             }
@@ -339,7 +344,7 @@ function MckGroupService() {
     var GROUP_REMOVE_MEMBER_URL = "/rest/ws/group/remove/member";
     _this.loadGroups = function(params) {
         var response = new Object();
-        $.ajax({
+        $applozic.ajax({
                 url: MCK_BASE_URL + GROUP_LIST_URL, type: 'get', global: false, success: function(data) {
                     if (data.status === "success") {
                         response.status = "success";
@@ -377,15 +382,17 @@ function MckGroupService() {
         } else if (params.clientGroupId) {
             data += "clientGroupId=" + params.clientGroupId;
         } else {
-            response.status = "error";
-            response.errorMessage = "GroupId or Client GroupId Required";
-            params.callback(response);
+            if(typeof params.callback === 'function') {
+                response.status = "error";
+                response.errorMessage = "GroupId or Client GroupId Required";
+                params.callback(response);
+            }
             return;
         }
         if (params.conversationId) {
             data += "&conversationId=" + params.conversationId;
         }
-        $.ajax({
+        $applozic.ajax({
                 url: MCK_BASE_URL + GROUP_FEED_URL, data: data, type: 'get', global: false, success: function(data) {
                     if (data.status === "success") {
                         var groupFeed = data.response;
@@ -438,7 +445,7 @@ function MckGroupService() {
             }
             return;
         }
-        $.ajax({
+        $applozic.ajax({
                 url: MCK_BASE_URL + GROUP_LEAVE_URL, data: data, type: 'get', global: false, success: function(data) {
                     if (data.status === "success") {
                         if (params.clientGroupId) {
@@ -492,7 +499,7 @@ function MckGroupService() {
             return;
         }
         data += "&userId=" + encodeURIComponent(params.userId);
-        $.ajax({
+        $applozic.ajax({
                 url: MCK_BASE_URL + GROUP_REMOVE_MEMBER_URL, data: data, type: 'get', global: false, success: function(data) {
                     if (data.status === "success") {
                         if (params.clientGroupId) {
@@ -511,9 +518,7 @@ function MckGroupService() {
                         params.callback(response);
                     }
                     if (params.apzCallback) {
-                        params.apzCallback(response, {
-                                groupId: params.groupId, userId: params.userId
-                        })
+                        params.apzCallback(response, params)
                     }
                 }, error: function() {
                     console.log('Unable to process your request. Please reload page.');
@@ -542,7 +547,7 @@ function MckGroupService() {
             return;
         }
         data += "&userId=" + encodeURIComponent(params.userId);
-        $.ajax({
+        $applozic.ajax({
                 url: MCK_BASE_URL + GROUP_ADD_MEMBER_URL, data: data, type: 'get', global: false, success: function(data) {
                     if (data.status === "success") {
                         if (params.clientGroupId) {
@@ -561,9 +566,7 @@ function MckGroupService() {
                         params.callback(response);
                     }
                     if (params.apzCallback) {
-                        params.apzCallback(response, {
-                                groupId: params.groupId, userId: params.userId
-                        })
+                        params.apzCallback(response, params)
                     }
                 }, error: function() {
                     console.log('Unable to process your request. Please reload page.');
@@ -597,7 +600,7 @@ function MckGroupService() {
         if (params.imageUrl) {
             groupInfo.imageUrl = params.imageUrl;
         }
-        $.ajax({
+        $applozic.ajax({
                 url: MCK_BASE_URL + GROUP_UPDATE_INFO_URL, type: 'post', data: JSON.stringify(groupInfo), contentType: 'application/json', global: false, success: function(data) {
                     if (data.status === "success") {
                         if (params.clientGroupId) {
