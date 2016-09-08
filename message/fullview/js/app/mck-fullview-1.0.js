@@ -3245,21 +3245,31 @@ var MCK_CLIENT_GROUP_MAP = [];
             	if(MCK_CONTACT_ARRAY.length === 0  && MCK_CHAT_CONTACT_ARRAY.length === 0) {
             		return;
             	}
-                var contactsArray = [], userIdArray = [];
+                var contactsArray = [], userIdArray = [], groupIdArray = [];
+               
                 $applozic.each(MCK_CONTACT_ARRAY, function(i, contact) {
                         userIdArray.push(contact.contactId);
                 });
                 $applozic.each(MCK_CHAT_CONTACT_ARRAY, function(i, contact) {
-                    userIdArray.push(contact.contactId);
+                	(contact.isGroup) ? groupIdArray.push(contact.contactId) :  userIdArray.push(contact.contactId);  
                 });
                 var uniqueUserIdArray = userIdArray.filter(function(item, pos) {
                     return userIdArray.indexOf(item) === pos;
                 });
-                uniqueUserIdArray.sort();
+                var uniqueGroupIdArray = groupIdArray.filter(function(item, pos) {
+                    return groupIdArray.indexOf(item) === pos;
+                });
                 for (var j = 0; j < uniqueUserIdArray.length; j++) {
                     var userId = uniqueUserIdArray[j];
                     if (userId) {
                         var contact = _this.fetchContact('' + userId);
+                        contactsArray.push(contact);
+                    }
+                }
+                for (var j = 0; j < uniqueGroupIdArray.length; j++) {
+                    var groupId = uniqueGroupIdArray[j];
+                    if (groupId) {
+                        var contact = mckGroupUtils.getGroup('' + groupId);
                         contactsArray.push(contact);
                     }
                 }
@@ -3307,7 +3317,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var contactSuggestionsArray = [];
                 for (var j = 0; j < contactsArray.length; j++) {
                     var contact = contactsArray[j];
-                    contact.displayName = _this.getTabDisplayName(contact.contactId, false);
+                    contact.displayName = _this.getTabDisplayName(contact.contactId, contact.isGroup);
                     typeaheadEntry = (contact.displayName) ? $applozic.trim(contact.displayName) : $applozic.trim(contact.contactId);
                     typeaheadMap[typeaheadEntry] = contact;
                     typeaheadArray.push(typeaheadEntry);
@@ -3336,7 +3346,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                             var contact = typeaheadMap[item];
                             if (params.isContactSearch) {
                                 mckMessageLayout.loadTab({
-                                        tabId: contact.contactId, isGroup: false, isSearch: true
+                                        tabId: contact.contactId, isGroup: contact.isGroup, isSearch: true
                                 });
                                 $modal_footer_content.removeClass('n-vis').addClass('vis');
                                 $mck_contact_search_box.mckModal('hide');
@@ -3464,9 +3474,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var emoji_template = "";
                 var conversationId = "";
                 var isGroupTab = contact.isGroup;
-                if(!isGroupTab) {
-                	MCK_CHAT_CONTACT_ARRAY.push(contact);
-                }
+                MCK_CHAT_CONTACT_ARRAY.push(contact);
                 if (typeof message !== "undefined") {
                     emoji_template = _this.getMessageTextForContactPreview(message, contact, 100)
                     if (message.conversationId) {

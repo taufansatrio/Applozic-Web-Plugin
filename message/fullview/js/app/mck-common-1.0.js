@@ -1,4 +1,8 @@
 var $applozic = jQuery.noConflict(true);
+if ($original) {
+    $ = $original;	 
+    jQuery = $original;
+} 
 var w = window, d = document;
 var MCK_BASE_URL;
 var MCK_CURR_LATITIUDE = 40.7324319;
