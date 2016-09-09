@@ -2897,9 +2897,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (msg.type === 6 || msg.type === 7) {
                     return;
                 }
-                if ($applozic("#mck-message-cell ." + msg.key).length > 0) {
-                    return;
-                }
                 if ($applozic("#mck-message-cell .mck-no-data-text").length > 0) {
                     $applozic(".mck-no-data-text").remove();
                 }
@@ -2933,6 +2930,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (msg.groupId) {
                     tabId = msg.groupId;
                     isGroup = true;
+                }
+                if ($applozic(".mck-message-inner[data-mck-id='" + tabId + "'][data-isgroup='" + isGroup + "'] ." + msg.key).length > 0) {
+                    return;
                 }
                 var msgFeatExpr = "n-vis";
                 var fileName = "";
