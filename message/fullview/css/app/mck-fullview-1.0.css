@@ -719,6 +719,7 @@ a:hover {
 	cursor: pointer;
 	background: 0 0;
 	border: 0;
+	outline:none;
 }
 
 .mck-box-title {
@@ -1881,6 +1882,7 @@ ol,  ul {
 	background-color: #F5F5F5;
 	background-image: none;
 	border: 0;
+	box-shadow:none;
 	border-radius: 4px;
 	position: relative;
 	z-index: 2;
