@@ -2827,12 +2827,12 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var showMoreDateTime;
                 var $scrollToDiv = $mck_msg_inner.children("div[name='message']:first");
                 if (typeof data.message.length === "undefined") {
-                    _this.addMessage(data.message, false, scroll, true);
+                    _this.addMessage(data.message, false, false, true);
                     showMoreDateTime = data.createdAtTime;
                 } else {
                     $applozic.each(data.message, function(i, message) {
-                        if (!(typeof message.to === "undefined")) {
-                            _this.addMessage(message, false, scroll, true);
+                        if (typeof message.to !== "undefined") {
+                            _this.addMessage(message, false, false, true);
                             showMoreDateTime = message.createdAtTime;
                         }
                     });
@@ -2840,6 +2840,10 @@ var MCK_CLIENT_GROUP_MAP = [];
                 $applozic(".mck-message-inner.active-chat").data('datetime', showMoreDateTime);
                 if (!scroll && $scrollToDiv.length > 0) {
                     $applozic(".mck-message-inner.active-chat").scrollTop($scrollToDiv.offset().top - $mck_msg_inner.offset().top + $mck_msg_inner.scrollTop());
+                } else if(scroll) {
+                	$mck_msg_inner.animate({
+                        scrollTop: $mck_msg_inner.prop("scrollHeight")
+                    }, 'fast');
                 }
             };
             _this.closeConversation = function(data) {
@@ -2925,8 +2929,10 @@ var MCK_CLIENT_GROUP_MAP = [];
                     nameTextExpr = "";
                 }
                 var tabId = msg.to;
+                var isGroup  = false;
                 if (msg.groupId) {
                     tabId = msg.groupId;
+                    isGroup = true;
                 }
                 var msgFeatExpr = "n-vis";
                 var fileName = "";
@@ -2940,7 +2946,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                         msgKeyExpr: msg.key, msgDeliveredExpr: msg.delivered, msgSentExpr: msg.sent, msgCreatedAtTime: msg.createdAtTime, msgTypeExpr: msg.type, msgSourceExpr: msg.source, statusIconExpr: statusIcon, contactExpr: contactExpr, toExpr: msg.to, showNameExpr: showNameExpr, msgNameExpr: displayName, nameTextExpr: nameTextExpr, msgFloatExpr: floatWhere, replyIdExpr: replyId, createdAtTimeExpr: mckDateUtils.getDate(msg.createdAtTime), msgFeatExpr: msgFeatExpr, replyMessageParametersExpr: replyMessageParameters, msgClassExpr: messageClass, msgExpr: frwdMsgExpr, selfDestructTimeExpr: msg.timeToLive, fileMetaKeyExpr: msg.fileMetaKey, fileExpr: _this.getFilePath(msg), fileNameExpr: fileName, fileSizeExpr: fileSize
                 } ];
                 append ? $applozic.tmpl("messageTemplate", msgList).appendTo("#mck-message-cell .mck-message-inner-right") : $applozic.tmpl("messageTemplate", msgList).prependTo("#mck-message-cell .mck-message-inner-right");
-                append ? $applozic.tmpl("messageTemplate", msgList).appendTo(".mck-message-inner[data-mck-id='" + tabId + "']") : $applozic.tmpl("messageTemplate", msgList).prependTo(".mck-message-inner[data-mck-id='" + tabId + "']");
+                append ? $applozic.tmpl("messageTemplate", msgList).appendTo(".mck-message-inner[data-mck-id='" + tabId + "'][data-isgroup='" + isGroup + "']") : $applozic.tmpl("messageTemplate", msgList).prependTo(".mck-message-inner[data-mck-id='" + tabId + "'][data-isgroup='" + isGroup + "']");
                 var emoji_template = "";
                 if (msg.message) {
                     var msg_text = msg.message.replace(/\n/g, '<br/>');
@@ -3011,7 +3017,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (scroll) {
                     $mck_msg_inner.animate({
                         scrollTop: $mck_msg_inner.prop("scrollHeight")
-                    }, 0);
+                    }, 'fast');
                 }
                 if ($mck_tab_message_option.hasClass('n-vis')) {
                     $mck_tab_message_option.removeClass('n-vis').addClass('vis');
@@ -3485,7 +3491,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var conversationId = "";
                 var isGroupTab = contact.isGroup;
                 MCK_CHAT_CONTACT_ARRAY.push(contact);
-                if (typeof message !== "undefined") {
+                if (typeof message === "object") {
                     emoji_template = _this.getMessageTextForContactPreview(message, contact, 100)
                     if (message.conversationId) {
                         conversationId = message.conversationId;
@@ -3528,7 +3534,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var latestCreatedAtTime = $applozic('#' + $listId + ' li:nth-child(1)').data('msg-time');
                 if (typeof latestCreatedAtTime === "undefined" || (message ? message.createdAtTime : "") > latestCreatedAtTime || prepend) {
                     $applozic.tmpl("contactTemplate", contactList).prependTo('#' + $listId);
-                        $applozic.tmpl("conversationTemplate", contactList).prependTo('#conversation-section');
+                    $applozic.tmpl("conversationTemplate", contactList).prependTo('#conversation-section');
                 } else {
                     $applozic.tmpl("contactTemplate", contactList).appendTo('#' + $listId);   
                     $applozic.tmpl("conversationTemplate", contactList).appendTo('#conversation-section');
