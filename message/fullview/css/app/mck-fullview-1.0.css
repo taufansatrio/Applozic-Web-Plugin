@@ -1754,7 +1754,7 @@ ol,  ul {
 }
 
 .mck-contact-list>li>a:hover {
-	background: #ECF9FF !important;
+	background: #eceff1 !important;
 }
 
 .mck-message-status {
@@ -1877,7 +1877,6 @@ ol,  ul {
 	width: 200px;
 	font-size: 14px;
 	line-height: 1.42857143;
-	color: #555;
 	outline: none;
 	background-color: #F5F5F5;
 	background-image: none;
@@ -1888,6 +1887,7 @@ ol,  ul {
 	float: left;
 	margin-bottom: 0;
 	display: table-cell;
+	font-family: 'Source Sans Pro', sans-serif;
 }
 
 .mck-sm-modal-box input {
