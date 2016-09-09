@@ -791,7 +791,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 return;
                             }
                             if (typeof result === 'object' && result !== null && result.token) {
-                                _this.appendLauncher();
                                 if(optns.imageLink) {
                                 	$mck_user_icon.html('<img src=" ' + optns.imageLink +'" />');
                                 	$mck_user_icon.parents('.mck-box-top').removeClass('mck-wt-user-icon');
@@ -2733,7 +2732,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                             }
                         }
                     }
-                    if (IS_MCK_LOCSHARE && typeof (w.google.maps) === 'object') {
+                    if (IS_MCK_LOCSHARE && w.google && typeof (w.google.maps) === 'object') {
                         $mck_attachfile_box.removeClass("vis").addClass('n-vis');
                         $mck_atttachmenu_box.removeClass("n-vis").addClass("vis");
                     } else {
@@ -5085,7 +5084,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mckMapContent = $applozic("#mck-map-content");
             var $mck_loc_address = $applozic("#mck-loc-address");
             _this.init = function() {
-                if (IS_MCK_LOCSHARE && typeof (w.google.maps) === 'object') {
+                if (IS_MCK_LOCSHARE && w.google && typeof (w.google.maps) === 'object') {
                     GEOCODER = new w.google.maps.Geocoder;
                     mckMapUtils.getCurrentLocation(_this.onGetCurrLocation, _this.onErrorCurrLocation);
                 }
