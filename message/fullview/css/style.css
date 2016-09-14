@@ -187,6 +187,7 @@ body {
 	width: 43px;
 	height: 43px;
 	margin-right: 12px;
+	border:1px solid #ddd;
 	border-radius: 50%;
 }
 
@@ -319,7 +320,9 @@ body {
 	flex-direction: column;
 	-webkit-box-pack: end;
 }
-
+.mck-panel-3 .mck-container .right .chat {
+	padding: 0 20px;
+}
 .mck-container .right .chat.active-chat {
 	position: absolute;
 	display: table-row;
@@ -471,7 +474,7 @@ body {
 	-webkit-animation-name: slideFromLeft;
 	animation-name: slideFromLeft;
 	border-radius: 5px;
-	max-width: 80%;
+	max-width: 85%;
     display: inline-block;
 }
 

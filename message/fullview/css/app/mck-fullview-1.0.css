@@ -1385,6 +1385,7 @@ ol,  ul {
 }
 
 .mck-cont-msg-wrapper p {
+	font-size:14px;
 	margin: 0px !important;
 	white-space: nowrap;
 	overflow: hidden;
@@ -1394,6 +1395,9 @@ ol,  ul {
 .mck-file-text .mck-file-name img:hover {
 	opacity: 1 !important;
 	background-color: transparent !important;
+}
+.mck-file-tag {
+	margin:0 !important;
 }
 
 .mck-icon-camera, .mck-icon-marker {
@@ -2753,6 +2757,11 @@ ol,  ul {
     height: 20px;
     width: 20px;
     vertical-align: middle;
+}
+.mck-audio-player {
+	 width:300px;
+	 height:40px;
+	 overflow:hidden;
 }
 .mck-group-name-box div[contenteditable="true"].mck-req-border {
     border-bottom: 2px solid #EB5858 !important;

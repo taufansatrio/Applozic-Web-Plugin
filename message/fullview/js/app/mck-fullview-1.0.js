@@ -726,7 +726,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             var MCK_IDLE_TIME_COUNTER = MCK_IDLE_TIME_LIMIT;
             var INITIALIZE_APP_URL = "/v2/tab/initialize.page";
             _this.getLauncherHtml = function() {
-                return '<div id="mck-sidebox-launcher" class="mck-sidebox-launcher">' + '<a href="#" class="applozic-launcher mck-button-launcher" ' + (MCK_MODE === 'support' ? MCK_SUPPORT_ID_DATA_ATTR : '') + '><span class="mck-icon-chat"></span></a></div>' + '<div id="mck-msg-preview" class="mck-msg-preview applozic-launcher">' + '<div class="mck-row">' + '<div class="blk-lg-3 mck-preview-icon"></div>' + '<div class="blk-lg-9">' + '<div class="mck-row mck-truncate mck-preview-content">' + '<strong class="mck-preview-cont-name"></strong></div>' + '<div class="mck-row mck-preview-content">' + '<div class="mck-preview-msg-content"></div>' + '<div class="mck-preview-file-content mck-msg-text notranslate blk-lg-12 mck-attachment n-vis"></div>' + '</div></div></div></div>';
+                return '<div id="mck-msg-preview" class="mck-msg-preview applozic-launcher">' + '<div class="mck-row">' + '<div class="blk-lg-3 mck-preview-icon"></div>' + '<div class="blk-lg-9">' + '<div class="mck-row mck-truncate mck-preview-content">' + '<strong class="mck-preview-cont-name"></strong></div>' + '<div class="mck-row mck-preview-content">' + '<div class="mck-preview-msg-content"></div>' + '<div class="mck-preview-file-content mck-msg-text notranslate blk-lg-12 mck-attachment n-vis"></div>' + '</div></div></div></div>';
             };
             _this.initializeApp = function(optns, isReInit) {
                 var userPxy = {
@@ -827,6 +827,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                         };
                                     }
                                 });
+                                _this.appendLauncher();
                                 // $applozic("." +
                                 // MCK_LAUNCHER).removeClass("hide");
                                 if (result.betaPackage) {
@@ -3059,7 +3060,12 @@ var MCK_CLIENT_GROUP_MAP = [];
                         }
                     } else if (msg.fileMeta.contentType.indexOf("video") !== -1) {
                         return '<a href="#" role="link" class="file-preview-link fancybox-media fancybox" data-type="' + msg.fileMeta.contentType + '" data-url="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" data-name="' + msg.fileMeta.name + '"><div class="mck-video-box n-vis"><video controls preload><source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="' + msg.fileMeta.contentType + '">Your browser does not support the HTML 5 video tag</video></div><span class="file-detail"><span class="mck-file-name"><span class="mck-icon-attachment"></span>&nbsp;' + msg.fileMeta.name + '</span>&nbsp;<span class="file-size">' + mckFileService.getFilePreviewSize(msg.fileMeta.size) + '</span></span></a>';
-                    } else {
+                    } else if (msg.fileMeta.contentType.indexOf("audio") !== -1) {
+                    	return '<audio controls class="mck-audio-player">' +
+                    	  '<source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="audio/ogg">' +
+                    	  '<source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="audio/mpeg">Your browser does not support the audio element.</audio>' + 
+                          '<p class="mck-file-tag"><span class="file-name">' + msg.fileMeta.name + '</span>&nbsp;<span class="file-size">' + mckFileService.getFilePreviewSize(msg.fileMeta.size) + '</span></p>';
+                    }  else {
                         return '<a href="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" role="link" class="file-preview-link" target="_blank"><span class="file-detail"><span class="mck-file-name"><span class="mck-icon-attachment"></span>&nbsp;' + msg.fileMeta.name + '</span>&nbsp;<span class="file-size">' + mckFileService.getFilePreviewSize(msg.fileMeta.size) + '</span></span></a>';
                     }
                 }
@@ -3067,16 +3073,19 @@ var MCK_CLIENT_GROUP_MAP = [];
             };
             _this.getFileIcon = function(msg) {
                 if (msg.fileMetaKey && typeof msg.fileMeta === "object") {
-                    return (msg.fileMeta.contentType.indexOf("image") !== -1) ? '<span class="mck-icon-camera"></span>&nbsp;<span>image</span>' : '<span class="mck-icon-attachment"></span>&nbsp;<span>file</span>';
+                   if(msg.fileMeta.contentType.indexOf("image") !== -1)  { 
+                	  return '<span class="mck-icon-camera"></span>&nbsp;<span>image</span>'
+                   } else if(msg.fileMeta.contentType.indexOf("audio") !== -1) {
+                	   return '<span class="mck-icon-attachment"></span>&nbsp;<span>Audio</span>'; 
+                   } else {
+                	   return '<span class="mck-icon-attachment"></span>&nbsp;<span>file</span>'; 
+                   }
                 } else {
                     return "";
                 }
             };
             _this.getContactImageLink = function(contact, displayName) {
                 var imgsrctag = "";
-                if (!displayName) {
-                    displayName = mckGroupLayout.getGroupDisplayName(contact.contactId);
-                }
                 if (contact.isGroup) {
                     imgsrctag = mckGroupLayout.getGroupImage(contact.imageUrl);
                 } else {
@@ -3731,7 +3740,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                         }
                         }
                     } else if (message.fileMetaKey && typeof message.fileMeta === "object") {
-                        emoji_template = (message.fileMeta.contentType.indexOf("image") !== -1) ? '<span class="mck-icon-camera"></span>&nbsp;<span>image</span>' : '<span class="mck-icon-attachment"></span>&nbsp;<span>file</span>';
+                        emoji_template = mckMessageLayout.getFileIcon(message);
                     }
                     if (contact.isGroup && contact.type !== 3) {
                         var msgFrom = (message.to.split(",")[0] === MCK_USER_ID) ? "Me" : mckMessageLayout.getTabDisplayName(message.to.split(",")[0], false);
