@@ -347,7 +347,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         };
         _this.loadTab = function(tabId) {
             mckMessageLayout.loadTab({
-                    tabId: tabId, 'isGroup': false, isSearch:true
+                    'tabId': tabId, 'isGroup': false, isSearch:true
             });
             $applozic("#mck-search").val("");
         };
@@ -468,7 +468,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 			}
 			if (typeof params.callback === 'function') {
 				if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-					params.callback("GroupId or Client GroupId Required");
+					params.callback({'status' : 'error', 'errorMessage' : 'GroupId or Client GroupId Required'});
 					return;
 				}
 				params.apzCallback = mckGroupLayout.onGroupLeft;
@@ -484,11 +484,11 @@ var MCK_CLIENT_GROUP_MAP = [];
             }
 			if (typeof params.callback === 'function') {
 				if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-					params.callback("GroupId or Client GroupId Required");
+					params.callback({'status' : 'error', 'errorMessage' : 'GroupId or Client GroupId Required'});
 					return;
 				}
 				if (typeof params.userId === 'undefined' || params.userId === "") {
-					params.callback("User Id Required");
+					params.callback({'status' : 'error', 'errorMessage' : 'User Id Required'});
 					return;
 				}
 				params.apzCallback = mckGroupLayout.onAddedGroupMember;
@@ -504,11 +504,11 @@ var MCK_CLIENT_GROUP_MAP = [];
             }
 			if (typeof params.callback === 'function') {
 				if ((typeof params.groupId === 'undefined' || params.groupId === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-					params.callback("GroupId or Client GroupId Required");
+					params.callback({'status' : 'error', 'errorMessage' : 'GroupId or Client GroupId Required'});
 					return;
 				}
 				if (typeof params.userId === 'undefined' || params.userId === "") {
-					params.callback("User Id Required");
+					params.callback({'status' : 'error', 'errorMessage' : 'User Id Required'});
 					return;
 				}
 				params.apzCallback = mckGroupLayout.onRemovedGroupMember;
@@ -535,15 +535,15 @@ var MCK_CLIENT_GROUP_MAP = [];
 			if (typeof params === 'object') {
 				if (typeof params.callback === 'function') {
 					if ((typeof params.id === 'undefined' || params.id === "") && (typeof params.clientGroupId === 'undefined' || params.clientGroupId === "")) {
-						params.callback("Id or Client GroupId required");
+						params.callback({'status' : 'error', 'errorMessage' : "Id or Client GroupId required"});
 						return;
 					}
 					if (params.id && typeof params.isGroup !== 'boolean') {
-						params.callback("IsGroup parameter required");
+						params.callback({'status' : 'error', 'errorMessage' : 'IsGroup parameter required'});
 						return;
 					}
 					if (!params.topicId) {
-						params.callback("TopicId required");
+						params.callback({'status' : 'error', 'errorMessage' : 'TopicId required'});
 						return;
 					}
 					if (params.id) {
@@ -611,23 +611,23 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (typeof params.callback === 'function') {
                     var users = params.users;
                     if (typeof users === 'undefined' || users.length < 1) {
-                    	params.callback("Users List Required");
+                    	params.callback({'status' : 'error', 'errorMessage' : 'Users List Required'});
                     	return;
                     }
                     if (users.length > MCK_GROUPMAXSIZE) {
-                    	params.callback("Users limit exceeds " + MCK_GROUPMAXSIZE + ". Max number of users allowed is " + MCK_GROUPMAXSIZE + ".");
+                    	params.callback({'status' : 'error', 'errorMessage' : "Users limit exceeds " + MCK_GROUPMAXSIZE + ". Max number of users allowed is " + MCK_GROUPMAXSIZE + "."});
                     	return;
                     }
                     if (!params.groupName) {
-                    	params.callback("Group Name Required");
+                    	params.callback({'status' : 'error', 'errorMessage' : "Group Name Required"});
                     	return;
                     }
                     if (!params.type) {
-                    	params.callback("Group Type Required");
+                    	params.callback({'status' : 'error', 'errorMessage' : "Group Type Required"});
                     	return;
                     }
                     if (GROUP_TYPE_MAP.indexOf(params.type) === -1) {
-                    	params.callback("Invalid Group Type");
+                    	params.callback({'status' : 'error', 'errorMessage' : "Invalid Group Type"});
                     	return;
                     }
                     mckMessageService.getGroup(params);

@@ -588,6 +588,8 @@ function MckGroupService() {
             groupInfo.clientGroupId = params.clientGroupId;
         } else {
             if (typeof params.callback === 'function') {
+                response.status = 'error';
+                response.errorMessage = 'GroupId or Client GroupId Required';
                 params.callback(response);
             }
             return;
