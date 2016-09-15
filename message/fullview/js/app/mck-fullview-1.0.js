@@ -4426,9 +4426,9 @@ var MCK_CLIENT_GROUP_MAP = [];
             }).on('paste', function(e) {
             	var $this = this;
             	setTimeout(function() {
-                  var len = $this.innerHTML.length;
+                  var len = $this.innerText.length;
                   if (len > MAX_GROUP_NAME_SIZE) {
-                      $this.innerHTML = $this.innerHTML.substring(0, MAX_GROUP_NAME_SIZE);
+                      $this.innerHTML = $this.innerText.substring(0, MAX_GROUP_NAME_SIZE);
                       mckUtils.setEndOfContenteditable($this);
                   }
                   return false;
@@ -4967,7 +4967,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_group_info_tab.data('mck-id', params.groupId);
                     $mck_btn_group_icon_save.removeClass('vis').addClass('n-vis');
                     $mck_group_info_icon_loading.removeClass('vis').addClass('n-vis');
-                    $mck_group_info_tab.data('mck-id', params.groupId);
                     $mck_group_info_icon.data('iconurl', "");
                     if (params.conversationId) {
                         $mck_group_info_tab.data('mck-conversation-id', params.conversationId);
