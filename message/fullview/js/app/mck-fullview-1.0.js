@@ -3097,6 +3097,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (!imgsrctag) {
                         if (contact.photoSrc) {
                             imgsrctag = '<img src="' + contact.photoSrc + '"/>';
+                        } else if (contact.photoData) {
+                            imgsrctag = '<img src="data:image/jpeg;base64,' + contact.photoData + '"/>';
                         } else if (contact.photoLink) {
                             imgsrctag = '<img src="' + MCK_BASE_URL + '/contact.image?photoLink=' + contact.photoLink + '"/>';
                         } else {
@@ -3187,7 +3189,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     displayName = contactId;
                 }
                 var contact = {
-                        'contactId': contactId, 'htmlId': mckContactUtils.formatContactId(contactId), 'displayName': displayName, 'name': displayName + " <" + contactId + ">" + " [" + "Main" + "]", 'value': contactId, 'rel': '', 'photoLink': '', 'photoSrc': '', 'email': '', 'unsaved': true, 'appVersion': null, 'isGroup': false
+                        'contactId': contactId, 'htmlId': mckContactUtils.formatContactId(contactId), 'displayName': displayName, 'name': displayName + " <" + contactId + ">" + " [" + "Main" + "]", 'value': contactId, 'photoLink': '', 'photoSrc': '','photoData': photoData, 'email': '', 'unsaved': true,  'isGroup': false
                 };
                 MCK_CONTACT_MAP[contactId] = contact;
                 return contact;
@@ -3207,8 +3209,17 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (!photoLink) {
                     photoLink = (data.imageLink) ? data.imageLink : "";
                 }
+                var photoData = (data.imageData) ? data.imageData : "";
                 var contact = {
-                        'contactId': contactId, 'htmlId': mckContactUtils.formatContactId(contactId), 'displayName': displayName, 'name': displayName + " <" + contactId + ">" + " [" + "Main" + "]", 'value': contactId, 'rel': '', 'photoLink': '', 'photoSrc': photoLink, 'email': '', 'unsaved': true, 'appVersion': null, 'isGroup': false
+                        'contactId': contactId,
+                        'htmlId': mckContactUtils.formatContactId(contactId),
+                        'displayName': displayName,
+                        'name': displayName + " <" + contactId + ">" + " [" + "Main" + "]",
+                        'value': contactId, 'photoLink': '',
+                        'photoSrc': photoLink,
+                        'photoData': photoData,
+                        'email': '',                       
+                        'unsaved': true, 'isGroup': false
                 };
                 MCK_CONTACT_MAP[contactId] = contact;
                 return contact;
@@ -3229,7 +3240,13 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (!photoLink) {
                     photoLink = (data.imageLink) ? data.imageLink : "";
                 }
-                contact.photoSrc = photoLink;
+                if (photoLink) {
+                    contact.photoSrc = photoLink;
+                }
+                var photoData = (data.imageData) ? data.imageData : "";
+                if (photoData) {
+                    contact.photoData = photoData;
+                }
                 MCK_CONTACT_MAP[contactId] = contact;
                 return contact;
             };
@@ -3626,23 +3643,16 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (data + '' === "null" || typeof data === "undefined" || typeof data.contacts === "undefined" || data.contacts.length === 0) {
                     return;
                 }
-                if (typeof data.contacts.length === "undefined") {
-                    if ((typeof data.contacts.userId !== "undefined")) {
-                        data = data.contacts;
-                        var contact = _this.getContact('' + data.userId);
-                        contact = (typeof contact === 'undefined') ? _this.createContactWithDetail(data) : _this.updateContactDetail(contact, data);
-                        MCK_CONTACT_ARRAY.push(contact);
-                    }
-                } else {
-                    MCK_CONTACT_ARRAY.length = 0;
-                    $applozic.each(data.contacts, function(i, data) {
-                        if ((typeof data.userId !== "undefined")) {
-                            var contact = _this.getContact('' + data.userId);
-                            contact = (typeof contact === 'undefined') ? _this.createContactWithDetail(data) : _this.updateContactDetail(contact, data);
-                            MCK_CONTACT_ARRAY.push(contact);
-                        }
-                    });
-                }
+				MCK_CONTACT_ARRAY.length = 0;
+				$applozic.each(data.contacts, function(i, data) {
+					if ((typeof data.userId !== "undefined")) {
+						var contact = _this.getContact('' + data.userId);
+						contact = (typeof contact === 'undefined') ? _this
+								.createContactWithDetail(data) : _this
+								.updateContactDetail(contact, data);
+						MCK_CONTACT_ARRAY.push(contact);
+					}
+				});
                 mckMessageService.initSearch();
             };
             _this.getStatusIcon = function(msg) {
