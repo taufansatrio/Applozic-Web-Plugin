@@ -105,7 +105,7 @@ $applozic.fn.applozic('loadContacts', {"contacts": [{"userId": "USER_1", "displa
          });
 ```
 
-**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 2 onInit function for reference).
+**NOTE**- Call **loadContacts** function only after plugin initialize callback (see Step 2 onInit function for reference).
 
 
 #### Step 5: Group Messaging
