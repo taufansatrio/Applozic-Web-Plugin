@@ -590,6 +590,8 @@ function MckGroupService() {
             groupInfo.clientGroupId = params.clientGroupId;
         } else {
             if (typeof params.callback === 'function') {
+                response.status = 'error';
+                response.errorMessage = 'GroupId or Client GroupId Required';
                 params.callback(response);
             }
             return;
@@ -626,7 +628,7 @@ function MckGroupService() {
                 }, error: function() {
                     console.log('Unable to process your request. Please reload page.');
                     response.status = "error";
-                    response.errorMessage = "";
+                    response.errorMessage = "Unable to process your request. Please reload page.";
                     if (params.callback) {
                         params.callback(response);
                     }
