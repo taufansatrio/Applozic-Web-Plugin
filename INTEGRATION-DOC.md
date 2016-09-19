@@ -51,7 +51,7 @@ Add the below code just after Step 1.
    },
    onTabClicked: function(response) {
          // write your logic to execute task on tab load
-         // object response =  {
+            object response =  {
              tabId : userId or groupId,
              isGroup : 'tab is group or not'
            }
