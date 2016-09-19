@@ -3189,7 +3189,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     displayName = contactId;
                 }
                 var contact = {
-                        'contactId': contactId, 'htmlId': mckContactUtils.formatContactId(contactId), 'displayName': displayName, 'name': displayName + " <" + contactId + ">" + " [" + "Main" + "]", 'value': contactId, 'photoLink': '', 'photoSrc': '','photoData': photoData, 'email': '', 'unsaved': true,  'isGroup': false
+                        'contactId': contactId, 'htmlId': mckContactUtils.formatContactId(contactId), 'displayName': displayName, 'name': displayName + " <" + contactId + ">" + " [" + "Main" + "]", 'value': contactId, 'photoLink': '', 'photoSrc': '','photoData': '', 'email': '', 'unsaved': true,  'isGroup': false
                 };
                 MCK_CONTACT_MAP[contactId] = contact;
                 return contact;
