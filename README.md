@@ -169,11 +169,17 @@ Javascript code to load contacts
 
 ```
 $applozic.fn.applozic('loadContacts', {"contacts": [{"userId": "USER_1", "displayName": "Devashish",
-                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"},
-                        {"userId": "USER_2", "displayName": "Adarsh",
-                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"},
-                        {"userId": "USER_3", "displayName": "Shanki",
-                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png", // image url (optional)
+                          "imageData" :"Base64 encoded image data"  // or image data (optional)
+                          },
+                         {"userId": "USER_2", "displayName": "Adarsh",
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png", // image url (optional)
+                          "imageData" :"Base64 encoded image data"  // or image data (optional)
+                         },
+                         {"userId": "USER_3", "displayName": "Shanki",
+                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png",  // image url (optional)
+                          "imageData" :"Base64 encoded image data"  // or image data (optional)
+                         }
                         ]
          });
 ```
