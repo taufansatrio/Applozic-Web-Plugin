@@ -131,9 +131,9 @@ userId is the unique identifier for any user, it can be anything like email, pho
    onTabClicked: function(response) {
          // write your logic to execute task on tab load
          // object response =  {
-             tabId : userId or groupId,
-             isGroup : 'tab is group or not'
-           }
+         //    tabId : userId or groupId,
+         //    isGroup : 'tab is group or not'
+         //  }
    }
   });
 </script>
