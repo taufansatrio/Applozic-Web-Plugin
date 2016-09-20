@@ -34,6 +34,9 @@ Add the below code just after Step 1.
     notificationIconLink: 'https://www.applozic.com/favicon.ico',    //Icon to show in desktop notification, replace with your icon
     authenticationTypeId: '1',          //1 for password verification from Applozic server and 0 for access Token verification from your server
     accessToken: '',                    //optional, leave it blank for testing purpose, read this if you want to add additional security by verifying password from your server https://www.applozic.com/docs/configuration.html#access-token-url
+    locShare: true,
+    googleApiKey: "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4",   // your project google api key 
+    googleMapScriptLoaded : false,   // true if your app already loaded google maps script
     onInit : function(response) {
        if (response === "success") {
           // login successful, perform your actions if any, for example: load contacts, getting unread message count, etc
