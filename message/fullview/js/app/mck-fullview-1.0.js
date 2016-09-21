@@ -5815,10 +5815,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (!MCK_BLOCKED_TO_MAP[userId] && !MCK_BLOCKED_BY_MAP[userId]) {
                         if (tabId === contact.contactId && !$mck_message_inner.data('isgroup')) {
                             $applozic("#mck-tab-individual .mck-tab-status").html("Online");
-                        } else {
-                            var htmlId = mckContactUtils.formatContactId(userId);
-                            $applozic("#li-user-" + htmlId + " .mck-ol-status").removeClass('n-vis').addClass('vis');
                         }
+                        var htmlId = mckContactUtils.formatContactId(userId);
+                        $applozic("#li-user-" + htmlId + " .mck-ol-status").removeClass('n-vis').addClass('vis');                       
                         $applozic(".mck-user-ol-status." + htmlId).removeClass('n-vis').addClass('vis');
                         $applozic(".mck-user-ol-status." + htmlId).next().html('(Online)');
                         w.MCK_OL_MAP[userId] = true;
@@ -5838,9 +5837,13 @@ var MCK_CLIENT_GROUP_MAP = [];
                     }
                     var htmlId = mckContactUtils.formatContactId(userId);
                     if (!MCK_BLOCKED_TO_MAP[userId] && !MCK_BLOCKED_BY_MAP[userId]) {
+                        var tabId = $mck_message_inner.data('mck-id');
                         $applozic(".mck-user-ol-status." + htmlId).removeClass('vis').addClass('n-vis');
                         $applozic(".mck-user-ol-status." + htmlId).next().html('(Offline)');
                         $applozic("#li-user-" + htmlId + " .mck-ol-status").removeClass('vis').addClass('n-vis');
+                        if (tabId === contact.contactId && !$mck_message_inner.data('isgroup')) {
+                            $applozic("#mck-tab-individual .mck-tab-status").html(mckDateUtils.getLastSeenAtStatus(lastSeenAtTime));
+                        }
                         mckUserUtils.updateUserStatus({
                                 'userId': resp.message.split(",")[0], 'status': 0, 'lastSeenAtTime': resp.message.split(",")[1]
                         });
