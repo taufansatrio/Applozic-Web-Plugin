@@ -206,7 +206,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var MCK_ON_PLUGIN_CLOSE = appOptions.onClose;
         var MCK_DISPLAY_TEXT = appOptions.displayText;
         var MCK_ACCESS_TOKEN = appOptions.accessToken;
-        var MCK_SOURCE = appOptions.source;
+        var MCK_SOURCE = (typeof appOptions.source === 'undefined') ? 1: appOptions.source;
         var MCK_CALLBACK = appOptions.readConversation;
         var MCK_GROUPMAXSIZE = appOptions.maxGroupSize;
         var MCK_ON_TAB_CLICKED = appOptions.onTabClicked;
