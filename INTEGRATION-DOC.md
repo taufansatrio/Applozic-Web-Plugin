@@ -31,7 +31,7 @@ Add the below code just after Step 1.
     email : '',                         //optional
     contactNumber: '',                  //optional, pass with internationl code eg: +16508352160
     desktopNotification: true,
-    source: '',                          // optional, WEB(1),DESKTOP_BROWSER(5), MOBILE_BROWSER(6)
+    source: '1',                          // optional, WEB(1),DESKTOP_BROWSER(5), MOBILE_BROWSER(6)
     notificationIconLink: 'https://www.applozic.com/favicon.ico',    //Icon to show in desktop notification, replace with your icon
     authenticationTypeId: '1',          //1 for password verification from Applozic server and 0 for access Token verification from your server
     accessToken: '',                    //optional, leave it blank for testing purpose, read this if you want to add additional security by verifying password from your server https://www.applozic.com/docs/configuration.html#access-token-url
