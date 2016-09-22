@@ -21,7 +21,7 @@ Sample: src/sample/fullview.html
 Demo : [https://www.applozic.com/docs/chat-examples/web.html](https://www.applozic.com/docs/chat-examples/web.html)
 
 
-![full-view-layout]<img align="middle" src="message/fullview/fullview.png" />   
+![full-view-layout]<img align="middle" src="../message/fullview/fullview.png" />   
 
 
 
@@ -33,7 +33,7 @@ Sample: src/sample/sidebox.html
 Demo :[https://www.applozic.com/plugin.html](https://www.applozic.com/plugin.html)
 
 
-![sidebox-layout]<img align="middle" src="message/advanced/sidebox.png" />  
+![sidebox-layout]<img align="middle" src="../message/advanced/sidebox.png" />  
 
 
 #### Applozic One to One and Group Chat SDK
