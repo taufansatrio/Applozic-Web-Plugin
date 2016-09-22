@@ -17,11 +17,6 @@ body {
 	background-repeat: none;
 }
 
-.mck-nav {
-	padding-left: 0;
-	margin-bottom: 0;
-	list-style: none;
-}
 
 .mck-container {
 	position: fixed !important;

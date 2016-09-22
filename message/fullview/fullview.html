@@ -20,7 +20,6 @@
 <script src="js/jquery-2.2.2.min.js"></script>
 </head>
 <body>
-	<div class="wrapper">
 		<div class="mck-container">
 			<div class="left mck-message-inner-left">
 				<div class="panel-content">
@@ -40,10 +39,15 @@
 									<ul id="mck-start-new-menu-box"
 										class="mck-dropdown-menu mck-tab-menu-box menu-right"
 										role="menu">
-										<li class=""><a href="#"
-											id="mck-start-new"
-											class="mck-start-new menu-item"
+										<li><a href="#"
+											class="mck-contact-search menu-item"
 											title="New Chat">New Chat</a></li>
+										<li><a href="#"
+											class="mck-contact-search menu-item"
+											title="Contacts">Contacts</a></li>
+										<li><a href="#"
+											class="mck-group-search menu-item"
+											title="Groups">Groups</a></li>
 										<li><a href="#"
 											id="mck-new-group" class="menu-item" title="Create Group">Create 
 												Group</a></li>
@@ -245,13 +249,6 @@
 								</div>
 							</div>
 						</div>
-
-						<!--
-                  <a href="javascript:;" class="write-link attach"></a>
-                  <input id="mck-text-box" type="text" />
-                  <a href="javascript:;" id = "mck-btn-smiley" class="write-link smiley"></a>
-                  <a href="javascript:;" class="write-link send"></a>
-                -->
 					</div>
 				</div>
 			</div>
@@ -260,7 +257,7 @@
 						<div class="panel-content">
 					<div class="mck-box-top">
 						<div class="blk-lg-10">
-							<div class="mck-box-title mck-truncate" title="Group Info">New
+							<div class="mck-box-title mck-truncate" title="Create Group">Create
 								Group</div>
 						</div>
 							<div class="blk-lg-2">
@@ -326,9 +323,9 @@
 								</div>
 							</div>
 						</div>
-						</div>
 					</div>
 				</div>
+			</div>
 			<div id="mck-group-info-tab"
 				class="mck-group-info-tab mck-panel-sm mck-panel n-vis">
 				<div class="panel-content">
@@ -420,7 +417,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<div id="mck-loc-box" class="mck-box mck-loc-box fade"
 		aria-hidden="false">
 		<div class="mck-box-dialog mck-box-md">
@@ -473,7 +469,7 @@
 			<div class="mck-box-content">
 				<div class="mck-box-top mck-row">
 					<div class="blk-lg-10">
-						<h4 class="mck-box-title" title="Start New">Start New</h4>
+						<h4 class="mck-box-title" title="New Chat">New Chat</h4>
 					</div>
 					<div class="blk-lg-2">
 						<button type="button" class="mck-box-close" data-dismiss="mckbox"
@@ -482,13 +478,30 @@
 						</button>
 					</div>
 				</div>
+				<div id="mck-search-tab-box" class="mck-search-tab-box mck-row">
+					<div class="blk-lg-12">
+						<ul class="mck-nav mck-nav-panel">
+							<li class="mck-nav-item mck-nav-divider"><a id="mck-contact-search-tab"
+								class="mck-nav-link mck-contact-search active" href="#"><strong>Contacts</strong></a></li>
+							<li class="mck-nav-item"><a id="mck-group-search-tab" class="mck-nav-link mck-group-search" href="#"><strong>Groups</strong></a>
+							</li>
+						</ul>
+					</div>
+				</div>
 				<div class="mck-box-body">
 					<div class="mck-form-group">
-						<div class="mck-input-group blk-lg-12">
-							<input id="mck-contact-search" type="text"
+						<div id="mck-contact-search-input-box" class="mck-input-group blk-lg-12">
+							<input id="mck-contact-search-input" type="text"
 								data-provide="typeahead" placeholder="Search..." autofocus /> <span
 								class="mck-search-icon"><a href="#" role="link"
 								class="mck-contact-search-link"><span
+									class="mck-icon-search"></span></a></span>
+						</div>
+					   <div id="mck-group-search-input-box" class="mck-input-group blk-lg-12 n-vis">
+							<input id="mck-group-search-input" type="text"
+								data-provide="typeahead" placeholder="Search..." autofocus /> <span
+								class="mck-search-icon"><a href="#" role="link"
+								class="mck-group-search-link"><span
 									class="mck-icon-search"></span></a></span>
 						</div>
 					</div>
@@ -496,9 +509,17 @@
 						<div class="mck-message-inner">
 							<ul id="mck-contact-search-list"
 								class="mck-contact-list mck-contact-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
+				            <ul id="mck-group-search-list"
+								class="mck-contact-list mck-group-search-list mck-nav mck-nav-tabs mck-nav-stacked n-vis"></ul>
 							<div id="mck-no-search-contacts" class="mck-show-more-icon n-vis">
 								<h3>No contacts yet!</h3>
 							</div>
+						    <div id="mck-no-search-groups" class="mck-show-more-icon n-vis">
+								<h3>No groups yet!</h3>
+							</div>
+								<div id="mck-search-loading" class="mck-loading n-vis">
+									<img src="css/app/images/ring.gif">
+								</div>
 						</div>
 					</div>
 				</div>
@@ -527,15 +548,15 @@
 				<div class="mck-box-body">
 					<div class="mck-form-group">
 						<div class="mck-input-group blk-lg-12">
-							<input id="mck-group-search" type="text" data-provide="typeahead"
+							<input id="mck-group-member-search" type="text" data-provide="typeahead"
 								placeholder="Search..." autofocus /> <span
 								class="mck-search-icon"><a href="#" role="link"
-								class="mck-group-tab-search"><span class="mck-icon-search"></span></a></span>
+								class="mck-group-member-search-link"><span class="mck-icon-search"></span></a></span>
 						</div>
 					</div>
 					<div class="mck-tab-cell">
 						<div class="mck-message-inner">
-							<ul id="mck-group-search-list"
+							<ul id="mck-group-member-search-list"
 								class=" mck-contact-list mck-group-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
 									<div id="mck-no-gsm-text"
 								class="mck-no-data-text mck-text-muted n-vis">No Users!</div>
@@ -685,7 +706,7 @@
 						function() {
 							//Function to initialize plugin
 							$applozic.fn.applozic({
-										userId : 'customer-1',
+								        userId: 'customer-1',
 										userName : 'Customer1',
 										appId : 'applozic-sample-app',
 										ojq : $original,
