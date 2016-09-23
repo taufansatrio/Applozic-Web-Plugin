@@ -4434,6 +4434,13 @@ var MCK_CLIENT_GROUP_MAP = [];
             $applozic('.mck-group-name-box div[contenteditable]').keypress(function(e) {
                 if (e.which === 8 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || (e.ctrlKey && e.which === 97)) {
                     return true;
+                }  else if (e.keyCode === 13 && !(e.shiftKey || e.ctrlKey)) {
+						if ($applozic(e.target).hasClass('mck-group-create-title')) {
+							   _this.submitCreateGroup();
+								return false;
+							} else {
+								return false;
+							}
                 } else {
                     return MAX_GROUP_NAME_SIZE > this.innerHTML.length;
                 }
@@ -4516,6 +4523,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
             });
             $mck_btn_group_create.on('click', function() {
+            	_this.submitCreateGroup();
+            });
+            _this.submitCreateGroup = function() {
                 var groupName = $mck_group_create_title.html();
                 var groupType = $mck_group_create_type.val();
                 var iconUrl = $mck_group_create_icon.data('iconurl');
@@ -4540,7 +4550,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 } else {
                     $mck_group_create_title.addClass('mck-req-border');
                 }
-            });
+            };
             _this.getGroupDefaultIcon = function() {
                 return '<div class="mck-group-icon-default"></div>';
             };
