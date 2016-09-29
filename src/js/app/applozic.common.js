@@ -1,7 +1,14 @@
 var $applozic = jQuery.noConflict(true);
-if ($original) {
+if (typeof $original !== 'undefined') {
     $ = $original;
     jQuery = $original;
+    if (typeof $.fn.template === 'function') {
+        $applozic.fn.template = $.fn.template;
+        jQuery.fn.template = $.fn.template;
+    } else if (typeof $applozic.fn.template === 'function') {
+        $.fn.template = $applozic.fn.template;
+        jQuery.fn.template = $applozic.fn.template;
+    }
 } 
 var w = window, d = document;
 var MCK_BASE_URL;

@@ -17,11 +17,6 @@ body {
 	background-repeat: none;
 }
 
-.mck-nav {
-	padding-left: 0;
-	margin-bottom: 0;
-	list-style: none;
-}
 
 .mck-container {
 	position: fixed !important;
@@ -164,7 +159,7 @@ body {
 .mck-container .left .people .person {
 	position: relative;
 	width: 100%;
-	padding: 12px 10px;
+	padding: 12px 15px;
 	cursor: pointer;
 	background-color: #fff;
 	border-bottom: 1px solid #F3F3F3 !important;
@@ -240,7 +235,7 @@ body {
 
 .mck-container .left .people .person.active, .mck-container .left .people .person:hover
 	{
-	padding: 12px 10px;
+	padding: 12px 15px;
 	border: 0;
 	background-color: #eceff1;
 	border-bottom: 1px solid #F3F3F3 !important;

@@ -206,6 +206,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var MCK_ON_PLUGIN_CLOSE = appOptions.onClose;
         var MCK_DISPLAY_TEXT = appOptions.displayText;
         var MCK_ACCESS_TOKEN = appOptions.accessToken;
+        var MCK_SOURCE = (typeof appOptions.source === 'undefined') ? 1: appOptions.source;
         var MCK_CALLBACK = appOptions.readConversation;
         var MCK_GROUPMAXSIZE = appOptions.maxGroupSize;
         var MCK_ON_TAB_CLICKED = appOptions.onTabClicked;
@@ -873,6 +874,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                             jqXHR.setRequestHeader("UserId-Enabled", true);
                                             jqXHR.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
                                             jqXHR.setRequestHeader("Application-Key", MCK_APP_ID);
+                                            jqXHR.setRequestHeader("Device-Key", USER_DEVICE_KEY);
                                             if (MCK_ACCESS_TOKEN) {
                                                 jqXHR.setRequestHeader("Access-Token", MCK_ACCESS_TOKEN);
                                             }
@@ -1707,6 +1709,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                         userStatus: 4
                     };
                 }
+                messagePxy.source = MCK_SOURCE;
                 var $mck_msg_div = $applozic("#mck-message-cell .mck-message-inner div[name='message']." + randomId);
                 $applozic.ajax({
                         type: "POST", url: MCK_BASE_URL + MESSAGE_SEND_URL, global: false, data: w.JSON.stringify(messagePxy), contentType: 'application/json', success: function(data) {
@@ -5251,6 +5254,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     xhr.setRequestHeader("UserId-Enabled", true);
                     xhr.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
                     xhr.setRequestHeader("Application-Key", MCK_APP_ID);
+                    xhr.setRequestHeader("Device-Key", USER_DEVICE_KEY);
                     xhr.send(data);
                 }
             };

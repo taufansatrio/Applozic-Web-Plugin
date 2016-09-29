@@ -126,10 +126,15 @@
 	position: absolute;
 	display: table-row;
 	top: 50%;
+	z-index:100;
+	font-size: 16px !important;
 	bottom: 0;
 	width: 100%;
 	text-align: center;
 	overflow: auto;
+}
+.mck-show-more-icon h3 {
+    font-size: 16px !important;
 }
 
 .mck-no-b {
@@ -201,7 +206,7 @@
 	margin: 0;
 }
 
-.mck-sidebox b, .mck-sidebox strong {
+.mck-sidebox b, .mck-box strong {
 	font-weight: 700;
 }
 
@@ -601,7 +606,7 @@ a:hover {
 	line-height: 59px;
 }
 
-.mck-box-top.mck-row {
+.mck-box-top.mck-row, .mck-search-tab-box.mck-row {
 	margin: 0px;
 }
 
@@ -827,6 +832,42 @@ ol, ul {
 	border-bottom: 1px solid #ddd;
 }
 
+.mck-nav-panel {
+	margin-top: 10px;
+    display: block;
+    float: left;
+    width: 100%
+}
+
+.mck-nav-panel .mck-nav-item {
+	float :left;
+	text-align: center;
+}
+.mck-nav-divider {
+  border-right: 2px solid #f3f3f3;	
+}
+.mck-box .mck-nav-panel .mck-nav-item {
+    width: 149px;
+    padding: 0 10px;
+}
+.mck-nav-panel .mck-nav-link {
+	display: block;
+    padding: 5px 0;
+    border-radius: 4px;
+    color: #11b8bb;
+    text-decoration: none;
+    text-transform:uppercase;
+}
+.mck-nav-panel .mck-nav-link:hover, .mck-nav-panel .mck-nav-link:focus {
+	color: #333;
+	text-decoration: none;
+}
+.mck-nav-panel .mck-nav-link.active {
+	color: #fff;
+    cursor: default;
+    text-decoration: none;
+    background-color: #11b8bb;
+}
 .mck-box .btn-group-vertical>.btn-group:after, .mck-box .btn-group-vertical>.btn-group:before,
 	.mck-box .btn-toolbar:after, .mck-box .btn-toolbar:before, .mck-sidebox .clearfix:after,
 	.mck-box .clearfix:before, .mck-box .container-fluid:after, .mck-box .container-fluid:before,
@@ -2541,6 +2582,8 @@ ol, ul {
 
 .mck-group-create-tab .mck-group-name-box div[contenteditable="true"] {
 	width: 270px;
+	height:29px;
+	line-height:27px;
 	text-align: left !important;
 }
 
@@ -2560,6 +2603,7 @@ ol, ul {
 	background: #FFFFFF;
 	vertical-align: middle;
 	line-height: 29px;
+	height: 29px;
 	text-align: center;
 	font-weight: 500;
 	font-size: 14px;
@@ -2659,7 +2703,7 @@ ol, ul {
 
 .mck-group-create-tab .mck-group-name-box .blk-lg-12:last-child {
 	width: 279px;
-	padding: 0 5px;
+	padding: 3px 5px;
 	background-color: #fff;
 	height: 35px;
 	border-radius: 4px;
@@ -3066,7 +3110,7 @@ ol, ul {
 		width: 120px;
 	}
 	.mck-contact-list .blk-lg-9 {
-		width: 210px;
+		width: 200px;
 	}
 	.mck-group-member-list .blk-lg-9 {
 		width: 190px
