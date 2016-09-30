@@ -117,6 +117,7 @@ userId is the unique identifier for any user, it can be anything like email, pho
     locShare: true,
     googleApiKey: "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4",   // your project google api key 
     googleMapScriptLoaded : false,   // true if your app already loaded google maps script
+    autoTypeSearchEnabled : true,    // set to false if you don't want to allow sending message to user who is not in the contact list
     onInit : function(response) {
        if (response === "success") {
           // login successful, perform your actions if any, for example: load contacts, getting unread message count, etc
