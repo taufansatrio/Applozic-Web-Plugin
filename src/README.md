@@ -21,7 +21,7 @@ Sample: src/sample/fullview.html
 Demo : [https://www.applozic.com/docs/chat-examples/web.html](https://www.applozic.com/docs/chat-examples/web.html)
 
 
-![full-view-layout]<img align="middle" src="../message/fullview/fullview.png" />   
+![full-view-layout]<img align="middle" src="../src/sample/fullview.png" />   
 
 
 
@@ -33,7 +33,7 @@ Sample: src/sample/sidebox.html
 Demo :[https://www.applozic.com/plugin.html](https://www.applozic.com/plugin.html)
 
 
-![sidebox-layout]<img align="middle" src="../message/advanced/sidebox.png" />  
+![sidebox-layout]<img align="middle" src="../src/sample/sidebox.png" />  
 
 
 #### Applozic One to One and Group Chat SDK
@@ -99,7 +99,7 @@ Paste js, css folders in your project.
 
 Step 3. Open Sample file (fullview.html or sidebox.html) file as a reference and add all scripts and html in your web page in the same order as given in sample file
 
-Step 4. You can modify css and js files based on your design, files are present under css/app/ and js/app folders.
+Step 4. You can modify css and js files based on your design, files are present under src/css/app/ and src/js folders.
 
 ###Documentation:
 
