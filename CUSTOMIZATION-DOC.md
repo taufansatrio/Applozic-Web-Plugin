@@ -47,6 +47,7 @@ Open src/sample/fullview.html file as a reference and add all scripts and html i
 
 #### For Sidebox : 
 Open src/sample/sidebox.html file as a reference and add all scripts and html in your web page in the same order as given in sidebox.html
+
 Step 4. You can modify css and js files based on your design, files are present under src/css/app/ and src/js folders.
 
 
