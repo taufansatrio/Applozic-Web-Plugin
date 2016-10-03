@@ -33,7 +33,7 @@ npm install applozic-chat
 
 ```
 
-or run ```bower``` command to download package:
+or run ```bower``` command to download package
 
 ```
 bower install applozic-chat
