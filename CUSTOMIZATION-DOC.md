@@ -23,9 +23,11 @@ Demo: [https://www.applozic.com/plugin.html](https://www.applozic.com/plugin.htm
 Step 1. Download source code
 
 Download files from:
+
+Github:
 https://github.com/AppLozic/Applozic-Web-Plugin/tree/master/src
 
-or enter to your project directory and run ```npm``` command to download package
+or run ```npm``` command to download package
 ```
 npm install applozic-chat
 
@@ -39,9 +41,13 @@ bower install applozic-chat
 
 Step 2. Remove script mentioned in Step 1 under Getting Started section.
 
-Step 3. Open sample/fullview.html file as a reference and add all scripts and html in your web page in the same order as given in fullview.html
+Step 3. Add files to your web page:
+#### For Full view : 
+Open sample/fullview.html file as a reference and add all scripts and html in your web page in the same order as given in fullview.html
 
-Step 4. You can modify css and js files based on your design, files are present under css/app/ and js/app folders.
+#### For Sidebox : 
+Open src/sample/sidebox.html file as a reference and add all scripts and html in your web page in the same order as given in sidebox.html
+Step 4. You can modify css and js files based on your design, files are present under src/css/app/ and js/app folders.
 
 
  
