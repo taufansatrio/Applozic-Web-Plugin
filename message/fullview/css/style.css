@@ -455,51 +455,6 @@ body {
 	vertical-align: top;
 }
 
-.mck-container .right .bubble.mck-msg-right .mck-msg-box {
-	float: right;
-	color: #fff;
-	font-size: 14px;
-	margin-right: 15px;
-	padding: 10px 14px 12px;
-	background-color: #00b0ff;
-	-webkit-align-self: flex-start;
-	-ms-flex-item-align: start;
-	align-self: flex-start;
-	-webkit-animation-name: slideFromLeft;
-	animation-name: slideFromLeft;
-	border-radius: 5px;
-	max-width: 85%;
-    display: inline-block;
-}
-
-.mck-container .right .mck-group-inner .bubble.mck-msg-left .mck-msg-box
-	{
-	padding: 4px 8px;
-	color: #333;
-	background: #fff;
-}
-
-.mck-container .right .mck-group-inner .bubble.mck-msg-left .mck-msg-box:after
-	{
-	border-right-color: #fff;
-}
-
-.mck-container .right .bubble.mck-msg-left .mck-msg-box {
-	float: left;
-	color: #1a1a1a;
-	font-size: 14px;
-	margin-left: 15px;
-	padding: 10px 14px 12px;
-	max-width: 85%;
-	border-radius: 5px;
-	background-color: #FFFFFF;
-	-webkit-align-self: flex-end;
-	-ms-flex-item-align: end;
-	align-self: flex-end;
-	-webkit-animation-name: slideFromRight;
-	animation-name: slideFromRight;
-}
-
 .mck-container .right .conversation-start {
 	position: relative;
 	width: 100%;
