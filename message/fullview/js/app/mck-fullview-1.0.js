@@ -2967,8 +2967,17 @@ var MCK_CLIENT_GROUP_MAP = [];
                 displayName = _this.getTabDisplayName(msg.to, false);
 				if (MESSAGE_BUBBLE_AVATOR_ENABLED) {
 					msgAvatorClassExpr = "mck-msg-avator-bubble";
-					var fromContact = (msg.groupId) ? mckMessageLayout.fetchContact(msg.to) : contact;
-					imgsrctag = _this.getContactImageLink(fromContact, displayName);
+					var fromContact = "";
+					var fromDisplayName = displayName;
+					if (floatWhere === "mck-msg-right") {
+						fromContact = mckMessageLayout.fetchContact(MCK_USER_ID);
+						fromDisplayName = _this.getTabDisplayName(fromContact.displayName, false);
+					} else if (floatWhere === "mck-msg-left") {
+						fromContact = (msg.groupId) ? mckMessageLayout.fetchContact(msg.to) : contact;
+					}
+					if (fromContact) {
+						imgsrctag = _this.getContactImageLink(fromContact, fromDisplayName);
+					}
 				}
                 if (msg.groupId && msg.contentType === 10) {
                     displayName = "";
