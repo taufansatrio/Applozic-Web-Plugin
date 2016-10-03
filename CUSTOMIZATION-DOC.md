@@ -43,7 +43,7 @@ Step 2. Remove script mentioned in Step 1 under Getting Started section.
 
 Step 3. Add files to your web page:
 #### For Full view : 
-Open sample/fullview.html file as a reference and add all scripts and html in your web page in the same order as given in fullview.html
+Open src/sample/fullview.html file as a reference and add all scripts and html in your web page in the same order as given in fullview.html
 
 #### For Sidebox : 
 Open src/sample/sidebox.html file as a reference and add all scripts and html in your web page in the same order as given in sidebox.html
