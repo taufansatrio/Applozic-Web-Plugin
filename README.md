@@ -14,13 +14,13 @@ Applozic comes with 2 ready to use UI layout
 
 ##1. Full view 
 
-<img align="middle" src="message/fullview/fullview.png" />
+<img align="middle" src="src/sample/fullview.png" />
 
 
 
 
 ##2. Sidebox 
-<img align="middle" src="message/advanced/sidebox.png" />
+<img align="middle" src="src/sample/sidebox.png" />
 
 
 
