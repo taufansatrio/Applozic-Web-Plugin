@@ -246,14 +246,6 @@ body {
 	display: none;
 }
 
-.mck-container .left .people .person .mck-icon-user, .mck-container .left .people .person.active .mck-icon-user,
-	.mck-container .left .people .person:hover .mck-icon-user, .mck-group-search-list .mck-icon-user, .mck-contact-search-list .mck-icon-user, .mck-group-member-list .mck-icon-user {
-	background: url(app/images/mck-plugin-sprite.png);
-	background-position: -4px 3px;
-	width: 44px;
-	height: 44px;
-	background-size: 50px;
-}
 
 .mck-container .right {
 	position: relative;

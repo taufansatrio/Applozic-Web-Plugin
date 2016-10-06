@@ -839,6 +839,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 IS_MCK_USER_DEACTIVATED = result.deactivated;
                                 AUTH_CODE = btoa(result.userId + ":" + result.deviceKey);
                                 MCK_CONNECTED_CLIENT_COUNT = result.connectedClientCount;
+                                mckMessageLayout.createContactWithDetail({'userId': MCK_USER_ID, 'dispayName':result.displayName, 'photoLink' : result.imageLink});
                                 $applozic.ajaxPrefilter(function(options) {
                                     if (!options.beforeSend && (options.url.indexOf(MCK_BASE_URL) !== -1)) {
                                         // _this.manageIdleTime();
