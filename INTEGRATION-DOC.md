@@ -139,7 +139,7 @@ Open group chat using Client Group Id
  
  ```
 $applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
-                                       'type' : 1,                // 1 for private , 2 for public (required)
+                                       'type' : 1,                // 1 for private , 2 for public, 5 for broadcast (required)
                                        'clientGroupId' : '',      // optional
                                        'users': [{userId:userId1, displayName:''},
                                                  {userId:userId2, displayName:''}
