@@ -825,7 +825,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 userPxy.appVersionCode = 108;
                 userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
                 AUTH_CODE = "";
-                USER_DEVICE_KEY ="";
+                USER_DEVICE_KEY = "";
                 $applozic.ajax({
                         url: MCK_BASE_URL + INITIALIZE_APP_URL, type: 'post', data: w.JSON.stringify(userPxy), contentType: 'application/json', headers: {
                             'Application-Key': MCK_APP_ID
@@ -980,12 +980,12 @@ var MCK_CLIENT_GROUP_MAP = [];
             };
             _this.setHeaders = function(jqXHR) {
                 jqXHR.setRequestHeader("UserId-Enabled", true);
-                if(AUTH_CODE) {
-                  jqXHR.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
+                if (AUTH_CODE) {
+                    jqXHR.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
                 }
                 jqXHR.setRequestHeader("Application-Key", MCK_APP_ID);
-                if(USER_DEVICE_KEY) {
-                jqXHR.setRequestHeader("Device-Key", USER_DEVICE_KEY);
+                if (USER_DEVICE_KEY) {
+                    jqXHR.setRequestHeader("Device-Key", USER_DEVICE_KEY);
                 }
                 if (MCK_ACCESS_TOKEN) {
                     jqXHR.setRequestHeader("Access-Token", MCK_ACCESS_TOKEN);
@@ -1529,6 +1529,11 @@ var MCK_CLIENT_GROUP_MAP = [];
                         var group = mckGroupUtils.getGroup(groupId);
                         if (group && group.adminName === MCK_USER_ID) {
                             if (MCK_GROUP_SEARCH_ARRAY.length > 0) {
+                                mckGroupLayout.addMembersToGroupSearchList();
+                            } else if (IS_MCK_OWN_CONTACTS && MCK_CONTACT_ARRAY.length > 0) {
+                                $applozic.each(MCK_CONTACT_ARRAY, function(i, contact) {
+                                    MCK_GROUP_SEARCH_ARRAY.push(contact.contactId);
+                                });
                                 mckGroupLayout.addMembersToGroupSearchList();
                             } else {
                                 mckContactService.getUserStatus({
@@ -3592,11 +3597,13 @@ var MCK_CLIENT_GROUP_MAP = [];
                     return;
                 }
                 MCK_CONTACT_ARRAY.length = 0;
+                MCK_GROUP_SEARCH_ARRAY.length = 0;
                 $applozic.each(data.contacts, function(i, data) {
                     if ((typeof data.userId !== "undefined")) {
                         var contact = _this.getContact('' + data.userId);
                         contact = (typeof contact === 'undefined') ? _this.createContactWithDetail(data) : _this.updateContactDetail(contact, data);
                         MCK_CONTACT_ARRAY.push(contact);
+                        MCK_GROUP_SEARCH_ARRAY.push(contact.contactId);
                     }
                 });
             };
