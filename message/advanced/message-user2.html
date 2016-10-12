@@ -15,7 +15,7 @@
 <script src="js/jquery-2.2.2.min.js"></script>
 </head>
 <body>
-				<div id="mck-side-panel">
+	<div id="mck-side-panel">
 		<div id="mck-sidebox" class="mck-sidebox mck-box fade">
 			<div class="mck-box-dialog mck-box-sm mck-right mck-bg-white">
 				<div id="mck-sidebox-content"
@@ -142,13 +142,17 @@
 							</div>
 							<div class="mck-message-inner"></div>
 							<div id="mck-contact-loading" class="mck-loading">
-								<img src="css/app/images/ring.gif" />
+								<img src="css/app/images/ring.gif"
+									alt="Loading" />
 							</div>
 							<div id="mck-show-more-icon" class="mck-show-more-icon n-vis">
 								<h3>No more conversations!</h3>
 							</div>
 						</div>
 					</div>
+					<div id="mck-offline-message-box"
+						class="mck-offline-message-box n-vis">SET DEFAULT OFFLINE
+						MESSAGE!</div>
 					<div id="mck-sidebox-ft" class="mck-box-ft">
 						<div class="mck-box-form mck-row n-vis">
 							<div class="blk-lg-12">
@@ -235,7 +239,7 @@
 						</div>
 						<div id="mck-contacts-content"
 							class="mck-contacts-content mck-text-center">
-							<button type="submit" id="mck-msg-new"
+							<button type="button" id="mck-msg-new"
 								class="mck-msg-new mck-btn mck-btn-blue"
 								title="New Conversation">
 								<span>New Conversation</span>
@@ -291,7 +295,8 @@
 									class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
 							</div>
 							<div id="mck-search-loading" class="mck-loading n-vis">
-								<img src="css/app/images/ring.gif" />
+								<img src="css/app/images/ring.gif"
+									alt="Loading" />
 							</div>
 						</div>
 					</div>
@@ -325,7 +330,8 @@
 											<div id="mck-group-create-icon-loading"
 												class="mck-loading n-vis">
 												<img
-													src="css/app/images/mck-loading.gif" />
+													src="css/app/images/mck-loading.gif"
+													alt="Loading" />
 											</div> <input id="mck-group-icon-upload"
 											class="mck-group-icon-upload n-vis" type="file"
 											name="files[]">
@@ -339,7 +345,8 @@
 											<div class="mck-label">Group Title</div>
 										</div>
 										<div class="blk-lg-12">
-											<div id="mck-group-create-title" class="mck-group-title"
+											<div id="mck-group-create-title"
+												class="mck-group-create-title mck-group-title"
 												contenteditable="true">Group title</div>
 										</div>
 									</div>
@@ -393,7 +400,8 @@
 									</div>
 									<div id="mck-group-info-icon-loading" class="mck-loading vis">
 										<img
-											src="css/app/images/mck-loading.gif" />
+											src="css/app/images/mck-loading.gif"
+											alt="Loading" />
 									</div> <input id="mck-group-icon-change"
 									class="mck-group-icon-change n-vis" type="file" name="file[]" />
 								</span>
@@ -548,6 +556,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript" src="js/mck-ui-plugins.min.js"></script>
 	<script type="text/javascript" src="js/mck-ui-widget.min.js"></script>
 	<script type="text/javascript" src="js/mck-emojis.min.js"></script>
