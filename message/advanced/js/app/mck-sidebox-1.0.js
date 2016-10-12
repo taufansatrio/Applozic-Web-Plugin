@@ -5722,10 +5722,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                 _this.disconnect();
             };
             _this.disconnect = function() {
-                if (stompClient) {
-                    if (stompClient.connected) {
-                        _this.sendStatus(0);
-                    }
+                if (stompClient && stompClient.connected) {
+                    _this.sendStatus(0);
                     stompClient.disconnect();
                 }
             };
