@@ -1459,6 +1459,11 @@ var MCK_CLIENT_GROUP_MAP = [];
                         if (group && group.adminName === MCK_USER_ID) {
                             if (MCK_GROUP_SEARCH_ARRAY.length > 0) {
                                 mckGroupLayout.addMembersToGroupSearchList();
+                            }  else if (IS_MCK_OWN_CONTACTS && MCK_CONTACT_ARRAY.length > 0) {
+                            	  $applozic.each(MCK_CONTACT_ARRAY, function(i, contact) {
+                            		   MCK_GROUP_SEARCH_ARRAY.push(contact.contactId);
+                            	 });
+                            	mckGroupLayout.addMembersToGroupSearchList();
                             } else {
                                 mckContactService.getUserStatus({
                                     'callback': mckGroupLayout.addMembersToGroupSearchList
@@ -3736,11 +3741,13 @@ var MCK_CLIENT_GROUP_MAP = [];
                     return;
                 }
                 MCK_CONTACT_ARRAY.length = 0;
+                MCK_GROUP_SEARCH_ARRAY.length = 0;
                 $applozic.each(data.contacts, function(i, data) {
                     if ((typeof data.userId !== "undefined")) {
                         var contact = _this.getContact('' + data.userId);
                         contact = (typeof contact === 'undefined') ? _this.createContactWithDetail(data) : _this.updateContactDetail(contact, data);
                         MCK_CONTACT_ARRAY.push(contact);
+                        MCK_GROUP_SEARCH_ARRAY.push(contact.contactId);
                     }
                 });
                 mckMessageService.initSearch();
