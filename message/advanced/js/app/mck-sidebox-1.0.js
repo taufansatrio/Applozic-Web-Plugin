@@ -824,10 +824,13 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
                 userPxy.appVersionCode = 108;
                 userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
+                AUTH_CODE = "";
+                USER_DEVICE_KEY ="";
                 $applozic.ajax({
                         url: MCK_BASE_URL + INITIALIZE_APP_URL, type: 'post', data: w.JSON.stringify(userPxy), contentType: 'application/json', headers: {
                             'Application-Key': MCK_APP_ID
                         }, success: function(result) {
+                            mckStorage.clearMckMessageArray();
                             if (result === "INVALID_PASSWORD") {
                                 if (typeof MCK_ON_PLUGIN_INIT === "function") {
                                     MCK_ON_PLUGIN_INIT({
@@ -883,16 +886,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     if (!options.beforeSend && (options.url.indexOf(MCK_BASE_URL) !== -1)) {
                                         // _this.manageIdleTime();
                                         options.beforeSend = function(jqXHR) {
-                                            jqXHR.setRequestHeader("UserId-Enabled", true);
-                                            jqXHR.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
-                                            jqXHR.setRequestHeader("Application-Key", MCK_APP_ID);
-                                            jqXHR.setRequestHeader("Device-Key", USER_DEVICE_KEY);
-                                            if (MCK_ACCESS_TOKEN) {
-                                                jqXHR.setRequestHeader("Access-Token", MCK_ACCESS_TOKEN);
-                                            }
-                                            if (MCK_APP_MODULE_NAME) {
-                                                jqXHR.setRequestHeader("App-Module-Name", MCK_APP_MODULE_NAME);
-                                            }
+                                            _this.setHeaders(jqXHR);
                                         };
                                     }
                                 });
@@ -905,7 +899,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     $applozic(".mck-running-on a").attr('href', poweredByUrl);
                                     $applozic(".mck-running-on").removeClass("n-vis").addClass('vis');
                                 }
-                                mckStorage.clearMckMessageArray();
                                 var mckContactNameArray = mckStorage.getMckContactNameArray();
                                 if (mckContactNameArray !== null && mckContactNameArray.length > 0) {
                                     for (var i = 0; i < mckContactNameArray.length; i++) {
@@ -938,6 +931,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 }
                             }
                         }, error: function() {
+                            mckStorage.clearMckMessageArray();
                             if (typeof MCK_ON_PLUGIN_INIT === "function") {
                                 MCK_ON_PLUGIN_INIT({
                                         'status': 'error', 'errorMessage': 'UNABLE TO PROCESS REQUEST'
@@ -983,6 +977,22 @@ var MCK_CLIENT_GROUP_MAP = [];
                         }
                     }
                 });
+            };
+            _this.setHeaders = function(jqXHR) {
+                jqXHR.setRequestHeader("UserId-Enabled", true);
+                if(AUTH_CODE) {
+                  jqXHR.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
+                }
+                jqXHR.setRequestHeader("Application-Key", MCK_APP_ID);
+                if(USER_DEVICE_KEY) {
+                jqXHR.setRequestHeader("Device-Key", USER_DEVICE_KEY);
+                }
+                if (MCK_ACCESS_TOKEN) {
+                    jqXHR.setRequestHeader("Access-Token", MCK_ACCESS_TOKEN);
+                }
+                if (MCK_APP_MODULE_NAME) {
+                    jqXHR.setRequestHeader("App-Module-Name", MCK_APP_MODULE_NAME);
+                }
             };
             _this.appendLauncher = function() {
                 $applozic("#mck-sidebox-launcher").remove();
