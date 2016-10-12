@@ -142,13 +142,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                         $.fn.linkify = $applozic.fn.linkify;
                         jQuery.fn.linkify = $applozic.fn.linkify;
                     }
-                    if (typeof $.fn.template === 'function') {
-                        $applozic.fn.template = $.fn.template;
-                        jQuery.fn.linkify = $.fn.template;
-                    } else if (typeof $applozic.fn.template === 'function') {
-                        $.fn.template = $applozic.fn.template;
-                        jQuery.fn.template = $applozic.fn.template;
-                    }
                     if (typeof $.fn.emojiarea === 'function') {
                         $applozic.fn.emojiarea = $.fn.emojiarea;
                     } else if (typeof $applozic.fn.emojiarea === 'function') {
