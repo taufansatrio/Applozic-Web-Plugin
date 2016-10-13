@@ -213,6 +213,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var MCK_AUTHENTICATION_TYPE_ID = appOptions.authenticationTypeId;
         var MCK_GETCONVERSATIONDETAIL = appOptions.getConversationDetail;
         var MCK_NOTIFICATION_ICON_LINK = appOptions.notificationIconLink;
+        var IS_SW_NOTIFICATION_ENABLED = (typeof appOptions.swNotification === "boolean") ? appOptions.swNotification : false;
         var MCK_SOURCE = (typeof appOptions.source === 'undefined') ? 1 : appOptions.source;
         var MCK_USER_ID = (IS_MCK_VISITOR) ? "guest" : $applozic.trim(appOptions.userId);
         var MCK_GOOGLE_API_KEY = (IS_MCK_LOCSHARE) ? appOptions.googleApiKey : "NO_ACCESS";
@@ -331,6 +332,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             MCK_AUTHENTICATION_TYPE_ID = optns.authenticationTypeId;
             MCK_USER_ID = (IS_MCK_VISITOR) ? "guest" : $applozic.trim(optns.userId);
             MCK_GOOGLE_API_KEY = (IS_MCK_LOCSHARE) ? optns.googleApiKey : "NO_ACCESS";
+            IS_SW_NOTIFICATION_ENABLED = (typeof optns.swNotification === "boolean") ? optns.swNotification : false;
             IS_MCK_OL_STATUS = (typeof optns.olStatus === "boolean") ? (optns.olStatus) : false;
             IS_MCK_TOPIC_BOX = (typeof optns.topicBox === "boolean") ? (optns.topicBox) : false;
             IS_MCK_TOPIC_HEADER = (typeof optns.topicHeader === "boolean") ? (optns.topicHeader) : false;
@@ -5531,6 +5533,8 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_sidebox_launcher;
             var $mck_preview_msg_content;
             var $mck_preview_file_content;
+            var MCK_SW_SUBSCRIPTION;
+            var MCK_SW_REGISTER_URL = "/rest/ws/plugin/update/sw/id";
             _this.init = function() {
                 $mck_sidebox = $applozic("#mck-sidebox");
                 $mck_msg_preview = $applozic("#mck-msg-preview");
@@ -5612,13 +5616,52 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_msg_preview.fadeOut(3000);
                 }, 10000);
             };
+            _this.sendSubscriptionIdToServer = function() {
+                if (MCK_SW_SUBSCRIPTION) {
+                    var subscriptionId = MCK_SW_SUBSCRIPTION.endpoint.split("/").slice(-1)[0];
+                    if (subscriptionId) {
+                        $applozic.ajax({
+                                url: MCK_BASE_URL + MCK_SW_REGISTER_URL, type: 'post', data: 'registrationId=' + subscriptionId, success: function(data) {}, error: function() {}
+                        });
+                    }
+                }
+            };
+            _this.subscribeToServiceWorker = function() {
+                if (IS_SW_NOTIFICATION_ENABLED) {
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('./service-worker.js', {
+                            scope: './'
+                        });
+                        navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+                            serviceWorkerRegistration.pushManager.subscribe({
+                                userVisibleOnly: true
+                            }).then(function(pushSubscription) {
+                                console.log('The reg ID is :: ', pushSubscription.endpoint.split("/").slice(-1));
+                                MCK_SW_SUBSCRIPTION = pushSubscription;
+                                _this.sendSubscriptionIdToServer();
+                            })
+                        });
+                    }
+                }
+            };
+            _this.unsubscribeToServiceWorker = function() {
+                if (MCK_SW_SUBSCRIPTION) {
+                    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+                        MCK_SW_SUBSCRIPTION.unsubscribe().then(function(successful) {
+                            MCK_SW_SUBSCRIPTION = null;
+                            console.log('Unsubscribed to notification successfully');
+                        })
+                    });
+                }
+            };
         }
         function MckInitializeChannel($this) {
             var _this = this;
-            var events = $this.events;
+            var SOCKET = "";
             var subscriber = null;
             var stompClient = null;
             var TYPING_TAB_ID = "";
+            var events = $this.events;
             var typingSubscriber = null;
             var checkConnectedIntervalId;
             var sendConnectedStatusIntervalId;
@@ -5632,13 +5675,18 @@ var MCK_CLIENT_GROUP_MAP = [];
                 if (typeof MCK_WEBSOCKET_URL !== 'undefined') {
                     var port = (!mckUtils.startsWith(MCK_WEBSOCKET_URL, "https")) ? "15674" : "15675";
                     if (typeof w.SockJS === 'function') {
-                        var socket = new SockJS(MCK_WEBSOCKET_URL + ":" + port + "/stomp");
-                        stompClient = w.Stomp.over(socket);
+                    	  if (!SOCKET) {
+                    		  SOCKET = new SockJS(MCK_WEBSOCKET_URL + ":" + port + "/stomp");
+                    	  }
+                        stompClient = w.Stomp.over(SOCKET);
                         stompClient.heartbeat.outgoing = 0;
                         stompClient.heartbeat.incoming = 0;
+                        stompClient.onclose = function() {
+                            _this.disconnect();
+                        };
                         stompClient.connect("guest", "guest", _this.onConnect, _this.onError, '/');
                         w.addEventListener("beforeunload", function(e) {
-                            _this.sendStatus(0);
+                        	 _this.disconnect();
                         });
                     }
                 }
