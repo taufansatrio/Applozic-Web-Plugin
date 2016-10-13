@@ -129,10 +129,12 @@
 	text-align: center;
 	overflow: auto;
 }
+
 .mck-sidebox .mck-show-more-icon h3 {
-	font-weight:500 !important;
-    font-size: 15px;
+	font-weight: 500 !important;
+	font-size: 15px;
 }
+
 .mck-no-b {
 	border: 0px;
 }
@@ -1386,7 +1388,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 }
 
 .mck-cont-msg-wrapper p {
-	font-size:14px;
+	font-size: 14px;
 	margin: 0px !important;
 	white-space: nowrap;
 	overflow: hidden;
@@ -2184,19 +2186,22 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 .mck-group-inner .mck-msg-left .mck-msg-box:after {
 	border-right-color: #fff;
 }
+
 .mck-audio-player {
- 	 width:240px;
- 	 height:40px;
- 	 overflow:hidden;
- 	 outline:none;
+	width: 240px;
+	height: 40px;
+	overflow: hidden;
+	outline: none;
 }
+
 .mck-typing-box {
 	opacity: 0.6;
 	line-height: 15px;
 	font-size: 12px;
 }
+
 .mck-file-tag {
-	margin:0 !important;
+	margin: 0 !important;
 }
 
 .mck-text-user {
@@ -2469,7 +2474,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 .mck-group-icon-box img {
 	width: 100%;
 	height: 100%;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 .mck-group-create-tab .mck-group-icon-box {
@@ -2551,6 +2556,20 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	border-top-left-radius: 0px;
 }
 
+.mck-group-name-box .mck-group-title {
+	background: #FFFFFF;
+	vertical-align: middle;
+	line-height: 29px;
+	height: 29px;
+	text-align: center;
+	font-weight: 500;
+	font-size: 14px;
+	border-top-right-radius: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .mck-group-name-box div[contenteditable="true"] {
 	height: 27px;
 	line-height: 25px;
@@ -2559,9 +2578,9 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	color: #555;
 	outline: none;
 	overflow: auto;
-    white-space: inherit;
-    overflow-x: hidden;
-    text-overflow: inherit;
+	white-space: inherit;
+	overflow-x: hidden;
+	text-overflow: inherit;
 	background-color: #fff;
 	border-bottom: 2px solid #009688 !important;
 	background-image: none;
@@ -2591,19 +2610,6 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	margin-top: -4px;
 	vertical-align: middle;
 	margin-left: 2px;
-}
-
-.mck-group-name-box .mck-group-title {
-	background: #FFFFFF;
-	vertical-align: middle;
-	line-height: 29px;
-	text-align: center;
-	font-weight: 500;
-	font-size: 14px;
-	border-top-right-radius: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .mck-group-name-sec a {
@@ -2801,6 +2807,16 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	width: 100px;
 	text-align: center;
 	margin-top: 10px;
+}
+
+.mck-offline-message-box {
+	padding: 6px;
+	background-color: #fff;
+	font-size: 14px;
+	min-height: 18px;
+	text-align: center;
+	font-weight: 500;
+	border-top: 1px solid #e5e5e5;
 }
 
 .mck-icon-user, .mck-icon-no-image, .mck-icon-bell, .mck-icon-dollar,

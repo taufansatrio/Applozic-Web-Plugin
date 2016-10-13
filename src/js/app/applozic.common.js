@@ -14,7 +14,6 @@ var w = window, d = document;
 var MCK_BASE_URL;
 var MCK_CURR_LATITIUDE = 40.7324319;
 var MCK_CURR_LONGITUDE = -73.82480777777776;
-var IS_SW_NOTIFICATION_ENABLED = false;
 var mckUtils = new MckUtils();
 var mckDateUtils = new MckDateUtils();
 var mckGroupUtils = new MckGroupUtils();
@@ -181,8 +180,6 @@ function MckMapUtils() {
 }
 function MckNotificationUtils() {
     var _this = this;
-    var MCK_SW_SUBSCRIPTION;
-    var MCK_SW_REGISTER_URL = "/rest/ws/plugin/update/sw/id";
     var PERMISSION_DEFAULT = "default", PERMISSION_GRANTED = "granted", PERMISSION_DENIED = "denied", PERMISSION = [ PERMISSION_GRANTED, PERMISSION_DEFAULT, PERMISSION_DENIED ], isSupported = (function() {
         var isSupported = false;
         try {
@@ -301,44 +298,6 @@ function MckNotificationUtils() {
                 }
             }
         };
-    };
-    _this.unsubscribeToServiceWorker = function() {
-        if (MCK_SW_SUBSCRIPTION) {
-            navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-                MCK_SW_SUBSCRIPTION.unsubscribe().then(function(successful) {
-                    MCK_SW_SUBSCRIPTION = null;
-                    console.log('Unsubscribed to notification successfully');
-                })
-            });
-        }
-    };
-    _this.sendSubscriptionIdToServer = function() {
-        if (MCK_SW_SUBSCRIPTION) {
-            var subscriptionId = MCK_SW_SUBSCRIPTION.endpoint.split("/").slice(-1)[0];
-            if (subscriptionId) {
-                $applozic.ajax({
-                        url: MCK_BASE_URL + MCK_SW_REGISTER_URL, type: 'post', data: 'registrationId=' + subscriptionId, success: function(data) {}, error: function() {}
-                });
-            }
-        }
-    };
-    _this.subscribeToServiceWorker = function() {
-        if (IS_SW_NOTIFICATION_ENABLED) {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./service-worker.js', {
-                    scope: './'
-                });
-                navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-                    serviceWorkerRegistration.pushManager.subscribe({
-                        userVisibleOnly: true
-                    }).then(function(pushSubscription) {
-                        console.log('The reg ID is :: ', pushSubscription.endpoint.split("/").slice(-1));
-                        MCK_SW_SUBSCRIPTION = pushSubscription;
-                        _this.sendSubscriptionIdToServer();
-                    })
-                });
-            }
-        }
     };
 }
 function MckGroupService() {
