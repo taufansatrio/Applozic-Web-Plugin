@@ -3233,8 +3233,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                     $mck_msg_inner.data('datetime', showMoreDateTime);
                     if (params.isReload) {
                         var $scrollToDiv = "";
-                        if (params.lastActiveTabId) {
-                            var scrollTabId = (params.isLastActiveTabGroup) ? 'group-' + params.lastActiveTabId : 'user-' + params.lastActiveTabId;
+                        if (params.lastActiveTabId) {                            
+                            var scrollTabId = (params.isLastActiveTabGroup) ? 'group-' + params.lastActiveTabId : 'user-' + mckContactUtils.formatContactId(params.lastActiveTabId);
                             $scrollToDiv = $applozic("#li-" + scrollTabId);
                         }
                         if ($scrollToDiv.length > 0) {
@@ -3543,7 +3543,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
                 var contHtmlExpr = (isGroupTab) ? 'group-' + contact.htmlId : 'user-' + contact.htmlId;
                 var contactList = [ {
-                        contHtmlExpr: contHtmlExpr, contIdExpr: contact.contactId, contTabExpr: isGroupTab, msgCreatedAtTimeExpr: message ? message.createdAtTime : "", mckLauncherExpr: MCK_LAUNCHER, contImgExpr: imgsrctag, contOlExpr: olStatus, contUnreadExpr: unreadCountStatus, contUnreadCount: unreadCount, contNameExpr: displayName, conversationExpr: conversationId, contHeaderExpr: isContHeader, titleExpr: title, msgCreatedDateExpr: message ? mckDateUtils.getTimeOrDate(message.createdAtTime, true) : ""
+                    contHtmlExpr: contHtmlExpr, contIdExpr: contact.contactId, contTabExpr: isGroupTab, msgCreatedAtTimeExpr: message ? message.createdAtTime : "", mckLauncherExpr: MCK_LAUNCHER, contImgExpr: imgsrctag, contOlExpr: olStatus, contUnreadExpr: unreadCountStatus, contUnreadCount: unreadCount, contNameExpr: displayName, conversationExpr: conversationId, contHeaderExpr: isContHeader, titleExpr: title, msgCreatedDateExpr: message ? mckDateUtils.getTimeOrDate(message.createdAtTime, true) : ""
                 } ];
                 var latestCreatedAtTime = $applozic('#' + $listId + ' li:nth-child(1)').data('msg-time');
                 if (typeof latestCreatedAtTime === "undefined" || (message ? message.createdAtTime : "") >= latestCreatedAtTime || ($listId.indexOf("search") !== -1 && prepend)) {
