@@ -6113,7 +6113,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                         _this.connectToSocket(isFetchMessages);
                     }, 600000);
                     sendConnectedStatusIntervalId = setInterval(function() {
-                        _this.sendStatus(2);
+                        _this.sendStatus(1);
                     }, 1200000);
                 } else {
                     _this.connectToSocket(isFetchMessages);
