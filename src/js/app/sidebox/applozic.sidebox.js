@@ -5868,6 +5868,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                     xhr.setRequestHeader("Authorization", "Basic " + AUTH_CODE);
                     xhr.setRequestHeader("Application-Key", MCK_APP_ID);
                     xhr.setRequestHeader("Device-Key", USER_DEVICE_KEY);
+                    if (MCK_ACCESS_TOKEN) {
+                         xhr.setRequestHeader("Access-Token", MCK_ACCESS_TOKEN);
+                    }
                     xhr.send(data);
                 }
             };
