@@ -1750,7 +1750,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     $mck_tab_message_option.removeClass('vis').addClass('n-vis');
                                 }
                             }
-                            mckInitializeChannel.checkConnected(true);
+                           // mckInitializeChannel.checkConnected(true);
                         }, error: function() {
                             $mck_msg_error.html('Unable to process your request. Please try again.');
                             $mck_msg_error.removeClass('n-vis').addClass('vis');

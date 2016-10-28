@@ -14,7 +14,6 @@ var w = window, d = document;
 var MCK_BASE_URL;
 var MCK_CURR_LATITIUDE = 40.7324319;
 var MCK_CURR_LONGITUDE = -73.82480777777776;
-var IS_SW_NOTIFICATION_ENABLED = false;
 var mckUtils = new MckUtils();
 var mckDateUtils = new MckDateUtils();
 var mckGroupUtils = new MckGroupUtils();
@@ -130,7 +129,7 @@ function MckContactUtils() {
             contactId = contactId.substring(1);
         }
         contactId = decodeURIComponent(contactId);
-        return contactId.replace(/\@/g, "AT").replace(/\./g, "DOT").replace(/\*/g, "STAR").replace(/\#/g, "HASH").replace(/\|/g, "VBAR").replace(/\+/g, "PLUS").replace(/\;/g, "SCOLON").replace(/\?/g, "QMARK");
+        return contactId.replace(/\@/g, "AT").replace(/\./g, "DOT").replace(/\*/g, "STAR").replace(/\#/g, "HASH").replace(/\|/g, "VBAR").replace(/\+/g, "PLUS").replace(/\;/g, "SCOLON").replace(/\?/g, "QMARK").replace(/\,/g, "COMMA");
     };
 }
 function MckGroupUtils() {

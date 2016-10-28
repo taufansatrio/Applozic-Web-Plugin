@@ -1750,7 +1750,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     $mck_tab_message_option.removeClass('vis').addClass('n-vis');
                                 }
                             }
-                            mckInitializeChannel.checkConnected(true);
+                           // mckInitializeChannel.checkConnected(true);
                         }, error: function() {
                             $mck_msg_error.html('Unable to process your request. Please try again.');
                             $mck_msg_error.removeClass('n-vis').addClass('vis');
@@ -4000,8 +4000,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var isGroupTab = $mck_msg_inner.data('isgroup');
                 var contact = (message.groupId) ? mckGroupUtils.getGroup(message.groupId) : mckMessageLayout.getContact(message.to);
                 if(!message.metadata ||  (message.metadata  && message.metadata.category !== 'HIDDEN')){
-                    (message.groupId) ? mckMessageLayout.addGroupFromMessage(message, true) : mckMessageLayout.addContactsFromMessage(message, true);
-                 }
+                   (message.groupId) ? mckMessageLayout.addGroupFromMessage(message, true) : mckMessageLayout.addContactsFromMessage(message, true);
+                }
                 if (typeof tabId !== 'undefined' && tabId === contact.contactId && isGroupTab === contact.isGroup) {
                     if (messageType === "APPLOZIC_01" || messageType === "MESSAGE_RECEIVED") {
                         if (typeof contact !== 'undefined') {
