@@ -2495,7 +2495,11 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var response = new Object();
                 $applozic.ajax({
                         url: MCK_BASE_URL + GROUP_CREATE_URL, global: false, data: w.JSON.stringify(groupInfo), type: 'post', contentType: 'application/json', success: function(data) {
-                            if (typeof data === 'object' && data.status === "success") {
+                            if (params.isInternal) {
+                                $mck_btn_group_create.attr('disabled', false);
+                                $mck_btn_group_create.html('Create Group');
+                            }
+                        	if (typeof data === 'object' && data.status === "success") {
                                 var groupPxy = data.response;
                                 if (typeof groupPxy === 'object') {
                                     var group = mckGroupUtils.addGroup(groupPxy);
@@ -2518,7 +2522,16 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     params.tabId = group.contactId;
                                     params.isGroup = true;
                                     params.prepend = true;
-                                    (params.isMessage) ? mckMessageLayout.loadTab(params, _this.dispatchMessage) : mckMessageLayout.loadTab(params);
+                                    if(params.isMessage)  { 
+                                		mckMessageLayout.loadTab(params, _this.dispatchMessage);
+                                  } else {
+                                    mckMessageLayout.loadTab(params);
+                                	if(params.isInternal) {
+                                   	  setTimeout(function() {
+                                   		  $mck_group_info_btn.trigger('click'); 
+                                   	  }, 100);	
+                                   	}
+                                    }
                                     if (typeof params.callback === 'function') {
                                         response.status = 'success';
                                         response.data = group;
@@ -2533,11 +2546,11 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     params.callback(response);
                                 }
                             }
+                        }, error: function() {
                             if (params.isInternal) {
                                 $mck_btn_group_create.attr('disabled', false);
                                 $mck_btn_group_create.html('Create Group');
                             }
-                        }, error: function() {
                             if (typeof params.callback === 'function') {
                                 response.status = 'error';
                                 response.errorMessage = 'Unable to process request.';
