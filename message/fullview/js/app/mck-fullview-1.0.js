@@ -2484,7 +2484,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     }
                 });
                 var groupInfo = {
-                        'groupName': params.groupName, 'users': usersArray, 'type': params.type
+                        'groupName': $applozic.trim(params.groupName), 'users': usersArray, 'type': params.type
                 };
                 if (params.clientGroupId) {
                     groupInfo.clientGroupId = params.clientGroupId;
@@ -4561,7 +4561,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             });
             $mck_group_name_save.on('click', function() {
                 $mck_msg_inner = mckMessageLayout.getMckMessageInner();
-                var groupName = $mck_group_title.html();
+                var groupName = $applozic.trim($mck_group_title.text());
                 if (groupName.length > 0) {
                     var currTabId = $mck_msg_inner.data('mck-id');
                     var isGroupTab = $mck_msg_inner.data('isgroup');
@@ -4582,7 +4582,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             	_this.submitCreateGroup();
             });
             _this.submitCreateGroup = function() {
-                var groupName = $mck_group_create_title.html();
+                var groupName = $applozic.trim($mck_group_create_title.text());
                 var groupType = $mck_group_create_type.val();
                 var iconUrl = $mck_group_create_icon.data('iconurl');
                 if (groupName.length > 0) {
