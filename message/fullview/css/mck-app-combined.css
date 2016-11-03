@@ -323,7 +323,7 @@ img.emoji {
 
 .emoji-menu {
 	position: absolute;
-	z-index: 2244500 !important;
+	z-index: 22445000 !important;
 	width: calc(100% - 601px);
 	right: 150px !important;
 	padding: 0;
