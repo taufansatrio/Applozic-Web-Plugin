@@ -224,7 +224,10 @@ $applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
                                                    displayName:'',
                                                    groupRole : 3  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
                                                  },
-                                                 {userId:userId2, displayName:'', groupRole}
+                                                 { userId:userId2,
+                                                   displayName:'',
+                                                   groupRole :3
+                                                 }
                                                 ]}); 
  ``` 
  
