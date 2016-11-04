@@ -13,7 +13,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         contactNumber: null,
         email: null,
         supportId: null,
-        mode: "standard", 
+        mode: "standard",
         visitor: false,
         olStatus: false,
         desktopNotification: false,
@@ -234,7 +234,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var MCK_FILE_URL = appOptions.fileBaseUrl;
         var MCK_ON_PLUGIN_INIT = appOptions.onInit;
         var AUTHENTICATION_TYPE_ID_MAP = [ 0, 1, 2 ];
-        var GROUP_ROLE_MAP = [ 0, 1, 2 ];
+        var GROUP_ROLE_MAP = [ 0, 1, 2, 3 ];
         var MCK_ON_PLUGIN_CLOSE = appOptions.onClose;
         var MCK_DISPLAY_TEXT = appOptions.displayText;
         var MCK_ACCESS_TOKEN = appOptions.accessToken;
@@ -4866,7 +4866,10 @@ var MCK_CLIENT_GROUP_MAP = [];
         function MckGroupLayout() {
             var _this = this;
             var ROLE_MAP = {
-                    0 : 'User', 1 : 'Admin', 2: 'Moderator'
+                0: 'User',
+                1: 'Admin',
+                2: 'Moderator',
+                3: 'Member'
             }
             var $mck_msg_form = $applozic("#mck-msg-form");
             var $mck_msg_error = $applozic("#mck-msg-error");
@@ -4934,9 +4937,10 @@ var MCK_CLIENT_GROUP_MAP = [];
                 '<div class="blk-lg-4"><div class="mck-label">Select role </div></div>' +
                 '<div class="blk-lg-8">' +
                 '<select id="mck-change-role-type" class="mck-select">' +
-                '<option value="0" selected>User</option>' +
+                '<option value="0">User</option>' +
                 '<option value="1">Admin</option>' +
                 '<option value="2">Moderator</option>' +
+                '<option value="3" selected>Member</option>' +
                 '</select>' +
                 '</div></div></div></div></li>';
             var groupSearchContact = '<li id="li-${contHtmlExpr}" class="${contIdExpr} mck-li-group-member" data-mck-id="${contIdExpr}">' + '<a class="mck-add-to-group" href="#" data-mck-id="${contIdExpr}">' + '<div class="mck-row" title="${contNameExpr}">' + '<div class="blk-lg-3">{{html contImgExpr}}</div>' + '<div class="blk-lg-9">' + '<div class="mck-row"><div class="blk-lg-12 mck-cont-name mck-truncate"><strong>${contNameExpr}</strong></div></div>' + '<div class="mck-row"><div class="blk-lg-12 mck-truncate mck-last-seen-status" title="${contLastSeenExpr}">${contLastSeenExpr}</div></div>' + '</div></div></a></li>';
@@ -4983,28 +4987,29 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var users = [];
                 $applozic(".mck-group-change-role-box.vis").each(function(i, elm) {
                     var $this = $(this);
-                    var newRole =  parseInt($this.find('select').val());
+                    var newRole = parseInt($this.find('select').val());
                     var role = $this.parents('.mck-li-group-member').data('role');
-                    if(newRole !== role){
-                      var user = {userId : $this.parents('.mck-li-group-member').data('mck-id'),
-                               role : newRole
-                              }
-                      users.push(user);
-                    }                    
+                    if (newRole !== role) {
+                        var user = {
+                            userId: $this.parents('.mck-li-group-member').data('mck-id'),
+                            role: newRole
+                        }
+                        users.push(user);
+                    }
                 });
-                if(users.length > 0) {
+                if (users.length > 0) {
                     var currTabId = $mck_msg_inner.data('mck-id');
                     var isGroupTab = $mck_msg_inner.data('isgroup');
-                    if (currTabId && isGroupTab)  {
-                    $mck_btn_group_update.attr('disabled', true).html('Updating...');
-                    var params = {
+                    if (currTabId && isGroupTab) {
+                        $mck_btn_group_update.attr('disabled', true).html('Updating...');
+                        var params = {
                             groupId: currTabId,
-                            users: users,                            
+                            users: users,
                             apzCallback: mckGroupLayout.onUpdateGroupInfo
                         }
-                         mckGroupService.updateGroupInfo(params);
+                        mckGroupService.updateGroupInfo(params);
                     }
-                }                
+                }
             });
             $applozic("#mck-group-info-icon-box .mck-overlay").on('click', function(e) {
                 $mck_group_icon_change.trigger('click');
@@ -5427,7 +5432,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             };
             _this.onUpdateGroupInfo = function(response, params) {
                 $mck_loading.removeClass('vis').addClass('n-vis');
-                $mck_btn_group_update.attr('disabled', false).html('Update');                
+                $mck_btn_group_update.attr('disabled', false).html('Update');
                 if (typeof response === 'object') {
                     if (response.status === "error") {
                         alert("Unable to process your request. " + response.errorMessage);
@@ -5444,7 +5449,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (groupInfo.newName) {
                         group.displayName = groupInfo.newName;
                     }
-                    if(groupInfo.users  && groupInfo.users.length > 0) {
+                    if (groupInfo.users && groupInfo.users.length > 0) {
                         $applozic.each(groupInfo.users, function(i, user) {
                             if (user.userId) {
                                 group.users[user.userId] = user;
@@ -5456,10 +5461,10 @@ var MCK_CLIENT_GROUP_MAP = [];
                             $mck_group_info_icon.html(_this.getGroupImage(group.imageUrl));
                         }
                         $mck_group_title.html(group.displayName);
-                        if(groupInfo.users && groupInfo.users.length > 0) {
+                        if (groupInfo.users && groupInfo.users.length > 0) {
                             $mck_group_member_List.html('');
                             _this.addMembersToGroupInfoList(group);
-                           (group.adminName === MCK_USER_ID) ? $mck_group_add_member_box.removeClass('n-vis').addClass('vis') : $mck_group_add_member_box.removeClass('vis').addClass('n-vis');
+                            (group.adminName === MCK_USER_ID) ? $mck_group_add_member_box.removeClass('n-vis').addClass('vis') : $mck_group_add_member_box.removeClass('vis').addClass('n-vis');
                         }
                     } else if ($mck_sidebox_content.hasClass('vis')) {
                         var currTabId = $mck_msg_inner.data('mck-id');
@@ -5538,9 +5543,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                 var isGroupAdminExpr = "n-vis";
                 var enableAdminMenuExpr = "n-vis";
                 var groupUser = group.users[contact.contactId];
-                var roleExpr = 'User';
-                var roleValue = 0;
-                if(groupUser && groupUser.role) {
+                var roleExpr = 'Member';
+                var roleValue = 3;
+                if (groupUser && groupUser.role) {
                     roleValue = groupUser.role;
                     roleExpr = ROLE_MAP[groupUser.role];
                 }
@@ -5567,7 +5572,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
                 var contactList = [ {
                     roleExpr: roleExpr,
-                    roleVal : roleValue,
+                    roleVal: roleValue,
                     contHtmlExpr: contHtmlExpr,
                     contIdExpr: contact.contactId,
                     contImgExpr: imgsrctag,

@@ -2738,7 +2738,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 }
 
 .mck-group-icon-default {
-	background-image: url(images/mck-icon-group150x150.png);
+	background-image: url(../../../images/mck-icon-group150x150.png);
 	width: 150px;
 	height: 150px;
 	top: 0px;
@@ -2835,7 +2835,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	.mck-icon-marker, .mck-icon-delivered, .mck-icon-read, .mck-icon-sent,
 	.mck-icon-time {
 	display: inline-block;
-	background: url(images/mck-plugin-sprite.png) no-repeat;
+	background: url(../../../images/mck-plugin-sprite.png) no-repeat;
 	overflow: hidden;
 	text-indent: -9999px;
 	text-align: left;
@@ -2855,7 +2855,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 
 .mck-camera-icon {
 	display: block;
-	background-image: url(images/mck-icon-camera.png);
+	background-image: url(../../../images/mck-icon-camera.png);
 	background-repeat: no-repeat;
 	margin-top: 10px;
 	height: 20px;
