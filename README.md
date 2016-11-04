@@ -217,7 +217,7 @@ Open group chat using Client Group Id
 ##### Create Group
  
  ```
-$applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
+$applozic.fn.applozic('createGroup', {'groupName' : groupName,   // required
                                        'type' : 1,                // 1 for private , 2 for public, 5 for broadcast (required)
                                        'clientGroupId' : '',      // optional
                                        'users': [{ userId:userId1, 
@@ -228,7 +228,8 @@ $applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
                                                    displayName:'',
                                                    groupRole :3  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
                                                  }
-                                                ]}); 
+                                                ],
+                                                'callback' : function(response){console.log(response);}}); 
  ``` 
 Access level based on role of users in group :-
 
@@ -273,6 +274,11 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : groupId
                                      'clientGroupId' : clientGroupId, //use either groupId or clientGroupId,
                                      'name' : groupName, // optional
                                      'imageUrl' : '',  //optional
+                                     'users': [                      // required only if want to update user role in group 
+                                              {
+                                                userId:userIdToUpdate, // required
+                                                role:3,  // (required)    USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
+                                              }],
                                      'callback' : function(response){console.log(response);}});
  ```  
   
