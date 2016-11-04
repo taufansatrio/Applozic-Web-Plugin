@@ -274,7 +274,7 @@ $applozic.fn.applozic('updateGroupInfo', {'groupId' : groupId
                                      'clientGroupId' : clientGroupId, //use either groupId or clientGroupId,
                                      'name' : groupName, // optional
                                      'imageUrl' : '',  //optional
-                                     'users': [                      // required only if want to update user role in group 
+                                     'users': [                      // required only if want to update user role
                                               {
                                                 userId:userIdToUpdate, // required
                                                 role:3,  // (required)    USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
