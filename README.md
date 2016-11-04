@@ -230,7 +230,13 @@ $applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
                                                  }
                                                 ]}); 
  ``` 
- 
+Access level based on role of users in group :-
+USER(0),               - Chat
+ADMIN(1),              - Full access
+MODERATOR(2)           - Add/remove users + Group Info update
+MEMBER(3)              - Group Info update 
+
+
 ##### Add User to Group (only for Group Admin)
  ```
 $applozic.fn.applozic('addGroupMember',{'groupId': groupId,
