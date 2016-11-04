@@ -11,6 +11,18 @@ $applozic.fn.applozic('sendMessage', {
 Response contains message key.
 
 
+Send message from logged in user to group
+ ```
+$applozic.fn.applozic('sendGroupMessage', {
+                                      groupId : 'GROUP_ID',       
+                                      clientGroupId : 'CLIENT_GROUP_ID',   // use either groupId or clientGroupId
+                                      "message" : messageText       //message to send           
+                                    });
+ ```
+
+Response contains message key.
+
+
 
 Send message visible only to the receiver.
  ```
