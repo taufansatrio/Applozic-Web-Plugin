@@ -141,16 +141,34 @@ Open group chat using Client Group Id
 $applozic.fn.applozic('initGroupTab', {'groupName' : groupName,   // required
                                        'type' : 1,                // 1 for private , 2 for public, 5 for broadcast (required)
                                        'clientGroupId' : '',      // optional
-                                       'users': [{userId:userId1, displayName:''},
-                                                 {userId:userId2, displayName:''}
+                                       'users': [{ userId:userId1, 
+                                                   displayName:'',
+                                                   groupRole : 3  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
+                                                 },
+                                                 { userId:userId2,
+                                                   displayName:'',
+                                                   groupRole :3  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
+                                                 }
                                                 ]}); 
  ``` 
+ 
+Access level based on role of users in group :-
+
+```
+USER(0),               - Chat
+ADMIN(1),              - Full access
+MODERATOR(2)           - Add/remove users + Group Info update
+MEMBER(3)              - Group Info update 
+
+```
+
  
 ##### Add User to Group (only for Group Admin)
  ```
 $applozic.fn.applozic('addGroupMember',{'groupId': groupId,
                                         'clientGroupId': clientGroupId, //use either groupId or clientGroupId
                                         'userId': userIdToAdd,
+                                        'role' :  3  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
                                         'callback': function(response) {console.log(response);}
                                         });
  ``` 
