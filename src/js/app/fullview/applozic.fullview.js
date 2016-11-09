@@ -2160,8 +2160,6 @@ var MCK_CLIENT_GROUP_MAP = [];
 						var isMessages = true;
 						var currTabId = $mck_msg_inner.data('mck-id');
 						var isGroupTab = $mck_msg_inner.data('isgroup');
-						$mck_loading.removeClass('vis').addClass('n-vis');
-						$mck_msg_loading.removeClass('vis').addClass('n-vis');
 						if (CONTACT_SYNCING && !params.startTime) {
 							_this.initSearch();
 						}
@@ -2348,15 +2346,18 @@ var MCK_CLIENT_GROUP_MAP = [];
 										}, 0);
 									}
 								} else {
-									$mck_contacts_inner.data('datetime', "");
+									$mck_contacts_inner.data('datetime', '');
 								}
 							}
 						}
+						$mck_loading.removeClass('vis').addClass('n-vis');
+						$mck_msg_loading.removeClass('vis').addClass('n-vis');
 					},
 					error : function() {
 						CONTACT_SYNCING = false;
 						MESSAGE_SYNCING = false;
 						$mck_loading.removeClass('vis').addClass('n-vis');
+						$mck_msg_loading.removeClass('vis').addClass('n-vis');
 						w.console.log('Unable to load messages. Please reload page.');
 					}
 				});
@@ -5020,7 +5021,6 @@ var MCK_CLIENT_GROUP_MAP = [];
 				return '<div class="mck-group-icon-default"></div>';
 			};
 			_this.loadGroups = function(response) {
-				$mck_loading.removeClass('vis').addClass('n-vis');
 				var groups = response.data;
 				MCK_GROUP_ARRAY.length = 0;
 				$applozic.each(groups, function(i, groupFeed) {
