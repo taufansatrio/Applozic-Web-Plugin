@@ -1,6 +1,6 @@
 {
   "name": "applozic-chat",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Applozic Javascript Chat Plugin",
   "main": "simple.js",
   "directories": {
