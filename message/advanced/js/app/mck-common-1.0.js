@@ -134,6 +134,60 @@ function MckUtils() {
             range.select(); //Select the range (make it the visible selection
         }
     };
+    
+    this.encryptionKey = null;
+    this.getEncryptionKey = function(){
+      return this.encryptionKey;
+    }
+    this.setEncryptionKey = function(key){
+      this.encryptionKey = key;
+    }
+    
+    _this.b64EncodeUnicode = function(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
+    };
+
+    _this.b64DecodeUnicode = function(str) {
+      return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    };
+
+    _this.ajax = function(options) {
+      var reqOptions = Object.assign({}, options);
+      if (this.getEncryptionKey()) {
+        var key = aesjs.util.convertStringToBytes(this.getEncryptionKey());
+        var iv = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  
+        if (reqOptions.type.toLowerCase() === 'post') {
+          // encrypt Data
+          while (options.data.length % 16 != 0) {
+            options.data += ' ';
+          }
+          var aesCtr = new aesjs.ModeOfOperation.ecb(key);
+          var bytes = aesjs.util.convertStringToBytes(options.data);
+          var encryptedBytes = aesCtr.encrypt(bytes);
+          var encryptedStr = String.fromCharCode.apply(null, encryptedBytes);
+          reqOptions.data = btoa(encryptedStr);
+        }
+  
+        reqOptions.success = function(data) {
+          // Decrypt response
+          var decodedData = atob(data);
+          var arr = [];
+          for (var i = 0; i < decodedData.length; i++) {
+            arr.push(decodedData.charCodeAt(i));
+          }
+          var aesCtr = new aesjs.ModeOfOperation.ecb(key);
+          var decryptedBytes = aesCtr.decrypt(arr);
+          var res = aesjs.util.convertBytesToString(decryptedBytes);
+          options.success(JSON.parse(res.replace(/^\s*|\s*[\x00-\x10]*$/g, '')));
+        }
+      }
+      $applozic.ajax(reqOptions);
+    };
 
 }
 function MckContactUtils() {
@@ -178,13 +232,13 @@ function MckGroupUtils() {
             'contactId': group.id.toString(),
             'htmlId': mckContactUtils.formatContactId('' + group.id),
             'displayName': name,
-            'name': name + " <" + group.id + ">" + " [" + "Main" + "]",
             'value': group.id.toString(),
             'adminName': group.adminName,
             'type': group.type,
             'members': group.membersName,
             'imageUrl': group.imageUrl,
             'users': users,
+            'userCount' : group.userCount,
             'removedMembersId': group.removedMembersId,
             'clientGroupId': group.clientGroupId,
             'isGroup': true
@@ -199,16 +253,15 @@ function MckGroupUtils() {
         var group = {
             'contactId': groupId.toString(),
             'htmlId': mckContactUtils.formatContactId('' + groupId),
-
-            'name': groupId + " <" + groupId + ">" + " [" + "Main" + "]",
             'displayName': groupId.toString(),
             'value': groupId.toString(),
             'type': 2,
-            'adminName': "",
-            'imageUrl': "",
+            'adminName': '',
+            'imageUrl': '',
+            'userCount': '',
             'users': [],
             'removedMembersId': [],
-            'clientGroupId': "",
+            'clientGroupId': '',
             'isGroup': true
         };
         MCK_GROUP_MAP[groupId] = group;
@@ -369,7 +422,7 @@ function MckGroupService() {
     var GROUP_REMOVE_MEMBER_URL = "/rest/ws/group/remove/member";
     _this.loadGroups = function(params) {
         var response = new Object();
-        $applozic.ajax({
+        mckUtils.ajax({
             url: MCK_BASE_URL + GROUP_LIST_URL,
             type: 'get',
             global: false,
@@ -421,7 +474,7 @@ function MckGroupService() {
         if (params.conversationId) {
             data += "&conversationId=" + params.conversationId;
         }
-        $applozic.ajax({
+        mckUtils.ajax({
             url: MCK_BASE_URL + GROUP_FEED_URL,
             data: data,
             type: 'get',
@@ -479,7 +532,7 @@ function MckGroupService() {
             }
             return;
         }
-        $applozic.ajax({
+        mckUtils.ajax({
             url: MCK_BASE_URL + GROUP_LEAVE_URL,
             data: data,
             type: 'get',
@@ -538,7 +591,7 @@ function MckGroupService() {
             return;
         }
         data += "&userId=" + encodeURIComponent(params.userId);
-        $applozic.ajax({
+        mckUtils.ajax({
             url: MCK_BASE_URL + GROUP_REMOVE_MEMBER_URL,
             data: data,
             type: 'get',
@@ -594,7 +647,7 @@ function MckGroupService() {
         if (typeof params.role !== 'undefined') {
             data += '&role=' + params.role;
         }
-        $applozic.ajax({
+        mckUtils.ajax({
             url: MCK_BASE_URL + GROUP_ADD_MEMBER_URL,
             data: data,
             type: 'get',
@@ -657,7 +710,7 @@ function MckGroupService() {
         if (params.users && params.users.length > 0) {
             groupInfo.users = params.users;
         }
-        $applozic.ajax({
+        mckUtils.ajax({
             url: MCK_BASE_URL + GROUP_UPDATE_INFO_URL,
             type: 'post',
             data: JSON.stringify(groupInfo),

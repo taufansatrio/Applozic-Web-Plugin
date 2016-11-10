@@ -312,6 +312,7 @@
 											<select id="mck-group-create-type" class="mck-select">
 												<option value="2" selected>Public</option>
 												<option value="1">Private</option>
+												<option value="6">Open</option>
 											</select>
 										</div>
 									</div>
@@ -706,13 +707,14 @@
 						function() {
 							//Function to initialize plugin
 							$applozic.fn.applozic({
-								        userId: 'customer-1',
-										userName : 'Customer1',
+								        userId : 'customer-1',
+								        userName : 'Customer1',
+										imageLink :'',
 										appId : 'applozic-sample-app',
 										ojq : $original,
 										obsm : oModal,
 									//	autoTypeSearchEnabled : false,
-									//  messageBubbleAvator: false,
+								   //   messageBubbleAvator: true,
 										notificationIconLink : "https://www.applozic.com/resources/images/applozic_icon.png",
 										readConversation : readMessage, // readMessage function defined above
 										onInit : onInitialize, //callback function execute on plugin initialize

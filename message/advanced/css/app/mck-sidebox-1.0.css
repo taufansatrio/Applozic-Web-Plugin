@@ -2407,7 +2407,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	margin-top: 4px;
 }
 .mck-group-admin-menu {
- 	right:22px !important;
+	right:22px !important;
 }
 .mck-tab-menu-box.mck-dropdown-menu.menu-right:before {
 	right: 7px;
