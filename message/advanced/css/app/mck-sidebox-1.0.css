@@ -2330,7 +2330,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 
 .mck-file-menu {
 	position: absolute;
-	z-index: 2244500 !important;
+	z-index: 22445000 !important;
 	width: 300px;
 	right: 0px !important;
 	padding: 0;
