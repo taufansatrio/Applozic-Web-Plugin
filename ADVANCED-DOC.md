@@ -67,7 +67,7 @@ Sample response:
 Get details of all users present in user's contact list.
 
 ```
-  $applozic.fn.applozic('getUserDetail', {callback: function getUserDetail(response) {
+  $applozic.fn.applozic('getUserDetail', {callback: function(response) {
         if(response.status === 'success') {
            // write your logic
         }
