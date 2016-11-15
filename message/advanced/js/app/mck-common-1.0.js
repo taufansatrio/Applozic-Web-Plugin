@@ -228,6 +228,7 @@ function MckGroupUtils() {
                 users[user.userId] = user;
             }
         });
+        var removedMembersId = (typeof group.removedMembersId !== 'undefined') ? group.removedMembersId : [];
         var groupFeed = {
             'contactId': group.id.toString(),
             'htmlId': mckContactUtils.formatContactId('' + group.id),
@@ -239,7 +240,7 @@ function MckGroupUtils() {
             'imageUrl': group.imageUrl,
             'users': users,
             'userCount' : group.userCount,
-            'removedMembersId': group.removedMembersId,
+            'removedMembersId': removedMembersId,
             'clientGroupId': group.clientGroupId,
             'isGroup': true
         };

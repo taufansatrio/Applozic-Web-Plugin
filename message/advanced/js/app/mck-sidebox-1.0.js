@@ -2995,6 +2995,8 @@ var MCK_CLIENT_GROUP_MAP = [];
                                     mckMessageLayout.loadTab(params, _this.dispatchMessage)
                                 } else {
                                     if (params.isInternal) {
+                                        $mck_msg_inner.data('mck-id', group.contactId);
+                                        $mck_msg_inner.data('isgroup', true);
                                         mckGroupLayout.loadGroupInfo({
                                             groupId: group.contactId
                                         });
