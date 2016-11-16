@@ -66,6 +66,8 @@ function MckUtils() {
                         line.push(alt);
                     }
                     return;
+                } else if (tagName === 'style') {
+                    return;
                 } else if (tagName === 'br') {
                     flush();
                 }
