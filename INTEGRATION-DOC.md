@@ -114,7 +114,7 @@ Javascript code to load contacts
                          }
                       ];
                       
- // Function calling inside onInit after plugin initialize successfully
+ // Function calling inside onInit(from #Step 2) after plugin initialize successfully
     onInit : function(response) {
        if (response === "success") {
           // calling function load contacts
