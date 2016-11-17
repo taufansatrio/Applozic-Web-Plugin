@@ -1481,6 +1481,7 @@ ol, ul {
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	position: relative;
+	max-width:350px;
 }
 
 .mck-msg-content img {
