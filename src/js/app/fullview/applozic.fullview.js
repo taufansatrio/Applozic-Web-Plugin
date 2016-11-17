@@ -1774,7 +1774,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 					$mck_msg_sbmt.attr('disabled', false);
 					return;
 				}
-				var contact = "";
+				var contact = '';
 				if (messagePxy.groupId) {
 					contact = mckGroupUtils.getGroup(messagePxy.groupId);
 					if (typeof contact === "undefined") {
@@ -3439,7 +3439,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 							return '<a href="#" role="link" class="file-preview-link fancybox-media fancybox" data-type="' + msg.fileMeta.contentType + '" data-url="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" data-name="' + msg.fileMeta.name + '"><img src="' + msg.fileMeta.thumbnailUrl + '" area-hidden="true" ></img></a>';
 						}
 					} else if (msg.fileMeta.contentType.indexOf("video") !== -1) {
-						return '<a href="#" role="link" class="file-preview-link fancybox-media fancybox" data-type="' + msg.fileMeta.contentType + '" data-url="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" data-name="' + msg.fileMeta.name + '"><div class="mck-video-box n-vis"><video controls preload><source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="' + msg.fileMeta.contentType + '">Your browser does not support the HTML 5 video tag</video></div><span class="file-detail"><span class="mck-file-name"><span class="mck-icon-attachment"></span>&nbsp;' + msg.fileMeta.name + '</span>&nbsp;<span class="file-size">' + mckFileService.getFilePreviewSize(msg.fileMeta.size) + '</span></span></a>';
+					    return '<video controls class="mck-video-player">' + '<source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="video/mp4">' + '<source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="video/ogg">Your browser does not support the video tag.</video>';
 					} else if (msg.fileMeta.contentType.indexOf("audio") !== -1) {
 						return '<audio controls class="mck-audio-player">' + '<source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="audio/ogg">' + '<source src="' + MCK_FILE_URL + FILE_PREVIEW_URL + msg.fileMeta.blobKey + '" type="audio/mpeg">Audio element not supported.</audio>' + '<p class="mck-file-tag"><span class="file-name">' + msg.fileMeta.name + '</span>&nbsp;<span class="file-size">' + mckFileService.getFilePreviewSize(msg.fileMeta.size) + '</span></p>';
 					} else {
@@ -3449,20 +3449,22 @@ var MCK_CLIENT_GROUP_MAP = [];
 				return "";
 			};
 			_this.getFileIcon = function(msg) {
-				if (msg.fileMetaKey && typeof msg.fileMeta === "object") {
-					if (msg.fileMeta.contentType.indexOf("image") !== -1) {
-						return '<span class="mck-icon-camera"></span>&nbsp;<span>image</span>'
-					} else if (msg.fileMeta.contentType.indexOf("audio") !== -1) {
+				if (msg.fileMetaKey && typeof msg.fileMeta === 'object') {
+					if (msg.fileMeta.contentType.indexOf('image') !== -1) {
+						return '<span class="mck-icon-camera"></span>&nbsp;<span>Image</span>'
+					} else if (msg.fileMeta.contentType.indexOf('audio') !== -1) {
 						return '<span class="mck-icon-attachment"></span>&nbsp;<span>Audio</span>';
-					} else {
-						return '<span class="mck-icon-attachment"></span>&nbsp;<span>file</span>';
+					} else if(msg.fileMeta.contentType.indexOf('video') !== -1) {
+                        return '<span class="mck-icon-attachment"></span>&nbsp;<span>Video</span>';
+                    } else {
+						return '<span class="mck-icon-attachment"></span>&nbsp;<span>File</span>';
 					}
 				} else {
-					return "";
+					return '';
 				}
 			};
 			_this.getContactImageLink = function(contact, displayName) {
-				var imgsrctag = "";
+				var imgsrctag = '';
 				if (contact.isGroup) {
 					imgsrctag = mckGroupLayout.getGroupImage(contact.imageUrl);
 				} else {
@@ -3814,18 +3816,18 @@ var MCK_CLIENT_GROUP_MAP = [];
 					source : typeaheadArray,
 					matcher : function(item) {
 						var contact = typeaheadMap[item];
-						var contactNameArray = contact.displayName.split(" ");
+						var contactNameArray = contact.displayName.split(' ');
 						var contactNameLength = contactNameArray.length;
 						var contactFName = contactNameArray[0];
-						var contactMName = "";
-						var contactLName = "";
+						var contactMName = '';
+						var contactLName = '';
 						if (contactNameLength === 2) {
 							contactLName = contactNameArray[1];
 						} else if (contactNameLength >= 3) {
 							contactLName = contactNameArray[contactNameLength - 1];
 							contactMName = contactNameArray[contactNameLength - 2];
 						}
-						var matcher = new RegExp(this.query, "i");
+						var matcher = new RegExp(this.query, 'i');
 						return matcher.test(contact.displayName) || matcher.test(contact.contactId) || matcher.test(contactMName) || matcher.test(contactLName) || matcher.test(contact.email) || matcher.test(contactFName + " " + contactLName);
 					},
 					highlighter : function(item) {
