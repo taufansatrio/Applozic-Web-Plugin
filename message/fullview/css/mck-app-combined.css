@@ -324,10 +324,9 @@ img.emoji {
 .emoji-menu {
 	position: absolute;
 	z-index: 22445000 !important;
-	width: calc(100% - 601px);
-	left: 450px !important;
-	right:150px;
-	min-width : 500px;
+	left: 451px !important;
+	right:151px !important;
+	min-width : 498px;
 	padding: 0;
 	overflow: hidden;
 	-webkit-box-sizing: border-box;
@@ -337,8 +336,8 @@ img.emoji {
 }
 
 .mck-panel-3.emoji-menu, .mck-panel-3 .emoji-menu {
-	width: calc(100% - 902px);
-	right: 451px !important;
+	right:451px !important;
+	min-width : 198px;
 }
 
 .emoji-menu>div {
