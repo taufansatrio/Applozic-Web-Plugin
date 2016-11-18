@@ -177,7 +177,9 @@ To open the chat list:
 Javascript code to load contacts
 
 ```
-$applozic.fn.applozic('loadContacts', {"contacts": [{"userId": "USER_1", "displayName": "Devashish",
+
+// Contacts Array
+ var contactsJSON = [{"userId": "USER_1", "displayName": "Devashish",
                           "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png", // image url (optional)
                           "imageData" :"Base64 encoded image data"  // or image data (optional)
                           },
@@ -189,8 +191,17 @@ $applozic.fn.applozic('loadContacts', {"contacts": [{"userId": "USER_1", "displa
                           "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png",  // image url (optional)
                           "imageData" :"Base64 encoded image data"  // or image data (optional)
                          }
-                        ]
-         });
+                      ];
+
+// Function calling inside onInit after plugin initialize successfully
+    onInit : function(response) {
+       if (response === "success") {
+          // calling function load contacts
+           $applozic.fn.applozic('loadContacts', {"contacts":contactsJSON});
+       } else {
+          // error in user login/register (you can hide chat button or refresh page)
+       }
+   }
 ```
 
 **NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 2 onInit function for reference).
