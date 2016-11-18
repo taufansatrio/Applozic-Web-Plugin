@@ -325,7 +325,9 @@ img.emoji {
 	position: absolute;
 	z-index: 22445000 !important;
 	width: calc(100% - 601px);
-	right: 150px !important;
+	left: 450px !important;
+	right:150px;
+	min-width : 500px;
 	padding: 0;
 	overflow: hidden;
 	-webkit-box-sizing: border-box;
@@ -378,13 +380,12 @@ img.emoji {
 }
 
 .emoji-menu a {
-	padding: 6px 12px;
+	padding: 5px 0;
+	text-align: center;
+	width : 5%;
+	min-width : 35px;
 	display: block;
 	float: left
-}
-
-.apz-panel-3 .emoji-menu a {
-	padding: 6px 10.5px;
 }
 
 .emoji-menu a:hover {

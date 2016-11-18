@@ -394,7 +394,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				'isGroup' : false,
 				isSearch : true
 			});
-			$applozic("#mck-search").val("");
+			$applozic("#mck-search").val('');
 		};
 		_this.loadGroupTab = function(tabId) {
 			if (typeof tabId === 'undefined' || tabId === "") {
@@ -856,9 +856,10 @@ var MCK_CLIENT_GROUP_MAP = [];
 				if (MCK_CHECK_USER_BUSY_STATUS) {
 					userPxy.resetUserStatus = true;
 				}
+				userPxy.appVersionCode = 108;
 				userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
-				AUTH_CODE = "";
-				USER_DEVICE_KEY = "";
+				AUTH_CODE = '';
+				USER_DEVICE_KEY = '';
 				$applozic.ajax({
 					url : MCK_BASE_URL + INITIALIZE_APP_URL,
 					type : 'post',
@@ -2395,7 +2396,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				});
 			};
 			_this.sendReadUpdate = function(key) {
-				if (typeof key !== "undefined" && key !== "") {
+				if (typeof key !== "undefined" && key !== '') {
 					var data = "key=" + key;
 					$applozic.ajax({
 						url : MCK_BASE_URL + MESSAGE_READ_UPDATE_URL,
