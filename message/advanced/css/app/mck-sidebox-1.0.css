@@ -1826,7 +1826,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	line-height: 22px;
 	position: fixed;
 	right: 0px;
-	z-index: 9999999;
+	z-index: 99999999;
 	max-width: 300px;
 	min-width: 300px;
 	padding: 5px;
