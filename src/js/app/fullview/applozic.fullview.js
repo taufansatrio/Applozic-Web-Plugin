@@ -82,14 +82,18 @@ var MCK_CLIENT_GROUP_MAP = [];
 				case "loadGroupTabByClientGroupId":
 					return oInstance.loadGroupTabByClientGroupId(params);
 					break;
-				case "setOffline":
+				case 'setOffline':
 					oInstance.setOffline();
 					return "success";
 					break;
-				case "setOnline":
+				case 'setOnline':
 					oInstance.setOffline();
-					return "success";
+					return 'success';
 					break;
+			     case 'logout':
+                     oInstance.logout();
+                     return 'success';
+                     break;
 				case "getUserDetail":
 					oInstance.getUserStatus(params);
 					return "success";
@@ -187,6 +191,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 		var USER_DEVICE_KEY;
 		var USER_COUNTRY_CODE;
 		var MCK_WEBSOCKET_URL;
+		var IS_LOGGED_IN = true;
 		var MCK_CONTACT_MAP = [];
 		MCK_CLIENT_GROUP_MAP = [];
 		var MCK_TYPING_STATUS = 0;
@@ -305,20 +310,21 @@ var MCK_CLIENT_GROUP_MAP = [];
 			mckMessageLayout.initEmojis();
 		};
 		_this.reInit = function(optns) {
-			if ($applozic.type(optns) === "object") {
+			if ($applozic.type(optns) === 'object') {
 				optns = $applozic.extend(true, {}, default_options, optns);
 			} else {
 				return;
 			}
 			w.sessionStorage.clear();
-			MCK_TOKEN = "";
-			AUTH_CODE = "";
+			MCK_TOKEN = '';
+			AUTH_CODE = '';
 			FILE_META = [];
 			MCK_GROUP_MAP = [];
+			IS_LOGGED_IN = true;
 			MCK_CONTACT_MAP = [];
-			USER_DEVICE_KEY = "";
+			USER_DEVICE_KEY = '';
 			MCK_MODE = optns.mode;
-			USER_COUNTRY_CODE = "";
+			USER_COUNTRY_CODE = '';
 			MCK_BLOCKED_TO_MAP = [];
 			MCK_BLOCKED_BY_MAP = [];
 			CONTACT_SYNCING = false;
@@ -394,7 +400,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				'isGroup' : false,
 				isSearch : true
 			});
-			$applozic("#mck-search").val('');
+			$applozic("#mck-search").val("");
 		};
 		_this.loadGroupTab = function(tabId) {
 			if (typeof tabId === 'undefined' || tabId === "") {
@@ -501,6 +507,12 @@ var MCK_CLIENT_GROUP_MAP = [];
 				mckInitializeChannel.sendStatus(0);
 			}
 		};
+	     _this.logout = function() {
+	            if (typeof mckInitializeChannel !== 'undefined') {
+	                mckInitializeChannel.disconnect();               
+	            }
+	            IS_LOGGED_IN = false; 
+	     };
 		_this.setOnline = function() {
 			if (typeof mckInitializeChannel !== 'undefined') {
 				mckInitializeChannel.sendStatus(1);
@@ -856,7 +868,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				if (MCK_CHECK_USER_BUSY_STATUS) {
 					userPxy.resetUserStatus = true;
 				}
-				userPxy.appVersionCode = 108;
+			    userPxy.appVersionCode = 108;
 				userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
 				AUTH_CODE = '';
 				USER_DEVICE_KEY = '';
@@ -870,32 +882,32 @@ var MCK_CLIENT_GROUP_MAP = [];
 					},
 					success : function(result) {
 						mckStorage.clearMckMessageArray();
-						if (result === "INVALID_PASSWORD") {
-							if (typeof MCK_ON_PLUGIN_INIT === "function") {
+						if (result === 'INVALID_PASSWORD') {
+							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
 								MCK_ON_PLUGIN_INIT({
 									'status' : 'error',
 									'errorMessage' : 'INVALID PASSWORD'
 								});
 							}
 							return;
-						} else if (result === "INVALID_APPID") {
-							if (typeof MCK_ON_PLUGIN_INIT === "function") {
+						} else if (result === 'INVALID_APPID') {
+							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
 								MCK_ON_PLUGIN_INIT({
 									'status' : 'error',
 									'errorMessage' : 'INVALID APPLICATION ID'
 								});
 							}
 							return;
-						} else if (result === "error" || result === 'USER_NOT_FOUND') {
-							if (typeof MCK_ON_PLUGIN_INIT === "function") {
+						} else if (result === 'error' || result === 'USER_NOT_FOUND') {
+							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
 								MCK_ON_PLUGIN_INIT({
 									'status' : 'error',
 									'errorMessage' : 'USER NOT FOUND'
 								});
 							}
 							return;
-						} else if (result === "APPMODULE_NOT_FOUND") {
-							if (typeof MCK_ON_PLUGIN_INIT === "function") {
+						} else if (result === 'APPMODULE_NOT_FOUND') {
+							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
 								MCK_ON_PLUGIN_INIT({
 									'status' : 'error',
 									'errorMessage' : 'APPMODULE NOT FOUND'
@@ -908,21 +920,21 @@ var MCK_CLIENT_GROUP_MAP = [];
 								$mck_user_icon.html('<img src=" ' + optns.imageLink + '" />');
 								$mck_user_icon.parents('.mck-box-top').removeClass('mck-wt-user-icon');
 							}
-							$applozic(".applozic-launcher").each(function() {
+							$applozic('.applozic-launcher').each(function() {
 								if (!$applozic(this).hasClass("mck-msg-preview")) {
 									$applozic(this).show();
 								}
 							});
 							MCK_TOKEN = result.token;
 							MCK_USER_ID = result.userId;
-							USER_COUNTRY_CODE = result.countryCode;
-							USER_DEVICE_KEY = result.deviceKey;
-							MCK_WEBSOCKET_URL = result.websocketUrl;
-							MCK_IDLE_TIME_LIMIT = result.websocketIdleTimeLimit;
-							MCK_USER_TIMEZONEOFFSET = result.timeZoneOffset;
 							MCK_FILE_URL = result.fileBaseUrl;
+							USER_DEVICE_KEY = result.deviceKey;
+							USER_COUNTRY_CODE = result.countryCode;
+							MCK_WEBSOCKET_URL = result.websocketUrl;
 							IS_MCK_USER_DEACTIVATED = result.deactivated;
-							AUTH_CODE = btoa(result.userId + ":" + result.deviceKey);
+							MCK_USER_TIMEZONEOFFSET = result.timeZoneOffset;
+							MCK_IDLE_TIME_LIMIT = result.websocketIdleTimeLimit;
+							AUTH_CODE = btoa(result.userId + ':' + result.deviceKey);
 							MCK_CONNECTED_CLIENT_COUNT = result.connectedClientCount;
 							mckMessageLayout.createContactWithDetail({
 								'userId' : MCK_USER_ID,
@@ -938,14 +950,12 @@ var MCK_CLIENT_GROUP_MAP = [];
 								}
 							});
 							_this.appendLauncher();
-							// $applozic("." +
-							// MCK_LAUNCHER).removeClass("hide");
 							if (result.betaPackage) {
 								var poweredByUrl = "https://www.applozic.com/?utm_source=" + w.location.href + "&utm_medium=webplugin&utm_campaign=poweredby";
 								$applozic(".mck-running-on a").attr('href', poweredByUrl);
-								$applozic(".mck-running-on").removeClass("n-vis").addClass('vis');
+								$applozic(".mck-running-on").removeClass('n-vis').addClass('vis');
 							}
-							if (!IS_MCK_VISITOR && MCK_USER_ID !== "guest" && MCK_USER_ID !== "0" && MCK_USER_ID !== "C0") {
+							if (!IS_MCK_VISITOR && MCK_USER_ID !== 'guest' && MCK_USER_ID !== '0' && MCK_USER_ID !== 'C0') {
 								(isReInit) ? mckInitializeChannel.reconnect() : mckInitializeChannel.init();
 							// mckGroupService.loadGroups();
 							}
@@ -963,11 +973,13 @@ var MCK_CLIENT_GROUP_MAP = [];
 								}
 							}
 							mckUserUtils.checkUserConnectedStatus();
-							if (typeof MCK_INIT_AUTO_SUGGESTION === "function") {
+							if (typeof MCK_INIT_AUTO_SUGGESTION === 'function') {
 								MCK_INIT_AUTO_SUGGESTION();
 							}
-							if (typeof MCK_ON_PLUGIN_INIT === "function") {
-								MCK_ON_PLUGIN_INIT("success");
+							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
+								MCK_ON_PLUGIN_INIT({
+									'status' : 'success'
+								});
 							}
 							mckInit.tabFocused();
 							if (IS_LAUNCH_ON_UNREAD_MESSAGE_ENABLED || $mckChatLauncherIcon.length > 0) {
@@ -980,7 +992,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 							});
 						// mckUtils.manageIdleTime();
 						} else {
-							if (typeof MCK_ON_PLUGIN_INIT === "function") {
+							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
 								MCK_ON_PLUGIN_INIT({
 									'status' : 'error',
 									'errorMessage' : 'UNABLE TO PROCESS REQUEST'
@@ -1103,7 +1115,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 						IS_MCK_TAB_FOCUSED = this[hidden] ? false : true;
 					}
 					if (IS_MCK_TAB_FOCUSED) {
-						if (MCK_IDLE_TIME_COUNTER < 1) {
+						if (MCK_IDLE_TIME_COUNTER < 1 && IS_LOGGED_IN) {
 							mckInitializeChannel.checkConnected(true);
 						}
 						_this.stopIdleTimeCounter();
@@ -2396,7 +2408,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				});
 			};
 			_this.sendReadUpdate = function(key) {
-				if (typeof key !== "undefined" && key !== '') {
+				if (typeof key !== "undefined" && key !== "") {
 					var data = "key=" + key;
 					$applozic.ajax({
 						url : MCK_BASE_URL + MESSAGE_READ_UPDATE_URL,
@@ -3538,7 +3550,11 @@ var MCK_CLIENT_GROUP_MAP = [];
 					} else {
 						$applozic.each(data.message, function(i, message) {
 							if (!(typeof message.to === "undefined")) {
-								(message.groupId) ? _this.addGroupFromMessage(message, true) : _this.addContactsFromMessage(message, true);
+								if (message.groupId) {
+								   _this.addGroupFromMessage(message, true); 
+								} else {
+									_this.addContactsFromMessage(message, true);
+								}
 								showMoreDateTime = message.createdAtTime;
 							}
 						});
@@ -6222,8 +6238,8 @@ var MCK_CLIENT_GROUP_MAP = [];
 				if (sendConnectedStatusIntervalId) {
 					clearInterval(sendConnectedStatusIntervalId);
 				}
-				checkConnectedIntervalId = "";
-				sendConnectedStatusIntervalId = "";
+				checkConnectedIntervalId = '';
+				sendConnectedStatusIntervalId = '';
 				_this.disconnect();
 			};
 			_this.disconnect = function() {
