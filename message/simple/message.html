@@ -43,10 +43,12 @@
                 }
             }
             //callback function execute after plugin initialize. 
-            function onInitialize(text) {
-                if (text === 'success') {
+            function onInitialize(response) {
+                if (response === 'success') {
                     //write your logic exectute after plugin initialize. 
-                }
+                } else if (typeof response === 'object' && response.status === 'error') {
+    				alert(response.errorMessage);
+    			}
             }
             window.applozic.init({userId: 'customer-1', userName: 'Customer', appId: 'applozic-sample-app', readConversation: readMessage, contactDisplayName: displayName,
                 contactDisplayImage: contactImageSrc, onInit: onInitialize, maxAttachmentSize: 25, desktopNotification: true, 
