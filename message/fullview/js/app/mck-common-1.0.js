@@ -607,10 +607,10 @@ function MckGroupService() {
                             params.groupId = group.contactId;
                         }
                     }
-                    response.status = "success";
+                    response.status = 'success';
                     response.data = data.response;
                 } else {
-                    response.status = "error";
+                    response.status = 'error';
                     response.errorMessage = data.errorResponse[0].description;
                 }
                 if (params.callback) {
@@ -622,8 +622,8 @@ function MckGroupService() {
             },
             error: function() {
                 console.log('Unable to process your request. Please reload page.');
-                response.status = "error";
-                response.errorMessage = "";
+                response.status = 'error';
+                response.errorMessage = '';
                 if (params.callback) {
                     params.callback(response);
                 }
@@ -656,17 +656,17 @@ function MckGroupService() {
             type: 'get',
             global: false,
             success: function(data) {
-                if (data.status === "success") {
+                if (data.status === 'success') {
                     if (params.clientGroupId) {
                         var group = mckGroupUtils.getGroupByClientGroupId(params.clientGroupId);
                         if (typeof group === 'object') {
                             params.groupId = group.contactId;
                         }
                     }
-                    response.status = "success";
+                    response.status = 'success';
                     response.data = data.response;
                 } else {
-                    response.status = "error";
+                    response.status = 'error';
                     response.errorMessage = data.errorResponse[0].description;
                 }
                 if (params.callback) {
@@ -679,7 +679,7 @@ function MckGroupService() {
             error: function() {
                 console.log('Unable to process your request. Please reload page.');
                 response.status = "error";
-                response.errorMessage = "";
+                response.errorMessage = '';
                 if (params.callback) {
                     params.callback(response);
                 }
@@ -727,10 +727,10 @@ function MckGroupService() {
                             params.groupId = group.contactId;
                         }
                     }
-                    response.status = "success";
+                    response.status = 'success';
                     response.data = data.response;
                 } else {
-                    response.status = "error";
+                    response.status = 'error';
                     response.errorMessage = data.errorResponse[0].description;
                 }
                 if (params.callback) {
