@@ -66,6 +66,8 @@ function MckUtils() {
                         line.push(alt);
                     }
                     return;
+                } else if(tagName === 'style') {
+                   return;  
                 } else if (tagName === 'br') {
                     flush();
                 }
@@ -197,7 +199,7 @@ function MckContactUtils() {
         return _this.formatContactId(contactId);
     };
     _this.formatContactId = function(contactId) {
-        if (contactId.indexOf("+") === 0) {
+        if (contactId.indexOf('+') === 0) {
             contactId = contactId.substring(1);
         }
         contactId = decodeURIComponent(contactId);
@@ -428,14 +430,14 @@ function MckGroupService() {
             type: 'get',
             global: false,
             success: function(data) {
-                if (data.status === "success") {
-                    response.status = "success";
+                if (data.status === 'success') {
+                    response.status = 'success';
                     response.data = data.response;
                     if (params.apzCallback) {
                         params.apzCallback(response);
                     }
                 } else {
-                    response.status = "error";
+                    response.status = 'error';
                 }
                 if (params.callback) {
                     params.callback(response);
@@ -443,7 +445,7 @@ function MckGroupService() {
             },
             error: function() {
                 console.log('Unable to load groups. Please reload page.');
-                response.status = "error";
+                response.status = 'error';
                 if (params.callback) {
                     params.callback(response);
                 }
