@@ -868,9 +868,10 @@ var MCK_CLIENT_GROUP_MAP = [];
 				if (MCK_CHECK_USER_BUSY_STATUS) {
 					userPxy.resetUserStatus = true;
 				}
+			    userPxy.appVersionCode = 108;
 				userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
-				AUTH_CODE = "";
-				USER_DEVICE_KEY = "";
+				AUTH_CODE = '';
+				USER_DEVICE_KEY = '';
 				$applozic.ajax({
 					url : MCK_BASE_URL + INITIALIZE_APP_URL,
 					type : 'post',
