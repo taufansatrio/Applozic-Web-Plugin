@@ -16,7 +16,7 @@
 <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-<div id="mck-side-panel">
+	<div id="mck-side-panel">
 		<div id="mck-sidebox" class="mck-sidebox mck-box fade">
 			<div class="mck-box-dialog mck-box-sm mck-right mck-bg-white">
 				<div id="mck-sidebox-content"
@@ -102,9 +102,7 @@
 								<div class="blk-lg-2 move-right">
 									<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 										aria-expanded="true">
-										<img
-											src="../images/mck-icon-menu.png"
-											alt="Tab Menu">
+										<img src="../images/mck-icon-menu.png" alt="Tab Menu">
 									</div>
 									<ul id="mck-tab-menu-list"
 										class="mck-dropdown-menu mck-tab-menu-box menu-right"
@@ -143,11 +141,14 @@
 							</div>
 							<div class="mck-message-inner"></div>
 							<div id="mck-contact-loading" class="mck-loading">
-								<img src="../images/ring.gif"
-									alt="Loading" />
+								<img src="../images/ring.gif" alt="Loading" />
 							</div>
-							<div id="mck-show-more-icon" class="mck-show-more-icon n-vis">
+							<div id="mck-no-more-conversations"
+								class="mck-show-more-icon n-vis">
 								<h3>No more conversations!</h3>
+							</div>
+							<div id="mck-no-more-messages" class="mck-show-more-icon n-vis">
+								<h3>No more messages!</h3>
 							</div>
 						</div>
 					</div>
@@ -199,9 +200,9 @@
 														<li><a id="mck-file-up" href="#"
 															class="mck-file-upload menu-item"
 															title="File &amp; Photos"> <img
-																src="../images/mck-icon-photo.png"
-																class="menu-icon" alt="File &amp; Photos"><span>Files
-																	&amp; Photos</span>
+																src="../images/mck-icon-photo.png" class="menu-icon"
+																alt="File &amp; Photos"><span>Files &amp;
+																	Photos</span>
 														</a></li>
 														<li><a id="mck-btn-loc" href="#"
 															class="menu-item mck-btn-loc" title="Location">
@@ -268,8 +269,7 @@
 							class="blk-lg-3 move-right mck-start-new-menu-item mck-tab-menu-box">
 							<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 								aria-expanded="true">
-								<img src="../images/icon-menu.png"
-									alt="Tab Menu">
+								<img src="../images/icon-menu.png" alt="Tab Menu">
 							</div>
 							<ul id="mck-start-new-menu-list"
 								class="mck-dropdown-menu  menu-right" role="menu">
@@ -323,8 +323,7 @@
 									class="mck-no-data-text mck-text-mutedn n-vis">No
 									contacts yet!</div>
 								<div id="mck-search-loading" class="mck-loading n-vis">
-									<img src="../images/ring.gif"
-										alt="Loading" />
+									<img src="../images/ring.gif" alt="Loading" />
 								</div>
 							</div>
 						</div>
@@ -358,9 +357,7 @@
 											</div>
 											<div id="mck-group-create-icon-loading"
 												class="mck-loading n-vis">
-												<img
-													src="../images/mck-loading.gif"
-													alt="Loading" />
+												<img src="../images/mck-loading.gif" alt="Loading" />
 											</div> <input id="mck-group-icon-upload"
 											class="mck-group-icon-upload n-vis" type="file"
 											name="files[]">
@@ -429,9 +426,7 @@
 											class="mck-overlay-label">Change Group Icon</span>
 									</div>
 									<div id="mck-group-info-icon-loading" class="mck-loading vis">
-										<img
-											src="../images/mck-loading.gif"
-											alt="Loading" />
+										<img src="../images/mck-loading.gif" alt="Loading" />
 									</div> <input id="mck-group-icon-change"
 									class="mck-group-icon-change n-vis" type="file" name="file[]" />
 								</span>
@@ -439,9 +434,7 @@
 							<div class="mck-text-center">
 								<a id="mck-btn-group-icon-save" href="#" role="link"
 									class="mck-btn-group-icon-save n-vis" title="Click to save">
-									<img
-									src="../images/mck-icon-save.png"
-									alt="Save">
+									<img src="../images/mck-icon-save.png" alt="Save">
 								</a>
 							</div>
 						</div>
@@ -454,12 +447,10 @@
 								<div class="blk-lg-3 mck-group-name-edit-icon">
 									<a id="mck-group-name-edit" href="#" role="link"
 										class="mck-group-name-edit vis" title="Edit"> <img
-										src="../images/mck-icon-write.png"
-										alt="Edit"></a> <a id="mck-group-name-save" href="#"
-										role="link" class="mck-group-name-save n-vis"
-										title="Click to save"> <img
-										src="../images/mck-icon-save.png"
-										alt="Save"></a>
+										src="../images/mck-icon-write.png" alt="Edit"></a> <a
+										id="mck-group-name-save" href="#" role="link"
+										class="mck-group-name-save n-vis" title="Click to save"> <img
+										src="../images/mck-icon-save.png" alt="Save"></a>
 								</div>
 							</div>
 						</div>
@@ -473,9 +464,7 @@
 								<a id="mck-group-add-member" class="mck-group-add-member"
 									href="#">
 									<div class="blk-lg-3">
-										<img
-											src="../images/mck-icon-add-member.png"
-											alt="Add Member">
+										<img src="../images/mck-icon-add-member.png" alt="Add Member">
 									</div>
 									<div class="blk-lg-9">Add member</div>
 								</a>
@@ -561,9 +550,7 @@
 			<div class="mck-box-content">
 				<div class="mck-box-top mck-row">
 					<div class="blk-lg-3">
-						<img
-							src="../images/mck-icon-add-member.png"
-							alt="Add Member">
+						<img src="../images/mck-icon-add-member.png" alt="Add Member">
 					</div>
 					<div class="blk-lg-7">
 						<h4 class="mck-box-title">Add Member</h4>
@@ -593,8 +580,7 @@
 								class="mck-no-data-text mck-text-muted n-vis">No Users!</div>
 						</div>
 						<div id="mck-gms-loading" class="mck-loading n-vis">
-							<img src="../images/ring.gif"
-								alt="Loading" />
+							<img src="../images/ring.gif" alt="Loading" />
 						</div>
 					</div>
 				</div>

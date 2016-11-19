@@ -1352,13 +1352,13 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_group_info_tab = $applozic("#mck-group-info-tab");
             var $mck_price_text_box = $applozic("#mck-price-text-box");
             var $mck_sidebox_search = $applozic("#mck-sidebox-search");
-            var $mck_show_more_icon = $applozic("#mck-show-more-icon");
             var $mck_group_info_btn = $applozic("#mck-group-info-btn");
             var $mck_group_info_tab = $applozic("#mck-group-info-tab");
             var $mck_btn_group_exit = $applozic("#mck-btn-group-exit");
             var $mck_group_back_link = $applozic("#mck-group-back-link");
             var $mck_leave_group_btn = $applozic("#mck-leave-group-btn");
             var $mck_sidebox_content = $applozic(".mck-sidebox-content");
+            var $mck_no_more_messages = $applozic('#mck-no-more-messages');
             var $mck_btn_group_create = $applozic("#mck-btn-group-create");
             var $mck_group_create_tab = $applozic("#mck-group-create-tab");
             var $mck_group_add_member = $applozic("#mck-group-add-member");
@@ -1371,6 +1371,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             var $mck_group_member_search = $applozic("#mck-group-member-search");
             var $mck_msg_inner = $applozic("#mck-message-cell .mck-message-inner");
             var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner");
+            var $mck_no_more_conversations = $applozic('#mck-no-more-conversations');
             var $mck_group_member_search_box = $applozic("#mck-group-member-search-box");
             var $mck_group_member_search_list = $applozic("#mck-group-member-search-list");
             var MESSAGE_SEND_URL = "/rest/ws/message/send";
@@ -2351,20 +2352,20 @@ var MCK_CLIENT_GROUP_MAP = [];
                                 isMessages = false;
                                 if (individual) {
                                     if (params.startTime) {
-                                        $mck_show_more_icon.removeClass('n-vis').addClass('vis');
-                                        $mck_show_more_icon.fadeOut(5000, function() {
-                                            $mck_show_more_icon.removeClass('vis').addClass('n-vis');
+                                        $mck_no_more_messages.removeClass('n-vis').addClass('vis');
+                                        $mck_no_more_messages.fadeOut(5000, function() {
+                                            $mck_no_more_messages.removeClass('vis').addClass('n-vis');
                                         });
-                                        $mck_tab_option_panel.data('datetime', "");
+                                        $mck_tab_option_panel.data('datetime', '');
                                     } else if (!params.isGroup && $applozic("#mck-message-cell .mck-message-inner div[name='message']").length === 0) {
                                         $mck_tab_message_option.removeClass('vis').addClass('n-vis');
                                         $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No messages yet!</div>');
                                     }
                                 } else {
                                     if (params.startTime) {
-                                        $mck_show_more_icon.removeClass('n-vis').addClass('vis');
-                                        $mck_show_more_icon.fadeOut(5000, function() {
-                                            $mck_show_more_icon.removeClass('vis').addClass('n-vis');
+                                        $mck_no_more_conversations.removeClass('n-vis').addClass('vis');
+                                        $mck_no_more_conversations.fadeOut(5000, function() {
+                                            $mck_no_more_conversations.removeClass('vis').addClass('n-vis');
                                         });
                                     } else {
                                         $mck_msg_inner.html('<div class="mck-no-data-text mck-text-muted">No conversations yet!</div>');
