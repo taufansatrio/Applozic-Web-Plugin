@@ -16,7 +16,7 @@
 <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-	<div id="mck-side-panel">
+<div id="mck-side-panel">
 		<div id="mck-sidebox" class="mck-sidebox mck-box fade">
 			<div class="mck-box-dialog mck-box-sm mck-right mck-bg-white">
 				<div id="mck-sidebox-content"
@@ -102,7 +102,9 @@
 								<div class="blk-lg-2 move-right">
 									<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 										aria-expanded="true">
-										<img src="../images/mck-icon-menu.png" alt="Tab Menu">
+										<img
+											src="../images/mck-icon-menu.png"
+											alt="Tab Menu">
 									</div>
 									<ul id="mck-tab-menu-list"
 										class="mck-dropdown-menu mck-tab-menu-box menu-right"
@@ -141,7 +143,8 @@
 							</div>
 							<div class="mck-message-inner"></div>
 							<div id="mck-contact-loading" class="mck-loading">
-								<img src="../images/ring.gif" alt="Loading" />
+								<img src="../images/ring.gif"
+									alt="Loading" />
 							</div>
 							<div id="mck-show-more-icon" class="mck-show-more-icon n-vis">
 								<h3>No more conversations!</h3>
@@ -196,9 +199,9 @@
 														<li><a id="mck-file-up" href="#"
 															class="mck-file-upload menu-item"
 															title="File &amp; Photos"> <img
-																src="../images/mck-icon-photo.png" class="menu-icon"
-																alt="File &amp; Photos"><span>Files &amp;
-																	Photos</span>
+																src="../images/mck-icon-photo.png"
+																class="menu-icon" alt="File &amp; Photos"><span>Files
+																	&amp; Photos</span>
 														</a></li>
 														<li><a id="mck-btn-loc" href="#"
 															class="menu-item mck-btn-loc" title="Location">
@@ -238,9 +241,9 @@
 						<div id="mck-contacts-content"
 							class="mck-contacts-content mck-text-center">
 							<button type="button" id="mck-msg-new"
-								class="mck-msg-new mck-btn mck-btn-blue"
-								title="New Conversation">
-								<span>New Conversation</span>
+								class="mck-contact-search mck-btn mck-btn-blue"
+								title="Start New">
+								<span>Start New</span>
 							</button>
 						</div>
 					</div>
@@ -265,7 +268,8 @@
 							class="blk-lg-3 move-right mck-start-new-menu-item mck-tab-menu-box">
 							<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 								aria-expanded="true">
-								<img src="../images/icon-menu.png" alt="Tab Menu">
+								<img src="../images/icon-menu.png"
+									alt="Tab Menu">
 							</div>
 							<ul id="mck-start-new-menu-list"
 								class="mck-dropdown-menu  menu-right" role="menu">
@@ -275,24 +279,53 @@
 							</ul>
 						</div>
 					</div>
-					<div class="mck-box-top mck-search-box-top">
+					<div id="mck-search-tab-box" class="mck-search-tab-box mck-row">
 						<div class="blk-lg-12">
-							<div class="mck-input-group">
-								<input type="text" id="mck-search" data-provide="typeahead"
-									placeholder="Search..." autofocus /> <span
-									class="mck-search-icon"><a href="#" role="link"
-									class="mck-tab-search"><span class="mck-icon-search"></span></a></span>
-							</div>
+							<ul class="mck-nav mck-nav-panel">
+								<li class="mck-nav-item mck-nav-divider"><a
+									id="mck-contact-search-tab"
+									class="mck-nav-link mck-contact-search active" href="#"><strong>Contacts</strong></a></li>
+								<li class="mck-nav-item"><a id="mck-group-search-tab"
+									class="mck-nav-link mck-group-search" href="#"><strong>Groups</strong></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mck-box-top mck-search-box-top">
+						<div id="mck-contact-search-input-box"
+							class="mck-input-group blk-lg-12">
+							<input id="mck-contact-search-input" type="text"
+								data-provide="typeahead" placeholder="Search..." autofocus /> <span
+								class="mck-search-icon"><a href="#" role="link"
+								class="mck-contact-search-link"><span
+									class="mck-icon-search"></span></a></span>
+						</div>
+						<div id="mck-group-search-input-box"
+							class="mck-input-group blk-lg-12 n-vis">
+							<input id="mck-group-search-input" type="text"
+								data-provide="typeahead" placeholder="Search..." autofocus /> <span
+								class="mck-search-icon"><a href="#" role="link"
+								class="mck-group-search-link"><span class="mck-icon-search"></span></a></span>
 						</div>
 					</div>
 					<div class="mck-box-body">
+
 						<div id="mck-search-cell" class="mck-tab-cell">
 							<div class="mck-message-inner">
-								<ul id="mck-search-list"
-									class="mck-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
-							</div>
-							<div id="mck-search-loading" class="mck-loading n-vis">
-								<img src="../images/ring.gif" alt="Loading" />
+								<ul id="mck-contact-search-list"
+									class="mck-contact-search-list mck-contact-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
+								<ul id="mck-group-search-list"
+									class="mck-contact-list mck-group-search-list mck-nav mck-nav-tabs mck-nav-stacked n-vis"></ul>
+								<div id="mck-no-search-groups"
+									class="mck-no-data-text mck-text-muted n-vis">No groups
+									yet!</div>
+								<div id="mck-no-search-contacts"
+									class="mck-no-data-text mck-text-mutedn n-vis">No
+									contacts yet!</div>
+								<div id="mck-search-loading" class="mck-loading n-vis">
+									<img src="../images/ring.gif"
+										alt="Loading" />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -302,8 +335,8 @@
 					<div class="mck-box-top">
 						<div class="mck-tab-link blk-lg-4">
 							<a id="mck-search-tab-link" href="#" role="link"
-								class="mck-search-tab-link mck-msg-new"><span
-								class="mck-icon-backward"></span> </a>
+								class="mck-contact-search"><span class="mck-icon-backward"></span>
+							</a>
 						</div>
 						<div class="blk-lg-8">
 							<div class="mck-box-title mck-truncate" title="Create Group">Create
@@ -325,7 +358,9 @@
 											</div>
 											<div id="mck-group-create-icon-loading"
 												class="mck-loading n-vis">
-												<img src="../images/mck-loading.gif" alt="Loading" />
+												<img
+													src="../images/mck-loading.gif"
+													alt="Loading" />
 											</div> <input id="mck-group-icon-upload"
 											class="mck-group-icon-upload n-vis" type="file"
 											name="files[]">
@@ -394,7 +429,9 @@
 											class="mck-overlay-label">Change Group Icon</span>
 									</div>
 									<div id="mck-group-info-icon-loading" class="mck-loading vis">
-										<img src="../images/mck-loading.gif" alt="Loading" />
+										<img
+											src="../images/mck-loading.gif"
+											alt="Loading" />
 									</div> <input id="mck-group-icon-change"
 									class="mck-group-icon-change n-vis" type="file" name="file[]" />
 								</span>
@@ -402,7 +439,9 @@
 							<div class="mck-text-center">
 								<a id="mck-btn-group-icon-save" href="#" role="link"
 									class="mck-btn-group-icon-save n-vis" title="Click to save">
-									<img src="../images/mck-icon-save.png" alt="Save">
+									<img
+									src="../images/mck-icon-save.png"
+									alt="Save">
 								</a>
 							</div>
 						</div>
@@ -415,10 +454,12 @@
 								<div class="blk-lg-3 mck-group-name-edit-icon">
 									<a id="mck-group-name-edit" href="#" role="link"
 										class="mck-group-name-edit vis" title="Edit"> <img
-										src="../images/mck-icon-write.png" alt="Edit"></a> <a
-										id="mck-group-name-save" href="#" role="link"
-										class="mck-group-name-save n-vis" title="Click to save"> <img
-										src="../images/mck-icon-save.png" alt="Save"></a>
+										src="../images/mck-icon-write.png"
+										alt="Edit"></a> <a id="mck-group-name-save" href="#"
+										role="link" class="mck-group-name-save n-vis"
+										title="Click to save"> <img
+										src="../images/mck-icon-save.png"
+										alt="Save"></a>
 								</div>
 							</div>
 						</div>
@@ -432,7 +473,9 @@
 								<a id="mck-group-add-member" class="mck-group-add-member"
 									href="#">
 									<div class="blk-lg-3">
-										<img src="../images/mck-icon-add-member.png" alt="Add Member">
+										<img
+											src="../images/mck-icon-add-member.png"
+											alt="Add Member">
 									</div>
 									<div class="blk-lg-9">Add member</div>
 								</a>
@@ -512,13 +555,15 @@
 			</div>
 		</div>
 	</div>
-	<div id="mck-goup-search-box" class="mck-box mck-group-search-box fade"
-		aria-hidden="false">
+	<div id="mck-group-member-search-box"
+		class="mck-box mck-group-member-search-box fade" aria-hidden="false">
 		<div class="mck-box-dialog mck-box-sm">
 			<div class="mck-box-content">
 				<div class="mck-box-top mck-row">
 					<div class="blk-lg-3">
-						<img src="../images/mck-icon-add-member.png" alt="Add Member">
+						<img
+							src="../images/mck-icon-add-member.png"
+							alt="Add Member">
 					</div>
 					<div class="blk-lg-7">
 						<h4 class="mck-box-title">Add Member</h4>
@@ -533,24 +578,30 @@
 				<div class="mck-box-body">
 					<div class="mck-form-group">
 						<div class="mck-input-group blk-lg-12">
-							<input id="mck-group-search" type="text" data-provide="typeahead"
-								placeholder="Search..." autofocus /> <span
+							<input id="mck-group-member-search" type="text"
+								data-provide="typeahead" placeholder="Search..." autofocus /> <span
 								class="mck-search-icon"><a href="#" role="link"
-								class="mck-group-tab-search"><span class="mck-icon-search"></span></a></span>
+								class="mck-group-member-search-link"><span
+									class="mck-icon-search"></span></a></span>
 						</div>
 					</div>
 					<div class="mck-tab-cell">
 						<div class="mck-message-inner">
-							<ul id="mck-group-search-list"
-								class=" mck-contact-list mck-group-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
+							<ul id="mck-group-member-search-list"
+								class=" mck-contact-list mck-group-member-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
 							<div id="mck-no-gsm-text"
 								class="mck-no-data-text mck-text-muted n-vis">No Users!</div>
+						</div>
+						<div id="mck-gms-loading" class="mck-loading n-vis">
+							<img src="../images/ring.gif"
+								alt="Loading" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 
 	<script type="text/javascript" src="../js/applozic.plugins.min.js"></script>
