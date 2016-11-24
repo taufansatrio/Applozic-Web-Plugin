@@ -151,7 +151,8 @@ Open group chat using Client Group Id
  
  ```
 $applozic.fn.applozic('createGroup', {'groupName' : groupName,   // required
-                                       'type' : 1,                // 1 for private , 2 for public, 5 for broadcast (required)
+                                       'type' : 1,                // 1 for private, 2 for public, 5 for broadcast(required)
+                                       'groupIcon' : group display image // optional
                                        'clientGroupId' : '',      // optional
                                        'users': [{ userId:userId1, 
                                                    displayName:'',
