@@ -988,10 +988,10 @@ var MCK_CLIENT_GROUP_MAP = [];
                 userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
                 AUTH_CODE = '';
                 USER_DEVICE_KEY = '';
-                var isValidated = _this.validateAppSession(userPxy);
+                /*var isValidated = _this.validateAppSession(userPxy);
                 if (isValidated) {
                     return true;
-                }
+                }*/
                 $applozic.ajax({
                     url: MCK_BASE_URL + INITIALIZE_APP_URL,
                     type: 'post',
