@@ -509,9 +509,9 @@ var MCK_CLIENT_GROUP_MAP = [];
 		};
 	     _this.logout = function() {
 	            if (typeof mckInitializeChannel !== 'undefined') {
-	                mckInitializeChannel.disconnect();               
+	                mckInitializeChannel.disconnect();
 	            }
-	            IS_LOGGED_IN = false; 
+	            IS_LOGGED_IN = false;
 	     };
 		_this.setOnline = function() {
 			if (typeof mckInitializeChannel !== 'undefined') {
@@ -868,7 +868,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				if (MCK_CHECK_USER_BUSY_STATUS) {
 					userPxy.resetUserStatus = true;
 				}
-			    userPxy.appVersionCode = 108;
+			  userPxy.appVersionCode = 108;
 				userPxy.authenticationTypeId = MCK_AUTHENTICATION_TYPE_ID;
 				AUTH_CODE = '';
 				USER_DEVICE_KEY = '';
@@ -882,6 +882,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 					},
 					success : function(result) {
 						mckStorage.clearMckMessageArray();
+						mckStorage.clearMckContactNameArray();
 						if (result === 'INVALID_PASSWORD') {
 							if (typeof MCK_ON_PLUGIN_INIT === 'function') {
 								MCK_ON_PLUGIN_INIT({
@@ -1208,6 +1209,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 			var $mck_tab_title = $applozic("#mck-tab-individual .mck-tab-title");
 			var $mck_tab_status = $applozic("#mck-tab-individual .mck-tab-status");
 			var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner-right");
+			var $mck_no_gsm_text = $applozic("#mck-no-gsm-text");
 			var $mck_msg_inner;
 			var MESSAGE_SEND_URL = "/rest/ws/message/send";
 			var GROUP_CREATE_URL = "/rest/ws/group/create";
@@ -1615,11 +1617,15 @@ var MCK_CLIENT_GROUP_MAP = [];
 						if (group && group.adminName === MCK_USER_ID) {
 							if (MCK_GROUP_SEARCH_ARRAY.length > 0) {
 								mckGroupLayout.addMembersToGroupSearchList();
-							} else if (IS_MCK_OWN_CONTACTS && MCK_CONTACT_ARRAY.length > 0) {
-								$applozic.each(MCK_CONTACT_ARRAY, function(i, contact) {
-									MCK_GROUP_SEARCH_ARRAY.push(contact.contactId);
-								});
-								mckGroupLayout.addMembersToGroupSearchList();
+							} else if (IS_MCK_OWN_CONTACTS) {
+								if (MCK_CONTACT_ARRAY.length > 0) {
+										$applozic.each(MCK_CONTACT_ARRAY, function(i, contact) {
+											MCK_GROUP_SEARCH_ARRAY.push(contact.contactId);
+										});
+										mckGroupLayout.addMembersToGroupSearchList();
+								} else {
+									$mck_no_gsm_text.removeClass('n-vis').addClass('vis');
+								}
 							} else {
 								mckContactService.getUserStatus({
 									'callback' : mckGroupLayout.addMembersToGroupSearchList
@@ -3551,7 +3557,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 						$applozic.each(data.message, function(i, message) {
 							if (!(typeof message.to === "undefined")) {
 								if (message.groupId) {
-								   _this.addGroupFromMessage(message, true); 
+								   _this.addGroupFromMessage(message, true);
 								} else {
 									_this.addContactsFromMessage(message, true);
 								}
@@ -5607,6 +5613,13 @@ var MCK_CLIENT_GROUP_MAP = [];
 					MCK_CONTACT_NAME_ARRAY = MCK_CONTACT_NAME_ARRAY.concat(mckContactNameArray);
 					return MCK_CONTACT_NAME_ARRAY;
 				}
+			};
+			_this.clearMckContactNameArray = function() {
+					if (typeof (w.sessionStorage) !== 'undefined') {
+							w.sessionStorage.removeItem('mckContactNameArray');
+					} else {
+							MCK_CONTACT_NAME_ARRAY.length = 0;
+					}
 			};
 		}
 		function MckMapLayout() {
