@@ -124,6 +124,9 @@ Javascript code to load contacts
           // error in user login/register (you can hide chat button or refresh page)
        }
    }
+   
+   //Set loadOwnContacts to true from Step 2
+   loadOwnContacts : true,
 
 ```
 
