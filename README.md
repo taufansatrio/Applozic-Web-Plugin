@@ -80,7 +80,8 @@ Integrate messaging into your mobile apps and website without developing or main
 
 Signup at [https://www.applozic.com/signup.html](https://www.applozic.com/signup.html?utm_source=github&utm_medium=readme&utm_campaign=web) to get the application key.
 
-#### Step 1: Add the Applozic Chat plugin script before ```</head>``` into your web page            
+#### Step 1: Add Plugin
+Add the Applozic Chat plugin script before closing of ```</body>``` into your web page            
 
 ```
 <script type="text/javascript">
@@ -96,9 +97,11 @@ Signup at [https://www.applozic.com/signup.html](https://www.applozic.com/signup
 </script>
 ```
  
-#### Step 2: Login or Register with userId and username
+#### Step 2: Login/Register user
+Login or Register with userId and username
 Applozic will create a new user if the user doesn't exists.
 userId is the unique identifier for any user, it can be anything like email, phone number or uuid from your database.
+Add the below code just after Step 1.
 
 ``` 
 <script type="text/javascript">
@@ -117,7 +120,8 @@ userId is the unique identifier for any user, it can be anything like email, pho
     locShare: true,
     googleApiKey: "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4",   // your project google api key 
     googleMapScriptLoaded : false,   // true if your app already loaded google maps script
-    autoTypeSearchEnabled : true,    // set to false if you don't want to allow sending message to user who is not in the contact list
+    autoTypeSearchEnabled : true,     // set to false if you don't want to allow sending message to user who is not in the contact list
+    loadOwnContacts : false, //set to true if you want to populate your own contact list (see Step 4 for reference)
     onInit : function(response) {
        if (response === "success") {
           // login successful, perform your actions if any, for example: load contacts, getting unread message count, etc
@@ -135,7 +139,7 @@ userId is the unique identifier for any user, it can be anything like email, pho
    },
    onTabClicked: function(response) {
          // write your logic to execute task on tab load
-         // object response =  {
+         //   object response =  {
          //    tabId : userId or groupId,
          //    isGroup : 'tab is group or not'
          //  }
@@ -153,7 +157,7 @@ It can also be called from any event, for example: on click of a button.
 **2)** By Default source is set to WEB(1).
 
 
-#### Step 3: Initiate chat with other user
+#### Step 3: Initiate Chat
 
 To initiate chat with another user using userId:
 ``` 
@@ -192,8 +196,8 @@ Javascript code to load contacts
                           "imageData" :"Base64 encoded image data"  // or image data (optional)
                          }
                       ];
-
-// Function calling inside onInit after plugin initialize successfully
+                      
+ // Function calling inside onInit(from #Step 2) after plugin initialize successfully
     onInit : function(response) {
        if (response === "success") {
           // calling function load contacts
@@ -202,9 +206,13 @@ Javascript code to load contacts
           // error in user login/register (you can hide chat button or refresh page)
        }
    }
+   
+   //Set loadOwnContacts to true from Step 2
+   loadOwnContacts : true,
+
 ```
 
-**NOTE**- Call **loadContacts** function only after plugin initailize callback (see Step 2 onInit function for reference).
+**NOTE**- Call **loadContacts** function only after plugin initialize callback (see Step 2 onInit function for reference).
 
 
 #### Step 5: Group Messaging
