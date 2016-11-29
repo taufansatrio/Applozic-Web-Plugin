@@ -39,6 +39,7 @@ Add the below code just after Step 1.
     googleApiKey: "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4",   // your project google api key 
     googleMapScriptLoaded : false,   // true if your app already loaded google maps script
     autoTypeSearchEnabled : true,     // set to false if you don't want to allow sending message to user who is not in the contact list
+    loadOwnContacts : false, //set to true if you want to populate your own contact list (see Step 4 for reference)
     onInit : function(response) {
        if (response === "success") {
           // login successful, perform your actions if any, for example: load contacts, getting unread message count, etc
