@@ -6823,7 +6823,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                                         'async' : false,
                                         'populate' : false
                                     });
-                                    return;
                                 }
                             }
                             
@@ -7082,7 +7081,6 @@ var MCK_CLIENT_GROUP_MAP = [];
                                             'async': false,
                                             'populate': false
                                         });
-                                        return;
                                     }
                                 }
 
