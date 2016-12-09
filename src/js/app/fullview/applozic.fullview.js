@@ -1208,6 +1208,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 			var $mck_tab_title = $applozic("#mck-tab-individual .mck-tab-title");
 			var $mck_tab_status = $applozic("#mck-tab-individual .mck-tab-status");
 			var $mck_search_inner = $applozic("#mck-search-cell .mck-message-inner-right");
+			var $mck_no_gsm_text = $applozic("#mck-no-gsm-text");
 			var $mck_msg_inner;
 			var MESSAGE_SEND_URL = "/rest/ws/message/send";
 			var GROUP_CREATE_URL = "/rest/ws/group/create";
@@ -1621,6 +1622,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 								});
 								mckGroupLayout.addMembersToGroupSearchList();
 							} else {
+								$mck_no_gsm_text.removeClass('n-vis').addClass('vis');
 								mckContactService.getUserStatus({
 									'callback' : mckGroupLayout.addMembersToGroupSearchList
 								});
