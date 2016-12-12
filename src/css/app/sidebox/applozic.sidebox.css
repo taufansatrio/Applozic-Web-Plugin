@@ -1950,6 +1950,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 
 .mck-loc-box input {
 	width: 260px;
+	box-shadow: none;
 }
 
 .mck-loc-content {
