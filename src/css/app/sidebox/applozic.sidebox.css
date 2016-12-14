@@ -346,7 +346,7 @@
 
 .mck-btn {
 	display: inline-block;
-	padding: 5px 10px;
+	padding: 5px 6px;
 	margin-bottom: 0;
 	font-size: 14px;
 	font-weight: 400;
@@ -363,7 +363,9 @@
 	border: 1px solid transparent;
 	border-radius: 4px;
 }
-
+.mck-box-footer .mck-btn {
+	font-size:12px;
+}
 .mck-btn-blue {
 	color: #fff !important;
 	background-color: #337ab7 !important;
@@ -616,13 +618,13 @@
 	background-color : rgba(241,241,241,.6);
 }
 
-.mck-group-member-search-box .mck-box-top .blk-lg-3 {
+.mck-gm-search-box .mck-box-top .blk-lg-3 {
 	width: 30px;
 	height: inherit;
 	padding: 14px 0;
 }
 
-.mck-group-member-search-box .mck-box-top .blk-lg-7, .mck-sidebox-search .mck-box-top .blk-lg-5
+.mck-gm-search-box .mck-box-top .blk-lg-7, .mck-sidebox-search .mck-box-top .blk-lg-5
 	{
 	width: 230px
 }
@@ -762,7 +764,7 @@
 	padding: 15px;
 }
 
-.mck-group-member-search-box .mck-box-body {
+.mck-gm-search-box .mck-box-body {
 	padding: 10px;
 }
 
@@ -1180,7 +1182,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	-webkit-overflow-scrolling: touch;
 }
 
-.mck-group-member-search-box .mck-box-body .mck-tab-cell {
+.mck-gm-search-box .mck-box-body .mck-tab-cell {
 	height: 300px;
 }
 
@@ -1195,7 +1197,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	overflow: auto;
 }
 
-.mck-group-member-search-box .mck-box-body .mck-message-inner {
+.mck-gm-search-box .mck-box-body .mck-message-inner {
 	height: 300px;
 }
 .mck-sidebox-search .mck-box-body .mck-message-inner {
@@ -1944,7 +1946,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 .mck-box .mck-sidebox-search input {
 	background-color : #fff;
 } 
-.mck-group-member-search-box input {
+.mck-gm-search-box input {
 	width: 245px;
 }
 
@@ -2733,7 +2735,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 	background-color: #fff !important;
 }
 
-.mck-group-add-member-box img, .mck-group-member-search-box .mck-box-top .blk-lg-3 img
+.mck-group-add-member-box img, .mck-gm-search-box .mck-box-top .blk-lg-3 img
 	{
 	width: 20px;
 	height: 20px;
@@ -2787,7 +2789,7 @@ mck-sidebox .mck-dropdown-menu>li>a:focus, .mck-dropup-menu>li>a:focus,
 }
 
 .mck-sidebox .mck-btn-group-exit, .mck-btn-group-create {
-	width: 260px;
+	width: 265px;
 }
 
 .mck-group-create-inner {

@@ -36,7 +36,7 @@
 									<div id="mck-tab-status"
 										class="mck-tab-status mck-truncate n-vis"></div>
 									<div class="mck-typing-box mck-truncate n-vis">
-										<span class="name-text"></span><span>typing...</span>
+										<span id="mck-typing-label">typing...</span>
 									</div>
 								</div>
 							</div>
@@ -102,23 +102,26 @@
 								<div class="blk-lg-2 move-right">
 									<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 										aria-expanded="true">
-										<img src="../images/mck-icon-menu.png" alt="Tab Menu">
+										<img
+											src="../images/mck-icon-menu.png"
+											alt="Tab Menu">
 									</div>
 									<ul id="mck-tab-menu-list"
 										class="mck-dropdown-menu mck-tab-menu-box menu-right"
 										role="menu">
 										<li class="mck-tab-message-option"><a href="#"
-											id="mck-delete-button" class="mck-delete-button menu-item"
+											id="mck-btn-clear-messages"
+											class="mck-btn-clear-messages menu-item"
 											title="Clear Messages"> Clear Messages </a></li>
 										<li id="li-mck-block-user"><a href="#"
 											id="mck-block-button" class="menu-item" title="Block User">
 												Block User </a></li>
 										<li id="li-mck-group-info" class="mck-group-menu-options">
-											<a href="#" id="mck-group-info-btn" class="menu-item"
+											<a href="#" id="mck-btn-group-info" class="menu-item"
 											title="Group Info"> Group Info </a>
 										</li>
 										<li id="li-mck-leave-group" class="mck-group-menu-options">
-											<a href="#" id="mck-leave-group-btn" class="menu-item"
+											<a href="#" id="mck-btn-leave-group" class="menu-item"
 											title="Exit Group"> Exit Group </a>
 										</li>
 									</ul>
@@ -141,7 +144,16 @@
 							</div>
 							<div class="mck-message-inner"></div>
 							<div id="mck-contact-loading" class="mck-loading">
-								<img src="../images/ring.gif" alt="Loading" />
+								<img src="../images/ring.gif"
+									alt="Loading" />
+							</div>
+							<div id="mck-no-conversations"
+								class="mck-no-data-text mck-text-muted n-vis">
+								<h3>No conversations yet!</h3>
+							</div>
+							<div id="mck-no-messages"
+								class="mck-no-data-text mck-text-muted n-vis">
+								<h3>No messages yet!</h3>
 							</div>
 							<div id="mck-no-more-conversations"
 								class="mck-show-more-icon n-vis">
@@ -184,12 +196,11 @@
 													</button>
 												</div>
 											</div>
-
 											<div
 												class="mck-blk-2 mck-text-box-panel mck-mid-panel move-left">
 												<div id="mck-attachmenu-box" class="mck-attach-menu">
 													<div id="mck-btn-attach"
-														class="mck-dropdown-toggle mck-btn-attach mck-btn mck-btn-text-panel"
+														class="mck-dropdown-toggle mck-btn-attach mck-file-attach-label mck-btn mck-btn-text-panel"
 														data-toggle="mckdropdown" aria-expanded="true"
 														title="Attach File">
 														<span class="mck-icon-upload"></span>
@@ -200,22 +211,22 @@
 														<li><a id="mck-file-up" href="#"
 															class="mck-file-upload menu-item"
 															title="File &amp; Photos"> <img
-																src="../images/mck-icon-photo.png" class="menu-icon"
-																alt="File &amp; Photos"><span>Files &amp;
-																	Photos</span>
+																src="../images/mck-icon-photo.png"
+																class="menu-icon" alt="File &amp; Photos"><span
+																id="mck-file-up-label">Files &amp; Photos</span>
 														</a></li>
 														<li><a id="mck-btn-loc" href="#"
-															class="menu-item mck-btn-loc" title="Location">
+															class="menu-item mck-btn-loc" title="Share Location">
 																<div class="mck-menu-icon">
 																	<span class="mck-icon-marker-blue"></span>
-																</div> <span>Location</span>
+																</div> <span id="mck-share-loc-label">Share Location</span>
 														</a></li>
 
 													</ul>
 												</div>
 												<div id="mck-attachfile-box" class="mck-blk-12 n-vis">
 													<button id="mck-file-up2" type="button"
-														class="mck-file-upload mck-btn mck-btn-text-panel"
+														class="mck-file-upload mck-file-attach-label mck-btn mck-btn-text-panel"
 														title="Attach File">
 														<span class="mck-icon-upload"></span>
 													</button>
@@ -269,7 +280,8 @@
 							class="blk-lg-3 move-right mck-start-new-menu-item mck-tab-menu-box">
 							<div class="mck-dropdown-toggle" data-toggle="mckdropdown"
 								aria-expanded="true">
-								<img src="../images/icon-menu.png" alt="Tab Menu">
+								<img src="../images/icon-menu.png"
+									alt="Tab Menu">
 							</div>
 							<ul id="mck-start-new-menu-list"
 								class="mck-dropdown-menu  menu-right" role="menu">
@@ -323,7 +335,8 @@
 									class="mck-no-data-text mck-text-mutedn n-vis">No
 									contacts yet!</div>
 								<div id="mck-search-loading" class="mck-loading n-vis">
-									<img src="../images/ring.gif" alt="Loading" />
+									<img src="../images/ring.gif"
+										alt="Loading" />
 								</div>
 							</div>
 						</div>
@@ -353,11 +366,14 @@
 										<span class="mck-overlay-box">
 											<div class="mck-overlay">
 												<span class="mck-camera-icon"></span> <span
-													class="mck-overlay-label">Add Group Icon</span>
+													id="mck-gc-overlay-label" class="mck-overlay-label">Add
+													Group Icon</span>
 											</div>
 											<div id="mck-group-create-icon-loading"
 												class="mck-loading n-vis">
-												<img src="../images/mck-loading.gif" alt="Loading" />
+												<img
+													src="../images/mck-loading.gif"
+													alt="Loading" />
 											</div> <input id="mck-group-icon-upload"
 											class="mck-group-icon-upload n-vis" type="file"
 											name="files[]">
@@ -368,7 +384,8 @@
 									<div id="mck-group-create-name-box"
 										class="mck-row mck-group-name-box">
 										<div class="blk-lg-12">
-											<div class="mck-label">Group Title</div>
+											<div id="mck-gc-title-label" class="mck-label">Group
+												Title</div>
 										</div>
 										<div class="blk-lg-12">
 											<div id="mck-group-create-title"
@@ -381,7 +398,8 @@
 									<div id="mck-group-create-type-box"
 										class="mck-row mck-group-type-box">
 										<div class="blk-lg-12">
-											<div class="mck-label">Group Type</div>
+											<div id="mck-gc-type-label" class="mck-label">Group
+												Type</div>
 										</div>
 										<div class="blk-lg-12">
 											<select id="mck-group-create-type" class="mck-select">
@@ -423,18 +441,22 @@
 								<span class="mck-overlay-box n-vis">
 									<div class="mck-overlay">
 										<span class="mck-camera-icon"></span> <span
-											class="mck-overlay-label">Change Group Icon</span>
+											id="mck-gi-overlay-label" class="mck-overlay-label">Change
+											Group Icon</span>
 									</div>
 									<div id="mck-group-info-icon-loading" class="mck-loading vis">
-										<img src="../images/mck-loading.gif" alt="Loading" />
+										<img
+											src="../images/mck-loading.gif"
+											alt="Loading" />
 									</div> <input id="mck-group-icon-change"
 									class="mck-group-icon-change n-vis" type="file" name="file[]" />
 								</span>
 							</div>
 							<div class="mck-text-center">
 								<a id="mck-btn-group-icon-save" href="#" role="link"
-									class="mck-btn-group-icon-save n-vis" title="Click to save">
-									<img src="../images/mck-icon-save.png" alt="Save">
+									class="mck-btn-group-icon-save n-vis" title="Save"> <img
+									src="../images/mck-icon-save.png"
+									alt="Save">
 								</a>
 							</div>
 						</div>
@@ -447,10 +469,13 @@
 								<div class="blk-lg-3 mck-group-name-edit-icon">
 									<a id="mck-group-name-edit" href="#" role="link"
 										class="mck-group-name-edit vis" title="Edit"> <img
-										src="../images/mck-icon-write.png" alt="Edit"></a> <a
-										id="mck-group-name-save" href="#" role="link"
-										class="mck-group-name-save n-vis" title="Click to save"> <img
-										src="../images/mck-icon-save.png" alt="Save"></a>
+										src="../images/mck-icon-write.png"
+										alt="Edit"></a> <a id="mck-group-name-save" href="#"
+										role="link" class="mck-group-name-save n-vis" title="Save">
+										<img
+										src="../images/mck-icon-save.png"
+										alt="Save">
+									</a>
 								</div>
 							</div>
 						</div>
@@ -458,15 +483,18 @@
 					<div id="mck-group-member-panel"
 						class="mck-tab-panel mck-group-member-panel vis">
 						<div class="mck-group-md-sec">
-							<div class="mck-row mck-group-member-text">Members</div>
+							<div id="mck-group-member-title"
+								class="mck-row mck-group-member-text">Members</div>
 							<div id="mck-group-add-member-box"
 								class="mck-row mck-group-admin-options mck-group-add-member-box n-vis">
 								<a id="mck-group-add-member" class="mck-group-add-member"
 									href="#">
 									<div class="blk-lg-3">
-										<img src="../images/mck-icon-add-member.png" alt="Add Member">
+										<img
+											src="../images/mck-icon-add-member.png"
+											alt="Add Member">
 									</div>
-									<div class="blk-lg-9">Add member</div>
+									<div class="blk-lg-9">Add Member</div>
 								</a>
 							</div>
 						</div>
@@ -505,7 +533,7 @@
 			<div class="mck-box-content">
 				<div class="mck-box-top mck-row">
 					<div class="blk-lg-10">
-						<h4 class="mck-box-title">Location Sharing</h4>
+						<h4 class="mck-box-title">Share Location</h4>
 					</div>
 					<div class="blk-lg-2">
 						<button type="button" class="mck-box-close" data-dismiss="mckbox"
@@ -538,19 +566,21 @@
 						class="mck-my-loc mck-btn mck-btn-green">My Location</button>
 					<button id="mck-loc-submit" type="button"
 						class="mck-btn mck-btn-blue mck-loc-submit move-right">Send</button>
-					<button type="button" class="mck-btn mck-btn-default move-right"
-						data-dismiss="mckbox">Close</button>
+					<button id="mck-btn-close-loc-box" type="button"
+						class="mck-btn mck-btn-default move-right" data-dismiss="mckbox">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="mck-group-member-search-box"
-		class="mck-box mck-group-member-search-box fade" aria-hidden="false">
+	<div id="mck-gm-search-box" class="mck-box mck-gm-search-box fade"
+		aria-hidden="false">
 		<div class="mck-box-dialog mck-box-sm">
 			<div class="mck-box-content">
 				<div class="mck-box-top mck-row">
 					<div class="blk-lg-3">
-						<img src="../images/mck-icon-add-member.png" alt="Add Member">
+						<img
+							src="../images/mck-icon-add-member.png"
+							alt="Add Member">
 					</div>
 					<div class="blk-lg-7">
 						<h4 class="mck-box-title">Add Member</h4>
@@ -577,19 +607,18 @@
 							<ul id="mck-group-member-search-list"
 								class=" mck-contact-list mck-group-member-search-list mck-nav mck-nav-tabs mck-nav-stacked"></ul>
 							<div id="mck-no-gsm-text"
-								class="mck-no-data-text mck-text-muted n-vis">No Users!</div>
+								class="mck-no-data-text mck-text-muted n-vis">No contacts
+								yet!</div>
 						</div>
 						<div id="mck-gms-loading" class="mck-loading n-vis">
-							<img src="../images/ring.gif" alt="Loading" />
+							<img src="../images/ring.gif"
+								alt="Loading" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 	<script type="text/javascript" src="../js/applozic.plugins.min.js"></script>
 	<script type="text/javascript" src="../js/applozic.widget.min.js"></script>
 	<script type="text/javascript" src="../js/applozic.emojis.min.js"></script>
@@ -661,37 +690,37 @@
 			}
 		}
 		$(document)
-				.ready(
-						function() {
-							//Function to initialize plugin
-							$applozic.fn
-									.applozic({
-										userId : 'customer-1',
-										userName : 'Customer1',
-										appId : 'applozic-sample-app',
-										ojq : $original,
-										obsm : oModal,
-										notificationIconLink : "https://www.applozic.com/resources/images/applozic_icon.png",
-										readConversation : readMessage, // readMessage function defined above
-										contactDisplayName : displayName, // displayName function defined above
-										contactDisplayImage : contactImageSrc, // contactImageSrc function defined above
-										onInit : onInitialize, //callback function execute on plugin initialize
-										maxAttachmentSize : 25, //max attachment size in MB
-										desktopNotification : true,
-										locShare : true,
-										googleApiKey : "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4",
-										/*      openGroupSettings: {
-			                            'disableChatForNonGroupMember' :true,
-			                            'allowAccessGroupMembers' : true,
-			                            'defaultChatDisabledMessage': 'Write display message!'
-			                            }  */
-									});
-
-							// var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}]};
-							// To load contact list use below function and pass contacts json in format shown above in variable 'contactjson'. 
-							// $applozic.fn.applozic('loadContacts', contactjson);
-
+			.ready(
+				function() {
+					//Function to initialize plugin
+					$applozic.fn
+						.applozic({
+							userId : 'customer-1',
+							userName : 'Customer1',
+							appId : 'applozic-sample-app',
+							ojq : $original,
+							obsm : oModal,
+							notificationIconLink : "https://www.applozic.com/resources/images/applozic_icon.png",
+							readConversation : readMessage, // readMessage function defined above
+							contactDisplayName : displayName, // displayName function defined above
+							contactDisplayImage : contactImageSrc, // contactImageSrc function defined above
+							onInit : onInitialize, //callback function execute on plugin initialize
+							maxAttachmentSize : 25, //max attachment size in MB
+							desktopNotification : true,
+							locShare : true,
+							googleApiKey : "AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4",
+						/*      openGroupSettings: {
+							                            'disableChatForNonGroupMember' :true,
+							                            'allowAccessGroupMembers' : true,
+							                            'defaultChatDisabledMessage': 'Write display message!'
+							                            }  */
 						});
+	
+						// var contactjson = {"contacts": [{"userId": "user1", "displayName": "Devashish", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user2", "displayName": "Adarsh", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}, {"userId": "user3", "displayName": "Shanki", "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png"}]};
+						// To load contact list use below function and pass contacts json in format shown above in variable 'contactjson'. 
+						// $applozic.fn.applozic('loadContacts', contactjson);
+	
+				});
 	</script>
 </body>
 </html>
