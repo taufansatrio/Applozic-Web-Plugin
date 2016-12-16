@@ -5,7 +5,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 	var default_options = {
 		baseUrl : "https://apps.applozic.com",
 		fileBaseUrl : "https://applozic.appspot.com",
-		notificationIconLink : "",
+		notificationIconLink : '',
 		launcher : "applozic-launcher",
 		userId : null,
 		appId : null,
@@ -173,8 +173,9 @@ var MCK_CLIENT_GROUP_MAP = [];
 						jQuery.fn.emojiarea = $applozic.fn.emojiarea;
 					}
 					var applozic = new Applozic(appOptions);
-					applozic.init();
 					$mck_sidebox.data("applozic_instance", applozic);
+					applozic.init();
+					
 				}
 			} else {
 				alert("Oops! looks like incorrect application id or user Id.");
@@ -5616,9 +5617,11 @@ var MCK_CLIENT_GROUP_MAP = [];
 		}
 		function MckMapLayout() {
 			var _this = this;
-			var GEOCODER = "";
-			var CURR_LOC_ADDRESS = "";
-			var $mck_my_loc = $applozic("#mck-my-loc");
+			var GEOCODER = '';
+			var CURR_LOC_ADDRESS = '';
+			var IS_LOC_SHARE_INIT = false;
+			var $mck_my_loc = $applozic('#mck-my-loc');
+		    var $mck_btn_loc = $applozic("#mck-btn-loc");
 			var $mck_loc_box = $applozic("#mck-loc-box");
 			var $mck_loc_lat = $applozic("#mck-loc-lat");
 			var $mck_loc_lon = $applozic("#mck-loc-lon");
@@ -5630,7 +5633,15 @@ var MCK_CLIENT_GROUP_MAP = [];
 			_this.init = function() {
 				if (IS_MCK_LOCSHARE && w.google && typeof (w.google.maps) === 'object') {
 					GEOCODER = new w.google.maps.Geocoder;
-					mckMapUtils.getCurrentLocation(_this.onGetCurrLocation, _this.onErrorCurrLocation);
+			         $mck_btn_loc.on('click', function() {
+	                        if (IS_LOC_SHARE_INIT) {
+	                            $mck_loc_box.mckModal();
+	                        } else {
+	                            mckMapUtils.getCurrentLocation(_this.onGetCurrLocation, _this.onErrorCurrLocation);
+	                            IS_LOC_SHARE_INIT = true;
+	                        }
+
+	                    });
 				}
 				$mck_my_loc.on("click", function() {
 					mckMapUtils.getCurrentLocation(_this.onGetMyCurrLocation, _this.onErrorMyCurrLocation);
@@ -5697,12 +5708,12 @@ var MCK_CLIENT_GROUP_MAP = [];
 				$mck_loc_box.on('shown.bs.mck-box', function() {
 					$mckMapContent.locationpicker('autosize');
 				});
+				 $mck_loc_box.mckModal();
 			};
 		}
 		function MckMapService() {
 			var _this = this;
 			var $mck_msg_to = $applozic("#mck-msg-to");
-			var $mck_btn_loc = $applozic("#mck-btn-loc");
 			var $mck_loc_box = $applozic('#mck-loc-box');
 			var $mck_msg_sbmt = $applozic("#mck-msg-sbmt");
 			var $mck_msg_error = $applozic("#mck-msg-error");
@@ -5710,9 +5721,6 @@ var MCK_CLIENT_GROUP_MAP = [];
 			var $mck_msg_response = $applozic("#mck-msg-response");
 			var $mck_response_text = $applozic("#mck_response_text");
 			var $mck_msg_inner = $applozic("#mck-message-cell .mck-message-inner-right");
-			$mck_btn_loc.on("click", function() {
-				$mck_loc_box.mckModal();
-			});
 			$mck_loc_submit.on("click", function() {
 				$mck_msg_inner = mckMessageLayout.getMckMessageInner();
 				var messagePxy = {
