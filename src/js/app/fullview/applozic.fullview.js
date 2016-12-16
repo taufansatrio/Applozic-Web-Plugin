@@ -23,7 +23,71 @@ var MCK_CLIENT_GROUP_MAP = [];
 		launchOnUnreadMessage : false,
 		loadOwnContacts : false,
 		maxGroupSize : 100,
-		authenticationTypeId : 0
+		authenticationTypeId : 0,
+        labels: {
+            'conversations.title': 'Converations',
+            'start.new': 'Start New',
+            'search.contacts': 'Contacts',
+            'search.groups': 'Groups',
+            'empty.groups': 'No groups yet!',
+            'empty.contacts': 'No contacts yet!',
+            'empty.messages': 'No messages yet!',
+            'no.more.messages': 'No more messages!',
+            'empty.conversations': 'No conversations yet!',
+            'no.more.conversations': 'No more conversations!',
+            'search.placeholder': 'Search...',
+            'location.placeholder': 'Enter a location',
+            'create.group.title': 'Create Group',
+            'members.title': 'Members',
+            'add.members.title': 'Add Member',
+            'remove.member': 'Remove Member',
+            'change.role': 'Change Role',
+            'group.info.update': 'Update',
+            'group.info.updating': 'Updating...',
+            'add.group.icon': 'Add Group Icon',
+            'change.group.icon': 'Change Group Icon',
+            'group.title': 'Group Title',
+            'group.type': 'Group Type',
+            'group.create.submit': 'Creating Group...',
+            'blocked': 'You have blocked this user',
+            'group.chat.disabled': 'You are no longer part of this group!',
+            'block.user.alert': 'Are you sure you want to block this user?',
+            'unblock.user.alert': 'Are you sure you want to unblock this user?',
+            'exit.group.alert': 'Are you sure you want to exit this group?',
+            'remove.member.alert': 'Are you sure you want to remove this member?',
+            'clear.messages.alert': 'Are you sure you want to delete all the conversation?',
+            'typing': 'typing...',
+            'is.typing': 'is typing...',
+            'online': 'Online',
+            'clear.messages': 'Clear Messages',
+            'delete': 'Delete',
+            'block.user': 'Block User',
+            'unblock.user': 'Unblock User',
+            'group.info.title': 'Group Info',
+            'exit.group': 'Exit Group',
+            'location.share.title': 'Location Sharing',
+            'my.location': 'My Location',
+            'send': 'Send',
+            'send.message': 'Send Message',
+            'smiley': 'Smiley',
+            'close': 'Close',
+            'edit': 'Edit',
+            'save': 'Save',
+            'file.attachment': 'Files & Photos',
+            'file.attach.title': 'Attach File',
+            'last.seen': 'Last seen',
+            'last.seen.on': 'Last seen on',
+            'ago': 'ago',
+            'group.metadata': {
+                'CREATE_GROUP_MESSAGE': ':adminName created group :groupName',
+                'REMOVE_MEMBER_MESSAGE': ':adminName removed :userName',
+                'ADD_MEMBER_MESSAGE': ':adminName added :userName',
+                'JOIN_MEMBER_MESSAGE': ':userName joined',
+                'GROUP_NAME_CHANGE_MESSAGE': 'Group name changed to :groupName',
+                'GROUP_ICON_CHANGE_MESSAGE': 'Group icon changed',
+                'GROUP_LEFT_MESSAGE': ':userName left'
+            }
+	    }
 	};
 	var message_default_options = {
 		"messageType" : 5,
@@ -209,6 +273,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 		var IS_MCK_TAB_FOCUSED = true;
 		var MCK_TOTAL_UNREAD_COUNT = 0;
 		var MCK_MODE = appOptions.mode;
+		MCK_LABELS = appOptions.labels;
 		var MCK_APP_ID = appOptions.appId;
 		MCK_BASE_URL = appOptions.baseUrl;
 		var MCK_CONNECTED_CLIENT_COUNT = 0;
@@ -337,6 +402,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 			MCK_TOPIC_DETAIL_MAP = [];
 			MCK_CLIENT_GROUP_MAP = [];
 			IS_MCK_TAB_FOCUSED = true;
+			MCK_LABELS = optns.labels;
 			MCK_TOTAL_UNREAD_COUNT = 0;
 			MCK_BASE_URL = optns.baseUrl;
 			TAB_FILE_DRAFT = new Object();
@@ -1505,7 +1571,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 						var startTime = $mck_contacts_inner.data('datetime');
 						if (startTime > 0 && !CONTACT_SYNCING) {
 							mckMessageService.loadMessageList({
-								'tabId' : "",
+								'tabId' : '',
 								'isGroup' : false,
 								'startTime' : startTime
 							});
@@ -2136,8 +2202,8 @@ var MCK_CLIENT_GROUP_MAP = [];
 				$mck_msg_inner = mckMessageLayout.getMckMessageInner();
 				var individual = false;
 				var isConvReq = false;
-				var reqData = "";
-				if (typeof params.tabId !== "undefined" && params.tabId !== "") {
+				var reqData = '';
+				if (typeof params.tabId !== 'undefined' && params.tabId !== '') {
 					MESSAGE_SYNCING = true;
 					reqData = (params.isGroup) ? "&groupId=" + params.tabId : "&userId=" + encodeURIComponent(params.tabId);
 					individual = true;
@@ -2160,11 +2226,11 @@ var MCK_CLIENT_GROUP_MAP = [];
 					if (params.startTime) {
 						reqData += "&endTime=" + params.startTime;
 					}
-					reqData += "&mainPageSize=60";
+					reqData += '&mainPageSize=60';
 					$mck_loading.removeClass('n-vis').addClass('vis');
 				}
 				if (!params.startTime) {
-					$mck_msg_inner.html("");
+					$mck_msg_inner.html('');
 				}
 				$applozic.ajax({
 					url : MCK_BASE_URL + MESSAGE_LIST_URL + "?startIndex=0" + reqData,
@@ -2295,7 +2361,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 								} else {
 									$mck_no_contact_text.removeClass('n-vis').addClass('vis');
 								}
-								$mck_contacts_inner.data('datetime', "");
+								$mck_contacts_inner.data('datetime', '');
 							}
 							if (data + '' !== "null" && data.status !== 'error') {
 								w.MCK_OL_MAP = [];
@@ -3145,7 +3211,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 					$mck_msg_inner.removeClass('mck-msg-w-panel');
 					$mck_tab_option_panel.removeClass('vis').addClass('n-vis');
 					$mck_delete_button.removeClass('vis').addClass('n-vis');
-					$mck_msg_to.val("");
+					$mck_msg_to.val('');
 					var mckMessageArray = mckStorage.getMckMessageArray();
 					mckInitializeChannel.unsubscibeToTypingChannel();
 					if (mckMessageArray !== null && mckMessageArray.length > 0) {
@@ -3539,14 +3605,11 @@ var MCK_CLIENT_GROUP_MAP = [];
 			};
 			_this.addContactsFromMessageList = function(data, isReloaded) {
 				var showMoreDateTime;
-				if (data + '' === "null") {
-					showMoreDateTime = "";
+				if (data + '' === 'null') {
+					showMoreDateTime = '';
 					return;
 				} else {
-					if (isReloaded) {
-						$mck_contact_list.html('');
-					}
-					if (typeof data.message.length === "undefined") {
+					if (typeof data.message.length === 'undefined') {
 						if (data.message.groupId) {
 							_this.addGroupFromMessage(data.message);
 						} else {
@@ -3555,7 +3618,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 						showMoreDateTime = data.message.createdAtTime;
 					} else {
 						$applozic.each(data.message, function(i, message) {
-							if (!(typeof message.to === "undefined")) {
+							if (!(typeof message.to === 'undefined')) {
 								if (message.groupId) {
 								   _this.addGroupFromMessage(message, true); 
 								} else {
@@ -3569,7 +3632,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				}
 			};
 			_this.addGroupFromMessageList = function(data, isReloaded) {
-				if (data + '' === "null") {
+				if (data + '' === 'null') {
 					return;
 				} else {
 					if (isReloaded) {

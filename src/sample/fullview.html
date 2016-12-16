@@ -617,6 +617,20 @@
 				"imageLink" : "https://www.applozic.com/resources/images/applozic_icon.png"
 			}
 		};
+		// Contacts Array
+		 var contactsJSON = [{"userId": "USER_1", "displayName": "Devashish",
+		                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png", // image url (optional)
+		                          "imageData" :"Base64 encoded image data"  // or image data (optional)
+		                          },
+		                         {"userId": "USER_2", "displayName": "Adarsh",
+		                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png", // image url (optional)
+		                          "imageData" :"Base64 encoded image data"  // or image data (optional)
+		                         },
+		                         {"userId": "USER_3", "displayName": "Shanki",
+		                          "imageLink": "https://www.applozic.com/resources/images/applozic_icon.png",  // image url (optional)
+		                          "imageData" :"Base64 encoded image data"  // or image data (optional)
+		                         }
+		                      ];
 		function readMessage() {
 			//console.log(userId);
 		}
@@ -638,6 +652,8 @@
 		//callback function execute after plugin initialize.
 		function onInitialize(response) {
 			if (response.status === 'success') {
+				// $applozic.fn.applozic('loadContacts', {'contacts':contactsJSON});
+				// $applozic.fn.applozic('loadTab', 'shanki.connect');
 				//write your logic exectute after plugin initialize.
 			} else {
 				alert(response.errorMessage);
