@@ -2905,23 +2905,9 @@ var MCK_CLIENT_GROUP_MAP = [];
 				});
 			};
 		}
-		function MckContactUtils() {
-			var _this = this;
-			_this.getContactId = function(contact) {
-				var contactId = contact.contactId;
-				return _this.formatContactId(contactId);
-			};
-			_this.formatContactId = function(contactId) {
-				if (contactId.indexOf("+") === 0) {
-					contactId = contactId.substring(1);
-				}
-				contactId = decodeURIComponent(contactId);
-				return contactId.replace(/\@/g, "AT").replace(/\./g, "DOT").replace(/\*/g, "STAR").replace(/\#/g, "HASH").replace(/\|/g, "VBAR").replace(/\+/g, "PLUS").replace(/\;/g, "SCOLON").replace(/\?/g, "QMARK");
-			};
-		}
 		function MckMessageLayout() {
 			var _this = this;
-			var emojiTimeoutId = "";
+			var emojiTimeoutId = '';
 			var $mck_search = $applozic("#mck-search");
 			var $mck_msg_to = $applozic("#mck-msg-to");
 			var $file_name = $applozic(".mck-file-lb");
@@ -3325,7 +3311,7 @@ var MCK_CLIENT_GROUP_MAP = [];
 				if ($applozic("#mck-message-cell .mck-no-data-text").length > 0) {
 					$applozic(".mck-no-data-text").remove();
 				}
-				var messageClass = "";
+				var messageClass = '';
 				var floatWhere = "mck-msg-right";
 				var statusIcon = "mck-icon-time";
 				var contactExpr = "vis";
@@ -3681,11 +3667,11 @@ var MCK_CLIENT_GROUP_MAP = [];
 				} else {
 					MCK_CONTACT_NAME_MAP[contactId] = displayName;
 				}
-				var photoLink = (data.photoLink) ? data.photoLink : "";
+				var photoLink = (data.photoLink) ? data.photoLink : '';
 				if (!photoLink) {
-					photoLink = (data.imageLink) ? data.imageLink : "";
+					photoLink = (data.imageLink) ? data.imageLink : '';
 				}
-				var photoData = (data.imageData) ? data.imageData : "";
+				var photoData = (data.imageData) ? data.imageData : '';
 				var contact = {
 					'contactId' : contactId,
 					'htmlId' : mckContactUtils.formatContactId(contactId),
@@ -3749,9 +3735,9 @@ var MCK_CLIENT_GROUP_MAP = [];
 				_this.updateRecentConversationList(group, message, update, false);
 			};
 			_this.updateRecentConversationList = function(contact, message, update, prepend) {
-				var $listId = "mck-contact-list";
+				var $listId = 'mck-contact-list';
 				var contactHtmlExpr = (contact.isGroup) ? 'group-' + contact.htmlId : 'user-' + contact.htmlId;
-				if ($applozic("#" + $listId + " #li-" + contactHtmlExpr).length > 0) {
+				if ($applozic('#' + $listId + ' #li-' + contactHtmlExpr).length > 0) {
 					var $mck_msg_part = $applozic("#" + $listId + " #li-" + contact.htmlId + " .mck-cont-msg-wrapper");
 					if (($mck_msg_part.is(":empty") || update) && message !== undefined) {
 						_this.updateContact(contact, message, $listId, update);
