@@ -346,6 +346,7 @@ var MCK_CLIENT_GROUP_MAP = [];
         var IS_AUTO_TYPE_SEARCH_ENABLED = (typeof appOptions.autoTypeSearchEnabled === "boolean") ? appOptions.autoTypeSearchEnabled : true;
         var IS_LAUNCH_TAB_ON_NEW_MESSAGE = (typeof appOptions.launchOnNewMessage === "boolean") ? appOptions.launchOnNewMessage : false;
         var IS_LAUNCH_ON_UNREAD_MESSAGE_ENABLED = (typeof appOptions.launchOnUnreadMessage === "boolean") ? appOptions.launchOnUnreadMessage : false;
+        var USER_TYPE_ID = (typeof appOptions.userTypeId === 'number') ? appOptions.userTypeId : false;
         var CONVERSATION_STATUS_MAP = [ "DEFAULT", "NEW", "OPEN" ];
         var BLOCK_STATUS_MAP = [ "BLOCKED_TO", "BLOCKED_BY", "UNBLOCKED_TO", "UNBLOCKED_BY" ];
         var mckStorage = new MckStorage();
@@ -467,6 +468,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             MCK_AUTHENTICATION_TYPE_ID = optns.authenticationTypeId;
             MCK_USER_ID = (IS_MCK_VISITOR) ? 'guest' : $applozic.trim(optns.userId);
             MCK_GOOGLE_API_KEY = (IS_MCK_LOCSHARE) ? optns.googleApiKey : "NO_ACCESS";
+            USER_TYPE_ID = (typeof optns.userTypeId === 'number') ? optns.userTypeId : false;
             IS_MCK_OL_STATUS = (typeof optns.olStatus === 'boolean') ? (optns.olStatus) : false;
             IS_MCK_TOPIC_BOX = (typeof optns.topicBox === 'boolean') ? (optns.topicBox) : false;
             IS_OFFLINE_MESSAGE_ENABLED = (typeof optns.showOfflineMessage === "boolean") ? (optns.showOfflineMessage) : false;
@@ -1104,6 +1106,9 @@ var MCK_CLIENT_GROUP_MAP = [];
                 }
                 if (IS_RESET_USER_STATUS) {
                     userPxy.resetUserStatus = true;
+                }
+                if (typeof USER_TYPE_ID === 'number') {
+                    userPxy.userTypeId = USER_TYPE_ID;
                 }
                 userPxy.enableEncryption = true;
                 userPxy.appVersionCode = 108;
