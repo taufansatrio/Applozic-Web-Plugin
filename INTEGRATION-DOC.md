@@ -187,7 +187,7 @@ MEMBER(3)              - Group Info update
 $applozic.fn.applozic('addGroupMember',{'groupId': groupId,
                                         'clientGroupId': clientGroupId, //use either groupId or clientGroupId
                                         'userId': userIdToAdd,
-                                        'role' :  3  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
+                                        'role' :  3,  // (optional)  USER(0), ADMIN(1), MODERATOR(2), MEMBER(3)
                                         'callback': function(response) {console.log(response);}
                                         });
  ``` 
