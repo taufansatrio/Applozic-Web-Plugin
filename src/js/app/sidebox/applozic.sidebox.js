@@ -89,7 +89,7 @@ var MCK_CLIENT_GROUP_MAP = [];
             }
         },
         openGroupSettings: {
-            'deleteChatAccess': 0, // NONE(0), ADMIN(1), ALL_GROUP_MEMBER(2) 
+            'deleteChatAccess': 0, // NONE(0), ADMIN(1), ALL_GROUP_MEMBER(2)
             'allowInfoAccessGroupMembers': true,
             'disableChatForNonGroupMember': false,
             'defaultChatDisabledMessage': 'Chat Disabled!'
@@ -5132,6 +5132,7 @@ var MCK_CLIENT_GROUP_MAP = [];
                 mckUtils.ajax({
                     url: MCK_BASE_URL + USER_DETAIL_URL,
                     type: 'post',
+                    async: (typeof params.async !== 'undefined') ? params.async : true,
                     data: JSON.stringify({
                         userIdList: userIdList
                     }),
@@ -5778,6 +5779,17 @@ var MCK_CLIENT_GROUP_MAP = [];
                     if (tabConvArray.length > 0) {
                         MCK_TAB_CONVERSATION_MAP[params.groupId] = tabConvArray;
                     }
+
+                    var membersIds = groupFeed.membersId;
+                    var userIdArray = [];
+                    $applozic.each(membersIds, function (i, memberId) {
+                        if (typeof mckMessageLayout.getContact(memberId) === 'undefined') {
+                            userIdArray.push(memberId);
+                        }
+                    });
+                    mckContactService.getUsersDetail(userIdArray, {'async' : false});
+
+
                     if (params.isMessage && typeof params.message === 'object') {
                         mckMessageLayout.populateMessage(params.messageType, params.message, params.notifyUser);
                     }
